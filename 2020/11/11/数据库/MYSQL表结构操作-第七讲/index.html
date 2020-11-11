@@ -10,7 +10,7 @@
     
     
     
-    <title>最好用的数据库文档生成工具 | 知识追寻者个人博客</title>
+    <title>MYSQL表结构操作(第七讲) | 知识追寻者个人博客</title>
     <link href="https://zszxz.github.io" rel="prefetch" />
 
     
@@ -196,13 +196,13 @@
         <i class="fa fa-home"></i>
         <a href="https://zszxz.github.io">知识追寻者个人博客</a>
         >
-        <span>最好用的数据库文档生成工具</span>
+        <span>MYSQL表结构操作(第七讲)</span>
     </div>
     <!-- 大型设备详细文章 -->
     <div class="hidden-xs">
         <div class="title-article">
             <h1>
-                <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/%E6%9C%80%E5%A5%BD%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7/">最好用的数据库文档生成工具</a>
+                <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E8%A1%A8%E7%BB%93%E6%9E%84%E6%93%8D%E4%BD%9C-%E7%AC%AC%E4%B8%83%E8%AE%B2/">MYSQL表结构操作(第七讲)</a>
             </h1>
         </div>
         <div class="tag-article">
@@ -210,12 +210,12 @@
             <span class="label label-gal">
                 <i class="fa fa-tags"></i>
                 
-                <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/">高效工具</a>
+                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
                 
             </span>
             
             <span class="label label-gal">
-                <i class="fa fa-calendar"></i> 2020-11-05
+                <i class="fa fa-calendar"></i> 2020-11-11
             </span>
             
         </div>
@@ -225,17 +225,17 @@
         <center>
             <div class="title-article">
                 <h4>
-                    <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/%E6%9C%80%E5%A5%BD%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7/">最好用的数据库文档生成工具</a>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E8%A1%A8%E7%BB%93%E6%9E%84%E6%93%8D%E4%BD%9C-%E7%AC%AC%E4%B8%83%E8%AE%B2/">MYSQL表结构操作(第七讲)</a>
                 </h4>
             </div>
             <p>
-                <i class="fa fa-calendar"></i> 2020-11-05
+                <i class="fa fa-calendar"></i> 2020-11-11
             </p>
             <p>
                 
                 <i class="fa fa-tags"></i>
                 
-                <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/">高效工具</a>
+                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
                 
                 
                 
@@ -243,54 +243,171 @@
         </center>
     </div>
     <div class="content-article">
-        <h1 id="一-前言"><a href="#一-前言" class="headerlink" title="一 前言"></a>一 前言</h1><p>本文介绍一些比较流行的数据库文档生成工具，什么是数据库文档？ 其实在工作中进行项目交付的时候经常用到；简单来说数据库文档就是对整个数据库设计说明的文档，比如使用了哪个数据库，每张表的字段，类型说明等，然后整理成一个设计文档，这个文档多种多样，最常见的就是word，有了数据库文档对以后的数据库维护，或者进行二次开发都很方便；</p>
-<h1 id="二-流行的数据库文档生成工具"><a href="#二-流行的数据库文档生成工具" class="headerlink" title="二 流行的数据库文档生成工具"></a>二 流行的数据库文档生成工具</h1><h2 id="2-1-screw"><a href="#2-1-screw" class="headerlink" title="2.1 screw"></a>2.1 screw</h2><p>最近比较火的一款数据库文档生成工具目前支持如下几种数据库，其它还在开发中</p>
-<ul>
-<li> MySQL</li>
-<li> MariaDB</li>
-<li> TIDB</li>
-<li> Oracle</li>
-<li> SqlServer</li>
-<li> PostgreSQL</li>
-<li> Cache DB</li>
-</ul>
-<p>文档生成支持</p>
-<p> 文档生成支持</p>
-<ul>
-<li> html</li>
-<li> word</li>
-<li> markdwon</li>
-</ul>
-<p>生成示例 </p>
-<p><img src="https://gitee.com/lsc180/images/raw/master/img/20200808110204.png"></p>
-<p>使用方式 支持 java ,和 maven 插件, java方式看官方文档；</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>cn.smallbun.screw<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>screw-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;lastVersion&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- HikariCP --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.zaxxer<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>HikariCP<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.4.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--mysql driver--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">version</span>&gt;</span>8.0.20<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--username--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">username</span>&gt;</span>root<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--password--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">password</span>&gt;</span>password<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--driver--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">driverClassName</span>&gt;</span>com.mysql.cj.jdbc.Driver<span class="tag">&lt;/<span class="name">driverClassName</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--jdbc url--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">jdbcUrl</span>&gt;</span>jdbc:mysql://127.0.0.1:3306/xxxx<span class="tag">&lt;/<span class="name">jdbcUrl</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--生成文件类型--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">fileType</span>&gt;</span>HTML<span class="tag">&lt;/<span class="name">fileType</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--打开文件输出目录--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">openOutputDir</span>&gt;</span>false<span class="tag">&lt;/<span class="name">openOutputDir</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--生成模板--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">produceType</span>&gt;</span>freemarker<span class="tag">&lt;/<span class="name">produceType</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--文档名称 为空时:将采用[数据库名称-描述-版本号]作为文档名称--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">fileName</span>&gt;</span>测试文档名称<span class="tag">&lt;/<span class="name">fileName</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--描述--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">description</span>&gt;</span>数据库文档生成<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--版本--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;project.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--标题--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">title</span>&gt;</span>数据库文档<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">phase</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>run<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+        <h1 id="一-前言"><a href="#一-前言" class="headerlink" title="一  前言"></a>一  前言</h1><p>本篇内容是关于 基本的数据库操作，建表，表结构修改等内容；</p>
+<p>学习本篇的基础是知识追寻者以前发布的文章：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/102964957">《SQL-你真的了解什么SQL么？》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/102979381">《SQL-小白最佳入门sql查询一》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/103112780">《SQL-小白最佳入门sql查询二》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/103300277">《SQL- 多年开发人员都不懂的插入与更新删除操作注意点》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/106723045">《SQL-SQL事物操作》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/106733296">《SQL-Mysql数据类型》</a></p>
+<p>公众号：<strong>知识追寻者</strong></p>
+<blockquote>
+<p>知识追寻者(Inheriting the spirit of open source, Spreading technology knowledge;)   </p>
+</blockquote>
+<h1 id="二-SQL-分类操作"><a href="#二-SQL-分类操作" class="headerlink" title="二 SQL 分类操作"></a>二 SQL 分类操作</h1><h2 id="2-1-SQL-分类"><a href="#2-1-SQL-分类" class="headerlink" title="2.1 SQL 分类"></a>2.1 SQL 分类</h2><p>sql 对数据库的操作分为如下三种类型，如果都学会这三种SQL语言熟练对数据库操作，说明你已经对数据库登堂入室，如果再学会数据库高级操作，说明你对数据库就有一定的使用经验，如果你还学会对数据库进行优化，分表分库，读写分离等操作，说明你使用数据库已经到专家级别；</p>
+<ol>
+<li>DDL：数据定义语言（Data Define Language），即定义数据的结构。比如：create，drop，alter操作</li>
+<li>DML：数据管理语言（Data Manage Language），即增删改查。比如：insert，delete，update，select。这个也在之前的文章详细写过，不再提及；</li>
+<li>DCL：数据控制语言（Data Control Language），对权限、事务等的控制。比如：grant（授权）revoke（取回权限），commit，roolback等; 事物在上篇已经说明，不会在本篇提及；</li>
+</ol>
+<h2 id="2-2-数据库基操"><a href="#2-2-数据库基操" class="headerlink" title="2.2 数据库基操"></a>2.2 数据库基操</h2><p>数据库的基本操作如下，也就是我们日常使用的操作</p>
+<ol>
+<li><p>连接数据库： mysql -h 地址 -P 端口 -u 用户名 -p 密码；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -h 192.168.0.127 -P 3306 -u root -p root</span><br></pre></td></tr></table></figure>
 
-<p>项目地址： <a target="_blank" rel="noopener" href="https://gitee.com/leshalv/screw">https://gitee.com/leshalv/screw</a></p>
-<h2 id="2-2-DBCHM"><a href="#2-2-DBCHM" class="headerlink" title="2.2 DBCHM"></a>2.2 DBCHM</h2><p>DBCHM 支持SqlServer/MySQL/Oracle/PostgreSQL/DB2/SQLite数据库。</p>
-<p>支持的导出的文件格式；</p>
+
+
+</li>
+</ol>
+<ol start="2">
+<li><p>查看当前数据库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT DATABASE();</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="3">
+<li><p>显示用户活动线程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW PROCESSLIST;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="4">
+<li><p>显示系统变量：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW VARIABLES;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="5">
+<li><p>显示当前时间，用户，数据库版本号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT now(), user(), version();</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="6">
+<li><p>创建数据库：<code>CREATE DATABASE[ IF NOT EXISTS] 数据库名 [数据库选项]</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">数据库选项：</span><br><span class="line">        CHARACTER SET 字符集名称</span><br><span class="line">        COLLATE 排序规则名称</span><br><span class="line">示例：create database zszxz;        </span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="7">
+<li><p>删除数据库： DROP DATABASE [ IF EXISTS] 数据库名;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop  database zszxz;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<h2 id="2-3-建表语句"><a href="#2-3-建表语句" class="headerlink" title="2.3 建表语句"></a>2.3 建表语句</h2><p>数据库表的日常操作如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE [TEMPORARY] TABLE[ IF NOT EXISTS] [库名.]表名 ( 表的结构定义 ) [ 表选项]</span><br></pre></td></tr></table></figure>
+
+<p>其中  TEMPORARY 表示临时表；中括号内容都表示可选，在正规的数据库版本管理开发会经常使用到；</p>
+<p>字段的修饰如下 数据类型 </p>
 <ul>
-<li> chm</li>
-<li> word</li>
-<li> excel</li>
-<li> pdf</li>
-<li> html</li>
-<li> xml</li>
-<li> markdown</li>
+<li>非空|空约束：[NOT NULL | NULL] </li>
+<li>默认值：[DEFAULT default_value]</li>
+<li>自动增长：[AUTO_INCREMENT] </li>
+<li>唯一键|主键：[UNIQUE [KEY] | [PRIMARY] KEY] </li>
+<li>备注：[COMMENT ‘string’]</li>
 </ul>
-<p>效果展示</p>
-<p><img src="https://gitee.com/lsc180/images/raw/master/img/20200808110727.png"></p>
-<p>最新版本示 DBCHM.exe 软件，上手也容易；</p>
-<p>项目地址：<a target="_blank" rel="noopener" href="https://gitee.com/lztkdr/DBCHM">https://gitee.com/lztkdr/DBCHM</a></p>
-<h2 id="2-3-TableGo"><a href="#2-3-TableGo" class="headerlink" title="2.3 TableGo"></a>2.3 TableGo</h2><p>TableGo是基于数据库的代码自动生成工具，低代码编程技术的实现，可以零代码自动生成SpringBoot项目工程、生成JavaBean、生成MyBaits的Mapper映射配置文件、生成数据库设计文档（Word、Excel）、生成Swagger2离线API文档、生成前后端代码、能查出数据库数据生成各种代码和文档等；</p>
-<p>支持MySQL、Oracle、SQL Server、PostgreSQL、MariaDB五种数据库；</p>
-<p>使用自定义模板功能可以根据数据库表结构信息生成你想要的任何代码，例如：Java、C#、C++、Golang、Rust、Python、Objective-C、Swift、VB、VC、SQL、HTML、JSP、JS、PHP、Vue、React、Word、Excel等；</p>
-<p>界面展示：</p>
-<p><img src="https://gitee.com/lsc180/images/raw/master/img/20200808111424.png"></p>
-<p>详细介绍地址：<a target="_blank" rel="noopener" href="https://blog.csdn.net/vipbooks/article/details/78767469">https://blog.csdn.net/vipbooks/article/details/78767469</a></p>
-<p>官网地址：<a target="_blank" rel="noopener" href="http://www.tablego.cn/">http://www.tablego.cn/</a></p>
-<p>求关注关注吖</p>
-<p><img src="https://gitee.com/lsc180/images/raw/master/img/zszxz.jpg"></p>
+<p>表选项一般就是指定数据库引擎和字符集：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8 COMMENT&#x3D;&#39;顾客表&#39;;</span><br></pre></td></tr></table></figure>
+
+<p>示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE IF NOT EXISTS &#96;customer&#96; (</span><br><span class="line">  &#96;id&#96; int(11) NOT NULL AUTO_INCREMENT COMMENT &#39;主键&#39;,</span><br><span class="line">  &#96;customer_name&#96; varchar(255) DEFAULT NULL COMMENT &#39;顾客名称&#39;,</span><br><span class="line">  &#96;gender&#96; varchar(255) DEFAULT NULL COMMENT &#39;性别&#39;,</span><br><span class="line">  &#96;telephone&#96; varchar(255) DEFAULT NULL COMMENT &#39;电话号码&#39;,</span><br><span class="line">  &#96;register_time&#96; timestamp NULL DEFAULT NULL COMMENT &#39;注册时间&#39;,</span><br><span class="line">  PRIMARY KEY (&#96;id&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8 COMMENT&#x3D;&#39;顾客表&#39;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-4-修改表结构"><a href="#2-4-修改表结构" class="headerlink" title="2.4 修改表结构"></a>2.4 修改表结构</h2><p>查看所有表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW TABLES</span><br></pre></td></tr></table></figure>
+
+<p>查看指定数据库的表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SHOW TABLES FROM 数据库名称;</span><br><span class="line">示例：SHOW TABLES FROM zszxz;</span><br></pre></td></tr></table></figure>
+
+<p>删除表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DROP TABLE[ IF EXISTS] 表名;</span><br><span class="line">示例: drop table op;</span><br></pre></td></tr></table></figure>
+
+<p>清空表(清除数据)</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">TRUNCATE</span> [<span class="keyword">TABLE</span>] 表名</span><br></pre></td></tr></table></figure>
+
+<p>复制表结构</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> 表名 <span class="keyword">LIKE</span> 要复制的表名;</span><br><span class="line">示例: <span class="keyword">create</span> <span class="keyword">table</span> op <span class="keyword">like</span> <span class="string">`order`</span>;</span><br></pre></td></tr></table></figure>
+
+<p>复制表结构和数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE 表名 [AS] SELECT * FROM 要复制的表名;</span><br><span class="line">示例: CREATE TABLE op AS SELECT * FROM &#96;order&#96;;</span><br></pre></td></tr></table></figure>
+
+<p>常见的alter操作如下：</p>
+<p>增加一列(追加至末尾)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alter table [数据库名.]表名 add [column] 字段 数据类型;</span><br><span class="line">示例： alter table &#96;order&#96; add column &#96;year&#96; year ;</span><br></pre></td></tr></table></figure>
+
+<p>增加到第一列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter table [数据库名.]表名 add [column] 字段 数据类型 first;</span><br></pre></td></tr></table></figure>
+
+<p>增加一列到指定字段名后</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter table [数据库名.]表名 add [column] 字段 数据类型 after 另一个字段;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>修改字段名的 数据类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alter table [数据库名.]表名称 modify [column] 字段名 新的数据类型;</span><br><span class="line">示例： altert table &#96;order&#96; modify column &#96;gender&#96; tinyint;</span><br></pre></td></tr></table></figure>
+
+<p>修改表字段的数据类型，并且移动至第一列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter table [数据库名.]表名称 modify [column] 字段名 数据类型 first;</span><br></pre></td></tr></table></figure>
+
+<p>修改表字段的数据类型，并且移动至指定字段后面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter table [数据库名.]表名称 modify [column] 字段名 数据类型 after 另一个字段名;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>修改表字段的名称</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter table [数据库名.]表名称 change [column] 旧字段名 新的字段名 数据类型;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>添加主键</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alter table [数据库名.]表名称 ADD PRIMARY KEY(字段名);</span><br><span class="line">示例： altert table &#96;order&#96; add primary key(&#96;id&#96;)</span><br></pre></td></tr></table></figure>
+
+<p>添加唯一键</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter table [数据库名.]表名称 ADD UNIQUE [索引名] (字段名)</span><br></pre></td></tr></table></figure>
+
+<p>添加索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter table [数据库名.]表名称 ADD INDEX [索引名] (字段名)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>删除一列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alter table [数据库名.]表名称 drop [column] 字段名;</span><br><span class="line">示例：altert table &#96;order&#96; drop column &#96;gender&#96;;</span><br></pre></td></tr></table></figure>
+
+<p>删除索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter table [数据库名.]表名称 DROP INDEX 索引名</span><br></pre></td></tr></table></figure>
+
+<p>删除主键</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter table [数据库名.]表名称 DROP PRIMARY KEY</span><br></pre></td></tr></table></figure>
+
+<p>删除外键</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter table [数据库名.]表名称 DROP FOREIGN KEY 外键</span><br></pre></td></tr></table></figure>
+
+
+
+<p>关注知识追寻者：<br><img src="https://user-gold-cdn.xitu.io/2020/6/12/172a61ed4478394f?w=312&h=282&f=png&s=39801" alt="tLeP2D.png"></p>
 
     </div>
 </article>
@@ -428,37 +545,31 @@
             
             <li class="list-group-item">
                 <span class="post-title">
-                    <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/Another-Redis-DeskTop-Manager%E4%B8%80%E6%AC%BE%E7%A8%B3%E5%AE%9A%E5%85%A8%E6%96%B0%E7%9A%84redis%E8%BF%9E%E6%8E%A5%E5%B7%A5%E5%85%B7/">Another Redis DeskTop Manager一款稳定全新的redis连接工具</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
                     <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/%E6%8F%90%E5%8D%87%E5%B7%A5%E4%BD%9C%E6%95%88%E7%8E%87100-%E7%9A%84%E8%BD%AF%E4%BB%B6/">提升工作效率100%的软件</a>
                 </span>
             </li>
             
             <li class="list-group-item">
                 <span class="post-title">
-                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E5%82%A8%E5%AD%98%E8%BF%87%E7%A8%8B-%E7%AC%AC%E4%B9%9D%E8%AE%B2/">MYSQLl储存过程(第九讲)</a>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92-%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/">MYSQLl执行计划(第十五讲)</a>
                 </span>
             </li>
             
             <li class="list-group-item">
                 <span class="post-title">
-                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%93%8D%E4%BD%9Cjson-%E7%AC%AC%E5%8D%81%E5%9B%9B%E8%AE%B2/">MYSQLl操作json(第十四讲)</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E4%BA%8B%E7%89%A9-%E7%AC%AC%E4%BA%94%E8%AE%B2/">MYSQL事物(第五讲)</a>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%9E%B6%E6%9E%84%E5%85%A5%E9%97%A8-%E7%AC%AC%E5%8D%81%E4%BA%8C%E8%AE%B2/">MYSQLl架构入门(第十二讲)</a>
                 </span>
             </li>
             
             <li class="list-group-item">
                 <span class="post-title">
                     <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BB%8B%E7%BB%8D-%E7%AC%AC%E4%B8%80%E8%AE%B2/">MYSQL数据库介绍(第一讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E7%AC%AC%E5%85%AD%E8%AE%B2/">MYSQL数据类型(第六讲)</a>
                 </span>
             </li>
             
@@ -471,6 +582,12 @@
             <li class="list-group-item">
                 <span class="post-title">
                     <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%A3%80%E7%B4%A21-%E7%AC%AC%E4%BA%8C%E8%AE%B2/">MYSQL检索1(第二讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86-%E7%AC%AC%E5%8D%81%E4%B8%80%E8%AE%B2/">MYSQL用户权限管理(第十一讲)</a>
                 </span>
             </li>
             
@@ -497,17 +614,17 @@
 
                 
                 <li>
-                    <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/%E6%9C%80%E5%A5%BD%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7/index.html#sidebar-tags" data-toggle="tab" id="tags-tab">热门标签</a>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E8%A1%A8%E7%BB%93%E6%9E%84%E6%93%8D%E4%BD%9C-%E7%AC%AC%E4%B8%83%E8%AE%B2/index.html#sidebar-tags" data-toggle="tab" id="tags-tab">热门标签</a>
                 </li>
                 
                 
                 <li>
-                    <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/%E6%9C%80%E5%A5%BD%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7/index.html#sidebar-friend-links" data-toggle="tab" id="friend-links-tab">友情链接</a>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E8%A1%A8%E7%BB%93%E6%9E%84%E6%93%8D%E4%BD%9C-%E7%AC%AC%E4%B8%83%E8%AE%B2/index.html#sidebar-friend-links" data-toggle="tab" id="friend-links-tab">友情链接</a>
                 </li>
                 
                 
                 <li>
-                    <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/%E6%9C%80%E5%A5%BD%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7/index.html#sidebar-links" data-toggle="tab" id="links-tab">个人链接</a>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E8%A1%A8%E7%BB%93%E6%9E%84%E6%93%8D%E4%BD%9C-%E7%AC%AC%E4%B8%83%E8%AE%B2/index.html#sidebar-links" data-toggle="tab" id="links-tab">个人链接</a>
                 </li>
                 
             </ul>
@@ -515,11 +632,11 @@
                 
                 <div class="cloud-tags tab-pane nav bs-sidenav fade" id="sidebar-tags">
     
-    <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 19.13046937583289px;" class="tag-cloud-link">分享</a>
+    <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 14.452878860209552px;" class="tag-cloud-link">分享</a>
     
-    <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" style="font-size: 19.234612083711326px;" class="tag-cloud-link">高效工具</a>
+    <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" style="font-size: 12.366876037643962px;" class="tag-cloud-link">高效工具</a>
     
-    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 14.068824055043315px;" class="tag-cloud-link">数据库</a>
+    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 15.062512047314737px;" class="tag-cloud-link">数据库</a>
     
 </div>
                 

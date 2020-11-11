@@ -10,7 +10,7 @@
     
     
     
-    <title>最好用的数据库文档生成工具 | 知识追寻者个人博客</title>
+    <title>MYSQL用户权限管理(第十一讲) | 知识追寻者个人博客</title>
     <link href="https://zszxz.github.io" rel="prefetch" />
 
     
@@ -196,13 +196,13 @@
         <i class="fa fa-home"></i>
         <a href="https://zszxz.github.io">知识追寻者个人博客</a>
         >
-        <span>最好用的数据库文档生成工具</span>
+        <span>MYSQL用户权限管理(第十一讲)</span>
     </div>
     <!-- 大型设备详细文章 -->
     <div class="hidden-xs">
         <div class="title-article">
             <h1>
-                <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/%E6%9C%80%E5%A5%BD%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7/">最好用的数据库文档生成工具</a>
+                <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86-%E7%AC%AC%E5%8D%81%E4%B8%80%E8%AE%B2/">MYSQL用户权限管理(第十一讲)</a>
             </h1>
         </div>
         <div class="tag-article">
@@ -210,12 +210,12 @@
             <span class="label label-gal">
                 <i class="fa fa-tags"></i>
                 
-                <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/">高效工具</a>
+                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
                 
             </span>
             
             <span class="label label-gal">
-                <i class="fa fa-calendar"></i> 2020-11-05
+                <i class="fa fa-calendar"></i> 2020-11-11
             </span>
             
         </div>
@@ -225,17 +225,17 @@
         <center>
             <div class="title-article">
                 <h4>
-                    <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/%E6%9C%80%E5%A5%BD%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7/">最好用的数据库文档生成工具</a>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86-%E7%AC%AC%E5%8D%81%E4%B8%80%E8%AE%B2/">MYSQL用户权限管理(第十一讲)</a>
                 </h4>
             </div>
             <p>
-                <i class="fa fa-calendar"></i> 2020-11-05
+                <i class="fa fa-calendar"></i> 2020-11-11
             </p>
             <p>
                 
                 <i class="fa fa-tags"></i>
                 
-                <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/">高效工具</a>
+                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
                 
                 
                 
@@ -243,54 +243,68 @@
         </center>
     </div>
     <div class="content-article">
-        <h1 id="一-前言"><a href="#一-前言" class="headerlink" title="一 前言"></a>一 前言</h1><p>本文介绍一些比较流行的数据库文档生成工具，什么是数据库文档？ 其实在工作中进行项目交付的时候经常用到；简单来说数据库文档就是对整个数据库设计说明的文档，比如使用了哪个数据库，每张表的字段，类型说明等，然后整理成一个设计文档，这个文档多种多样，最常见的就是word，有了数据库文档对以后的数据库维护，或者进行二次开发都很方便；</p>
-<h1 id="二-流行的数据库文档生成工具"><a href="#二-流行的数据库文档生成工具" class="headerlink" title="二 流行的数据库文档生成工具"></a>二 流行的数据库文档生成工具</h1><h2 id="2-1-screw"><a href="#2-1-screw" class="headerlink" title="2.1 screw"></a>2.1 screw</h2><p>最近比较火的一款数据库文档生成工具目前支持如下几种数据库，其它还在开发中</p>
-<ul>
-<li> MySQL</li>
-<li> MariaDB</li>
-<li> TIDB</li>
-<li> Oracle</li>
-<li> SqlServer</li>
-<li> PostgreSQL</li>
-<li> Cache DB</li>
-</ul>
-<p>文档生成支持</p>
-<p> 文档生成支持</p>
-<ul>
-<li> html</li>
-<li> word</li>
-<li> markdwon</li>
-</ul>
-<p>生成示例 </p>
-<p><img src="https://gitee.com/lsc180/images/raw/master/img/20200808110204.png"></p>
-<p>使用方式 支持 java ,和 maven 插件, java方式看官方文档；</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>cn.smallbun.screw<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>screw-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;lastVersion&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- HikariCP --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.zaxxer<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>HikariCP<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.4.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--mysql driver--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">version</span>&gt;</span>8.0.20<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--username--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">username</span>&gt;</span>root<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--password--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">password</span>&gt;</span>password<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--driver--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">driverClassName</span>&gt;</span>com.mysql.cj.jdbc.Driver<span class="tag">&lt;/<span class="name">driverClassName</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--jdbc url--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">jdbcUrl</span>&gt;</span>jdbc:mysql://127.0.0.1:3306/xxxx<span class="tag">&lt;/<span class="name">jdbcUrl</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--生成文件类型--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">fileType</span>&gt;</span>HTML<span class="tag">&lt;/<span class="name">fileType</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--打开文件输出目录--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">openOutputDir</span>&gt;</span>false<span class="tag">&lt;/<span class="name">openOutputDir</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--生成模板--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">produceType</span>&gt;</span>freemarker<span class="tag">&lt;/<span class="name">produceType</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--文档名称 为空时:将采用[数据库名称-描述-版本号]作为文档名称--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">fileName</span>&gt;</span>测试文档名称<span class="tag">&lt;/<span class="name">fileName</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--描述--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">description</span>&gt;</span>数据库文档生成<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--版本--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;project.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--标题--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">title</span>&gt;</span>数据库文档<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">phase</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>run<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+        <h1 id="一-前言"><a href="#一-前言" class="headerlink" title="一 前言"></a>一 前言</h1><p>本篇内容是关于MYSQL 数据库管理系统对数据库用户的权限相关的操作；学习本篇的基础是知识追寻者之前发布的MYSQL系列文章（公众号读者看专辑）</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/102964957">《SQL-你真的了解什么SQL么？》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/102979381">《SQL-小白最佳入门sql查询一》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/103112780">《SQL-小白最佳入门sql查询二》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/103300277">《SQL- 多年开发人员都不懂的插入与更新删除操作注意点》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/106723045">《SQL-SQL事物操作》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/106733296">《SQL-Mysql数据类型》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/106844479">《SQL-mysql视图的前世今生》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/106883757">《SQL-mysql储存过程》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/106956690">《SQL-mysql游标与触发器》</a></p>
+<p>公众号：<strong>知识追寻者</strong></p>
+<blockquote>
+<p>知识追寻者(Inheriting the spirit of open source, Spreading technology knowledge;)   </p>
+</blockquote>
+<h1 id="二-用户操作"><a href="#二-用户操作" class="headerlink" title="二 用户操作"></a>二 用户操作</h1><p>有关用户账号的信息储存mysql的MYSQL数据库，故如果需要查看用户信息，则需要进入MYSQL库；</p>
+<h2 id="2-2查看用户信息"><a href="#2-2查看用户信息" class="headerlink" title="2.2查看用户信息"></a>2.2查看用户信息</h2><p>user表储存了所有的登陆账号；使用mysql库查询user表中的user；</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> mysql;</span><br><span class="line"><span class="keyword">select</span> <span class="string">`user`</span> <span class="keyword">from</span> <span class="keyword">user</span>;</span><br></pre></td></tr></table></figure>
 
-<p>项目地址： <a target="_blank" rel="noopener" href="https://gitee.com/leshalv/screw">https://gitee.com/leshalv/screw</a></p>
-<h2 id="2-2-DBCHM"><a href="#2-2-DBCHM" class="headerlink" title="2.2 DBCHM"></a>2.2 DBCHM</h2><p>DBCHM 支持SqlServer/MySQL/Oracle/PostgreSQL/DB2/SQLite数据库。</p>
-<p>支持的导出的文件格式；</p>
-<ul>
-<li> chm</li>
-<li> word</li>
-<li> excel</li>
-<li> pdf</li>
-<li> html</li>
-<li> xml</li>
-<li> markdown</li>
-</ul>
-<p>效果展示</p>
-<p><img src="https://gitee.com/lsc180/images/raw/master/img/20200808110727.png"></p>
-<p>最新版本示 DBCHM.exe 软件，上手也容易；</p>
-<p>项目地址：<a target="_blank" rel="noopener" href="https://gitee.com/lztkdr/DBCHM">https://gitee.com/lztkdr/DBCHM</a></p>
-<h2 id="2-3-TableGo"><a href="#2-3-TableGo" class="headerlink" title="2.3 TableGo"></a>2.3 TableGo</h2><p>TableGo是基于数据库的代码自动生成工具，低代码编程技术的实现，可以零代码自动生成SpringBoot项目工程、生成JavaBean、生成MyBaits的Mapper映射配置文件、生成数据库设计文档（Word、Excel）、生成Swagger2离线API文档、生成前后端代码、能查出数据库数据生成各种代码和文档等；</p>
-<p>支持MySQL、Oracle、SQL Server、PostgreSQL、MariaDB五种数据库；</p>
-<p>使用自定义模板功能可以根据数据库表结构信息生成你想要的任何代码，例如：Java、C#、C++、Golang、Rust、Python、Objective-C、Swift、VB、VC、SQL、HTML、JSP、JS、PHP、Vue、React、Word、Excel等；</p>
-<p>界面展示：</p>
-<p><img src="https://gitee.com/lsc180/images/raw/master/img/20200808111424.png"></p>
-<p>详细介绍地址：<a target="_blank" rel="noopener" href="https://blog.csdn.net/vipbooks/article/details/78767469">https://blog.csdn.net/vipbooks/article/details/78767469</a></p>
-<p>官网地址：<a target="_blank" rel="noopener" href="http://www.tablego.cn/">http://www.tablego.cn/</a></p>
-<p>求关注关注吖</p>
-<p><img src="https://gitee.com/lsc180/images/raw/master/img/zszxz.jpg"></p>
+<p>打印</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">user</span><br><span class="line"><span class="comment">----</span></span><br><span class="line">root</span><br><span class="line">mysql.session</span><br><span class="line">mysql.sys</span><br><span class="line">root</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-3-创建用户"><a href="#2-3-创建用户" class="headerlink" title="2.3 创建用户"></a>2.3 创建用户</h2><p><code>CREATE USER 用户名 IDENTIFIED BY [PASSWORD] 密码</code></p>
+<p>示例：创建用户 zszxz ,并指定密码为 zszxz；</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">user</span> zszxz <span class="keyword">IDENTIFIED</span> <span class="keyword">by</span> <span class="string">&#x27;zszxz&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-4-重名名用户"><a href="#2-4-重名名用户" class="headerlink" title="2.4 重名名用户"></a>2.4 重名名用户</h2><p><code>rename user 旧的用户名 to 新的用户名;</code></p>
+<p>示例重命名 用户 zszxz 为 lsc</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">rename</span> <span class="keyword">user</span> zszxz <span class="keyword">to</span> lsc;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-5-删除用户"><a href="#2-5-删除用户" class="headerlink" title="2.5 删除用户"></a>2.5 删除用户</h2><p>drop user 用户名</p>
+<p>示例：删除用户lsc</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">user</span> lsc;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-6-更改密码"><a href="#2-6-更改密码" class="headerlink" title="2.6 更改密码"></a>2.6 更改密码</h2><p><code>SET PASSWORD FOR 用户名 = PASSWORD(&#39;密码&#39;)</code></p>
+<p>示例： 为用户 zszxz 更改密码为 lsc</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> <span class="keyword">PASSWORD</span> <span class="keyword">FOR</span> zszxz = <span class="keyword">PASSWORD</span>(<span class="string">&#x27;lsc&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="三-权限操作"><a href="#三-权限操作" class="headerlink" title="三 权限操作"></a>三 权限操作</h1><h2 id="3-1-查看用户权限"><a href="#3-1-查看用户权限" class="headerlink" title="3.1 查看用户权限"></a>3.1 查看用户权限</h2><p><code>SHOW GRANTS FOR 用户名</code></p>
+<p>示例： 查看用户zszxz 拥有的权限</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">GRANTS</span> <span class="keyword">FOR</span> zszxz</span><br></pre></td></tr></table></figure>
+
+<p>打印</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Grant</span> <span class="keyword">for</span> zszxz@%</span><br><span class="line"><span class="comment">----------------</span></span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">USAGE</span> <span class="keyword">ON</span> *.* <span class="keyword">TO</span> <span class="string">&#x27;zszxz&#x27;</span>@<span class="string">&#x27;%&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>查询出一条权限，但 USAGE 表示 根本没有权限；</p>
+<h2 id="3-2-授予权限"><a href="#3-2-授予权限" class="headerlink" title="3.2 授予权限"></a>3.2 授予权限</h2><p><code>GRANT 权限 ON 表名 TO 用户名 [IDENTIFIED BY [PASSWORD] &#39;password&#39;]</code></p>
+<p>常见的权限 all, create, drop, insert, update, delete,select；</p>
+<p>示例 给用户zszxz 分配 zszxz 库中的所有表的查询权限；</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">grant</span> <span class="keyword">select</span> <span class="keyword">on</span> zszxz.* <span class="keyword">to</span> zszxz;</span><br></pre></td></tr></table></figure>
+
+<p>再看下 zszxz变成 2 条</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Grant</span> <span class="keyword">for</span> zszxz@%</span><br><span class="line"><span class="comment">----------------</span></span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">USAGE</span> <span class="keyword">ON</span> *.* <span class="keyword">TO</span> <span class="string">&#x27;zszxz&#x27;</span>@<span class="string">&#x27;%&#x27;</span></span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">SELECT</span> <span class="keyword">ON</span> <span class="string">`zszxz`</span>.* <span class="keyword">TO</span> <span class="string">&#x27;zszxz&#x27;</span>@<span class="string">&#x27;%&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-3-撤销权限"><a href="#3-3-撤销权限" class="headerlink" title="3.3 撤销权限"></a>3.3 撤销权限</h2><p><code>REVOKE 权限列表 ON 表名 FROM 用户名</code>；</p>
+<p>示例：撤销 用户 zszxz 对 zszxz库里面所有表的查询操作；</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">revoke</span> <span class="keyword">select</span> <span class="keyword">on</span>  zszxz.* <span class="keyword">from</span> zszxz</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-4-权限列表"><a href="#3-4-权限列表" class="headerlink" title="3.4 权限列表"></a>3.4 权限列表</h2><p>使用授权，撤销权限时可以参考如下权限列表；</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">ALL <span class="comment">--- 除GRANT OPTION外的所有权限</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="comment">---使用ALTER TABLE</span></span><br><span class="line"><span class="keyword">ALTER</span> ROUTINE <span class="comment">---使用ALTER PROCEDURE和DROP PROCEDURE</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="comment">---使用CREATE TABLE</span></span><br><span class="line"><span class="keyword">CREATE</span> ROUTINE <span class="comment">---使用CREATE PROCEDURE</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TEMPORARY</span> <span class="keyword">TABLES</span> <span class="comment">---使用CREATE TEMPORARY TABLE</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="comment">---使用CREATE USER、DROP USER、RENAME USER和REVOKE ALL PRIVILEGES</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> <span class="comment">---使用CREATE VIEW</span></span><br><span class="line"><span class="keyword">DELETE</span> <span class="comment">---使用DELETE</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="comment">---使用DROP TABLE</span></span><br><span class="line"><span class="keyword">EXECUTE</span> <span class="comment">---使用CALL和存储过程</span></span><br><span class="line"><span class="keyword">FILE</span> <span class="comment">---使用SELECT INTO OUTFILE和LOAD DATA INFILE</span></span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">OPTION</span> <span class="comment">---使用GRANT和REVOKE</span></span><br><span class="line"><span class="keyword">INDEX</span> <span class="comment">---使用CREATE INDEX和DROP INDEX</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="comment">---使用INSERT</span></span><br><span class="line"><span class="keyword">LOCK</span> <span class="keyword">TABLES</span> <span class="comment">---使用LOCK TABLES</span></span><br><span class="line">PROCESS <span class="comment">---使用SHOW FULL PROCESSLIST</span></span><br><span class="line">RELOAD <span class="comment">---使用FLUSH</span></span><br><span class="line"><span class="keyword">REPLICATION</span> <span class="keyword">CLIENT</span> <span class="comment">---服务器位置的访问</span></span><br><span class="line"><span class="keyword">REPLICATION</span> <span class="keyword">SLAVE</span> <span class="comment">---由复制从属使用</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="comment">---使用SELECT</span></span><br><span class="line"><span class="keyword">SHOW</span> <span class="keyword">DATABASES</span> <span class="comment">---使用SHOW DATABASES</span></span><br><span class="line"><span class="keyword">SHOW</span> <span class="keyword">VIEW</span> <span class="comment">---使用SHOW CREATE VIEW</span></span><br><span class="line"><span class="keyword">SHUTDOWN</span> <span class="comment">---使用mysqladmin shutdown（用来关闭MySQL）</span></span><br><span class="line">SUPER <span class="comment">---使用CHANGE MASTER、KILL、LOGS、PURGE、MASTER和SET GLOBAL。还允许mysqladmin调试登录</span></span><br><span class="line"><span class="keyword">UPDATE</span> <span class="comment">---使用UPDATE</span></span><br><span class="line"><span class="keyword">USAGE</span> <span class="comment">---无访问权限</span></span><br></pre></td></tr></table></figure>
+
 
     </div>
 </article>
@@ -428,7 +442,7 @@
             
             <li class="list-group-item">
                 <span class="post-title">
-                    <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/Another-Redis-DeskTop-Manager%E4%B8%80%E6%AC%BE%E7%A8%B3%E5%AE%9A%E5%85%A8%E6%96%B0%E7%9A%84redis%E8%BF%9E%E6%8E%A5%E5%B7%A5%E5%85%B7/">Another Redis DeskTop Manager一款稳定全新的redis连接工具</a>
+                    <a href="/2020/11/05/%E8%87%AA%E5%AE%9A%E4%B9%89github%E4%B8%BB%E9%A1%B5/">自定义github主页</a>
                 </span>
             </li>
             
@@ -440,7 +454,7 @@
             
             <li class="list-group-item">
                 <span class="post-title">
-                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E5%82%A8%E5%AD%98%E8%BF%87%E7%A8%8B-%E7%AC%AC%E4%B9%9D%E8%AE%B2/">MYSQLl储存过程(第九讲)</a>
+                    <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/%E6%9C%80%E5%A5%BD%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7/">最好用的数据库文档生成工具</a>
                 </span>
             </li>
             
@@ -452,13 +466,13 @@
             
             <li class="list-group-item">
                 <span class="post-title">
-                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E4%BA%8B%E7%89%A9-%E7%AC%AC%E4%BA%94%E8%AE%B2/">MYSQL事物(第五讲)</a>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%9E%B6%E6%9E%84%E5%85%A5%E9%97%A8-%E7%AC%AC%E5%8D%81%E4%BA%8C%E8%AE%B2/">MYSQLl架构入门(第十二讲)</a>
                 </span>
             </li>
             
             <li class="list-group-item">
                 <span class="post-title">
-                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BB%8B%E7%BB%8D-%E7%AC%AC%E4%B8%80%E8%AE%B2/">MYSQL数据库介绍(第一讲)</a>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E7%AC%AC%E5%85%AD%E8%AE%B2/">MYSQL数据类型(第六讲)</a>
                 </span>
             </li>
             
@@ -470,19 +484,19 @@
             
             <li class="list-group-item">
                 <span class="post-title">
-                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%A3%80%E7%B4%A21-%E7%AC%AC%E4%BA%8C%E8%AE%B2/">MYSQL检索1(第二讲)</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%B4%A2%E5%BC%95-%E7%AC%AC%E5%8D%81%E5%85%AD%E8%AE%B2/">MYSQL索引(第十六讲)</a>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86-%E7%AC%AC%E5%8D%81%E4%B8%80%E8%AE%B2/">MYSQL用户权限管理(第十一讲)</a>
                 </span>
             </li>
             
             <li class="list-group-item">
                 <span class="post-title">
                     <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%B8%B8%E6%A0%87%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8-%E7%AC%AC%E5%8D%81%E8%AE%B2/">MYSQL游标与触发器(第十讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E9%94%81%E7%AD%89%E5%BE%85%E4%B8%8E%E6%AD%BB%E9%94%81-%E7%AC%AC%E5%8D%81%E4%B8%89%E8%AE%B2/">MYSQL锁等待与死锁(第十三讲)</a>
                 </span>
             </li>
             
@@ -497,17 +511,17 @@
 
                 
                 <li>
-                    <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/%E6%9C%80%E5%A5%BD%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7/index.html#sidebar-tags" data-toggle="tab" id="tags-tab">热门标签</a>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86-%E7%AC%AC%E5%8D%81%E4%B8%80%E8%AE%B2/index.html#sidebar-tags" data-toggle="tab" id="tags-tab">热门标签</a>
                 </li>
                 
                 
                 <li>
-                    <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/%E6%9C%80%E5%A5%BD%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7/index.html#sidebar-friend-links" data-toggle="tab" id="friend-links-tab">友情链接</a>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86-%E7%AC%AC%E5%8D%81%E4%B8%80%E8%AE%B2/index.html#sidebar-friend-links" data-toggle="tab" id="friend-links-tab">友情链接</a>
                 </li>
                 
                 
                 <li>
-                    <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/%E6%9C%80%E5%A5%BD%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7/index.html#sidebar-links" data-toggle="tab" id="links-tab">个人链接</a>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86-%E7%AC%AC%E5%8D%81%E4%B8%80%E8%AE%B2/index.html#sidebar-links" data-toggle="tab" id="links-tab">个人链接</a>
                 </li>
                 
             </ul>
@@ -515,11 +529,11 @@
                 
                 <div class="cloud-tags tab-pane nav bs-sidenav fade" id="sidebar-tags">
     
-    <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 19.13046937583289px;" class="tag-cloud-link">分享</a>
+    <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 9.485678818457487px;" class="tag-cloud-link">分享</a>
     
-    <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" style="font-size: 19.234612083711326px;" class="tag-cloud-link">高效工具</a>
+    <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" style="font-size: 19.234627995365155px;" class="tag-cloud-link">高效工具</a>
     
-    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 14.068824055043315px;" class="tag-cloud-link">数据库</a>
+    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 8.046745083110013px;" class="tag-cloud-link">数据库</a>
     
 </div>
                 

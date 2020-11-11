@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="lsc">
+    
+    
+    
+    
+    
+    
+    <title>MYSQL检索1(第二讲) | 知识追寻者个人博客</title>
+    <link href="https://zszxz.github.io" rel="prefetch" />
+
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/aos.css">
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/js/jquery.min.js"></script>
+
+    
+<script src="/js/bootstrap.min.js"></script>
+
+    
+<script src="/js/aos.js"></script>
+
+    
+<script src="/js/highslide/highslide-full.min.js"></script>
+
+    
+<link rel="stylesheet" href="/js/highslide/highslide.css">
+
+    <style type="text/css">
+        @media (max-width: 768px) {
+            body {
+                background-color: #f0f0f0;
+                background: url('/imgs/xsbg.gif');
+                background-attachment: fixed;
+            }
+        }
+    </style>
+    
+    <!--<script type="text/javascript">
+      if (document.images) {
+        var avatar = new Image();
+        avatar.src = '/imgs/https:/gitee.com/lsc180/images/raw/master/img/main.png'
+        var previews = 'preview1.jpg,preview2.jpg,preview3.jpg,preview4.jpg,preview5.jpg,preview6.jpg,preview7.jpg,preview8.jpg,preview9.jpg,preview10.jpg,preview11.jpg,preview12.jpg,preview13.jpg,preview14.jpg,preview15.jpg,preview16.jpg,preview17.jpg,preview18.jpg,preview19.jpg'.split(',')
+        var previewsPreLoad = []
+        for(var i = 0; i < length; i++) {
+          previewsPreLoad.push(new Image())
+          previewsPreLoad[previewsPreLoad.length - 1].src = '/imgs/preview' + previews[i]
+        }
+      }
+    </script>-->
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body>
+    <!-- 背景轮播图功能 -->
+    <section class="hidden-xs">
+    
+	<!-- 
+<ul class="cb-slideshow">
+        <li><span>天若</span></li>
+        <li><span>有情</span></li>
+        <li><span>天亦老</span></li>
+        <li><span>我为</span></li>
+        <li><span>长者</span></li>
+        <li><span>续一秒</span></li>
+    </ul>
+
+	-->
+</section>
+    <!-- 欧尼酱功能, 谁用谁知道 -->
+    
+    <header class="navbar navbar-inverse" id="gal-header">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target=".bs-navbar-collapse"
+                    aria-expanded="false">
+                <span class="fa fa-lg fa-reorder"></span>
+            </button>
+            <a href="https://zszxz.github.io">
+                
+                <style>
+                    #gal-header .navbar-brand {
+                        height: 54px;
+                        line-height: 24px;
+                        font-size: 28px;
+                        opacity: 1;
+                        background-color: rgba(0,0,0,0);
+                        <!-- text-shadow: 0 0 5px #fff,0 0 10px #fff,0 0 15px #fff,0 0 20px #228DFF,0 0 35px #228DFF,0 0 40px #228DFF,0 0 50px #228DFF,0 0 75px #228DFF; -->
+                    }
+                </style>
+                <!-- 这里使用文字(navbar_text or config.title) -->
+                <div class="navbar-brand">知识追寻者个人博客</div>
+                
+            </a>
+        </div>
+        <div class="collapse navbar-collapse bs-navbar-collapse">
+            <ul class="nav navbar-nav" id="menu-gal">
+                
+                
+                <li class="">
+                    <a href="/">
+                        <i class="fa fa-home"></i>首页
+                    </a>
+                </li>
+                
+                
+                
+                <li class="">
+                    <a href="/archives">
+                        <i class="fa fa-archive"></i>归档
+                    </a>
+                </li>
+                
+                
+                
+                
+                <li class="dropdown">
+                    <!-- TODO 添加hover dropdown效果 -->
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false" data-hover="dropdown">
+                        <i class="fa fa-list"></i>分类
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li>
+                            <a href="/categories/%E5%88%86%E4%BA%AB/">分享</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/">高效工具</a>
+                        </li>
+                        
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+                
+                
+                <li class="dropdown">
+                    <!-- TODO 添加hover dropdown效果 -->
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false" data-hover="dropdown">
+                        <i class="fa fa-tags"></i>标签
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li>
+                            <a href="/tags/%E5%88%86%E4%BA%AB/">分享</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/">高效工具</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                        </li>
+                        
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+                
+                <li class="">
+                    <a href="/about">
+                        <i class="fa fa-user"></i>关于我
+                    </a>
+                </li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</header>
+    <div id="gal-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 gal-right" id="mainstay">
+                    
+<article class="article well article-body" id="article">
+    <div class="breadcrumb">
+        <i class="fa fa-home"></i>
+        <a href="https://zszxz.github.io">知识追寻者个人博客</a>
+        >
+        <span>MYSQL检索1(第二讲)</span>
+    </div>
+    <!-- 大型设备详细文章 -->
+    <div class="hidden-xs">
+        <div class="title-article">
+            <h1>
+                <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%A3%80%E7%B4%A21-%E7%AC%AC%E4%BA%8C%E8%AE%B2/">MYSQL检索1(第二讲)</a>
+            </h1>
+        </div>
+        <div class="tag-article">
+            
+            <span class="label label-gal">
+                <i class="fa fa-tags"></i>
+                
+                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                
+            </span>
+            
+            <span class="label label-gal">
+                <i class="fa fa-calendar"></i> 2020-11-11
+            </span>
+            
+        </div>
+    </div>
+    <!-- 小型设备详细文章 -->
+    <div class="visible-xs">
+        <center>
+            <div class="title-article">
+                <h4>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%A3%80%E7%B4%A21-%E7%AC%AC%E4%BA%8C%E8%AE%B2/">MYSQL检索1(第二讲)</a>
+                </h4>
+            </div>
+            <p>
+                <i class="fa fa-calendar"></i> 2020-11-11
+            </p>
+            <p>
+                
+                <i class="fa fa-tags"></i>
+                
+                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                
+                
+                
+            </p>
+        </center>
+    </div>
+    <div class="content-article">
+        <p>﻿# 一 说明</p>
+<p>如果是初学者，建议去网上寻找安装Mysql的文章安装，以及使用navicat连接数据库，以后的示例基本是使用mysql数据库管理系统；</p>
+<h1 id="二-准备前提"><a href="#二-准备前提" class="headerlink" title="二 准备前提"></a>二 准备前提</h1><p>需要建立一张学生表，列分别是id，名称，年龄，学生信息；本示例中文章篇幅原因SQL注释略；</p>
+<p>建表语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE &#96;student&#96; (</span><br><span class="line">  &#96;id&#96; int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  &#96;name&#96; varchar(255) DEFAULT NULL,</span><br><span class="line">  &#96;age&#96; int(11) DEFAULT NULL,</span><br><span class="line">  &#96;info&#96; varchar(255) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;id&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8;</span><br></pre></td></tr></table></figure>
+
+<p>表中的数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO &#96;springboot&#96;.&#96;student&#96;(&#96;id&#96;, &#96;name&#96;, &#96;age&#96;, &#96;info&#96;) VALUES (1, &#39;youku1&#39;, 18, &#39;大一新生&#39;);</span><br><span class="line">INSERT INTO &#96;springboot&#96;.&#96;student&#96;(&#96;id&#96;, &#96;name&#96;, &#96;age&#96;, &#96;info&#96;) VALUES (2, &#39;youku2&#39;, 23, &#39;毕业生&#39;);</span><br><span class="line">INSERT INTO &#96;springboot&#96;.&#96;student&#96;(&#96;id&#96;, &#96;name&#96;, &#96;age&#96;, &#96;info&#96;) VALUES (3, &#39;jeff&#39;, 25, &#39;社会人士&#39;);</span><br><span class="line">INSERT INTO &#96;springboot&#96;.&#96;student&#96;(&#96;id&#96;, &#96;name&#96;, &#96;age&#96;, &#96;info&#96;) VALUES (4, &#39;smile&#39;, 17, &#39;高三学子&#39;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="三-基本检索"><a href="#三-基本检索" class="headerlink" title="三 基本检索"></a>三 基本检索</h1><h2 id="3-1-select-关键字"><a href="#3-1-select-关键字" class="headerlink" title="3.1 select 关键字"></a>3.1 select 关键字</h2><p>sql 都是由许多关键字（keyword）组成的语句，关键字是数据库的保留字，用户不能将其当作建表的表名，字段等；表中的数据检索使用select关键字作为开头进行查询数据库表的信息；</p>
+<h2 id="3-2-检索单个字段"><a href="#3-2-检索单个字段" class="headerlink" title="3.2 检索单个字段"></a>3.2 检索单个字段</h2><p>语句示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT name FROM student </span><br></pre></td></tr></table></figure>
+
+<p>查询结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">youku1</span><br><span class="line">youku2</span><br><span class="line">jeff</span><br><span class="line">smile</span><br></pre></td></tr></table></figure>
+
+<p>语句分析：</p>
+<p>select 是 查询 的意思 ， name 代表表中的字段 ，from 表示来自哪张表，其后面的student就是表；连起来的意思就是查询字段是name的数据来自表student；</p>
+<h2 id="3-3-sql语句注意点"><a href="#3-3-sql语句注意点" class="headerlink" title="3.3 sql语句注意点"></a>3.3 sql语句注意点</h2><p>多sql语句一起执行使用封号（;）隔开，在拼写语句时表的关键字都建议使用大写，表的字段和表名使用小写；为了容易阅读建议将sql分成多行（由于文章篇幅原因就不分了）；sql语言也是使用英文字母，不要开中文，以免造成符号错误不容易发现；sql语句默认不区分大小写；</p>
+<h2 id="3-4-检索多个字段"><a href="#3-4-检索多个字段" class="headerlink" title="3.4 检索多个字段"></a>3.4 检索多个字段</h2><p>语句示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT name,age FROM student;</span><br></pre></td></tr></table></figure>
+
+<p>语句结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">youku1	18</span><br><span class="line">youku2	23</span><br><span class="line">jeff	25</span><br><span class="line">smile	17</span><br></pre></td></tr></table></figure>
+
+<p>语句分析：</p>
+<p>查询字段 名字，年龄来自表student；多个列检索时使用逗号（,）隔开；</p>
+<h2 id="3-5-检索所有字段"><a href="#3-5-检索所有字段" class="headerlink" title="3.5 检索所有字段"></a>3.5 检索所有字段</h2><p>语句示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM student;</span><br></pre></td></tr></table></figure>
+
+<p>语句结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1	youku1	18	大一新生</span><br><span class="line">2	youku2	23	毕业生</span><br><span class="line">3	jeff	25	社会人士</span><br><span class="line">4	smile	17	高三学子</span><br></pre></td></tr></table></figure>
+
+<p>语句分析：</p>
+<p>通配符 （*）表示返回表中的所有列，如果不是必须建议不要使用通配符，会影响数据库性能；</p>
+<h2 id="3-6-distinct"><a href="#3-6-distinct" class="headerlink" title="3.6 distinct"></a>3.6 distinct</h2><p>distinct 表示区分，意指检索出来的行是唯一（去重），其放在列的最前面；如果使用了关键字distinct，其作用于后面的所有列（由于本示例数据没有重复示例，结果就不是很清晰）；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT DISTINCT name, age FROM student;</span><br></pre></td></tr></table></figure>
+
+<p>语句结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">youku1	18</span><br><span class="line">youku2	23</span><br><span class="line">jeff	25</span><br><span class="line">smile	17</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-7-限制条数"><a href="#3-7-限制条数" class="headerlink" title="3.7 限制条数"></a>3.7 限制条数</h2><p>access 和 sql server ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT TOP 2 name FROM student</span><br></pre></td></tr></table></figure>
+
+<p>TOP 2 表示限制返回前2行</p>
+<p>postgresql 、SQLite和 mysql：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT name FROM student LIMIT 2;</span><br></pre></td></tr></table></figure>
+
+<p>limit 2 表示限制返回前2行；</p>
+<p>DB2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT name FROM student FETCH FIRST 2 ROWS ONLY</span><br></pre></td></tr></table></figure>
+
+<p>FETCH FIRST 2 ROWS ONLY 表示只抓取前2行数据</p>
+<p>语句结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">youku1</span><br><span class="line">youku2</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-8偏移"><a href="#3-8偏移" class="headerlink" title="3.8偏移"></a>3.8偏移</h2><p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT name FROM student LIMIT 1 OFFSET 1;</span><br></pre></td></tr></table></figure>
+
+<p>语句分析</p>
+<p>表示查询列名称来自学生表 限制条数1，偏移值1；意思就是查询学生表中的第二行数据；offset表示跳跃或者偏移；</p>
+<p>mysql和MariaDB简化形式:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT name FROM student LIMIT 1,2;</span><br></pre></td></tr></table></figure>
+
+<p>表示查询字段名称来自学生表，限制2条，偏移1条；注意顺序；</p>
+<p>语句结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">youku2</span><br><span class="line">jeff</span><br></pre></td></tr></table></figure>
+
+<h1 id="四-排序检索"><a href="#四-排序检索" class="headerlink" title="四 排序检索"></a>四 排序检索</h1><h2 id="4-1-ORDER-BY-子句"><a href="#4-1-ORDER-BY-子句" class="headerlink" title="4.1 ORDER BY 子句"></a>4.1 ORDER BY 子句</h2><p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT name,age FROM student ORDER BY age</span><br></pre></td></tr></table></figure>
+
+<p>语句分析；</p>
+<p>检索字段名称，年龄来自学生表按照列年龄排序；注意默认是升序，ORDER BY 子句通常在语句末尾；</p>
+<p>语句结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">smile	17</span><br><span class="line">youku1	18</span><br><span class="line">youku2	23</span><br><span class="line">jeff	25</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-2-多列排序"><a href="#4-2-多列排序" class="headerlink" title="4.2 多列排序"></a>4.2 多列排序</h2><p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT name,age FROM student ORDER BY age DESC, name ASC;</span><br></pre></td></tr></table></figure>
+
+<p>语句分析：</p>
+<p>查询名称，年龄来自学生表，按照年龄降序，名称升序进行排序；关键字 DESC(descending) 意指降序，字母默认Z-A; ASC（ascending）意指升序，字母默认A-Z；多列情况下，每个列后面指定使用DESC，使用逗号（,）隔开，如果不写，默认升序；</p>
+<p>语句结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">jeff	25</span><br><span class="line">youku2	23</span><br><span class="line">youku1	18</span><br><span class="line">smile	17</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-3-按位排序"><a href="#4-3-按位排序" class="headerlink" title="4.3 按位排序"></a>4.3 按位排序</h2><p>语句示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT name,age FROM student ORDER BY 2 DESC, 1 ASC;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>按位指查询字段的位置，2 对应字段age,1对应字段name；结果和4.2一致；</p>
+<h1 id="五-过滤检索"><a href="#五-过滤检索" class="headerlink" title="五 过滤检索"></a>五 过滤检索</h1><p>sql 语句中过滤条件（filter condition）的关键字是 WHERE，其使用方式是跟在表名之后；</p>
+<h2 id="5-1-WHERE语句操作符"><a href="#5-1-WHERE语句操作符" class="headerlink" title="5.1 WHERE语句操作符"></a>5.1 WHERE语句操作符</h2><p>根据不同的数据库管理系统，其支持的操作符略有不同，所以下文较多重复意思的操作符，应查阅官方文档说明，哪些操作符是支持使用的数据库管理系统；</p>
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>=</td>
+<td>等于</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>大于</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>小于</td>
+</tr>
+<tr>
+<td>!=</td>
+<td>不等于</td>
+</tr>
+<tr>
+<td>&lt;&gt;</td>
+<td>不等于</td>
+</tr>
+<tr>
+<td>&gt;=</td>
+<td>大于等于</td>
+</tr>
+<tr>
+<td>&lt;=</td>
+<td>小于等于</td>
+</tr>
+<tr>
+<td>!&lt;</td>
+<td>不小于</td>
+</tr>
+<tr>
+<td>!&gt;</td>
+<td>不大于</td>
+</tr>
+<tr>
+<td>BETWEEN</td>
+<td>在中间</td>
+</tr>
+<tr>
+<td>IS NULL</td>
+<td>为空</td>
+</tr>
+</tbody></table>
+<h2 id="5-2-单条件过滤"><a href="#5-2-单条件过滤" class="headerlink" title="5.2 单条件过滤"></a>5.2 单条件过滤</h2><p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM student WHERE name &#x3D; &#39;jeff&#39;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>语句分析;</p>
+<p>查询所有字段来自学生表 条件是 学生名称是 jeff；注意 非表字段，表名，关键字，使用2个单引号（’’）括起来，里面存放的是我们输入的数据；</p>
+<p>语句结果;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3	jeff	25	社会人士</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-3-多条件过滤"><a href="#5-3-多条件过滤" class="headerlink" title="5.3 多条件过滤"></a>5.3 多条件过滤</h2><p>多条件过滤时使用 AND 或者 OR 子句；AND连接表达式表示过滤条件都为真的数据；OR连接表达式表示匹配过滤条件任意一个；</p>
+<p>AND示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM student WHERE age &gt;&#x3D; &#39;18&#39; AND age &lt;&#x3D; &#39;23&#39;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>语句分析：</p>
+<p>查询所有字段来自学生表，条件是 学生年龄大于等于18 并且 学生年龄小于 23；</p>
+<p>语句结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1	youku1	18	大一新生</span><br><span class="line">2	youku2	23	毕业生</span><br></pre></td></tr></table></figure>
+
+<p>OR示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM student WHERE age &gt;&#x3D; &#39;18&#39; OR age &lt;&#x3D; &#39;23&#39;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>语句分析：</p>
+<p>检索所有字段来自学生表，条件是 学生年龄大于等于18，或者学生年龄小于23；</p>
+<p>OR 和 AND 示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM student WHERE age &gt;&#x3D; &#39;18&#39; AND (age &lt;&#x3D; &#39;23&#39; OR id &gt;&#x3D;2);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>语句分析：</p>
+<p>在使用OR 和 AND 的时候应该明确过滤条件，然后使用小括号括起来，由于数据库管理系统是根据顺序执行，如果不使用小括号很容易造成语义错误；查询所有字段来自学生表 过滤条件 年龄大于 18 并且 （年龄小于23 或者 id 大于2）的数据；</p>
+<h2 id="5-4-范围查询"><a href="#5-4-范围查询" class="headerlink" title="5.4 范围查询"></a>5.4 范围查询</h2><p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM student WHERE  age BETWEEN &#39;18&#39; And &#39;23&#39;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>语句分析</p>
+<p>BETWEEN 表示范围查询，查询所有字段来自学生表，过滤条件学生年龄在18至23之间；</p>
+<p>语句结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1	youku1	18	大一新生</span><br><span class="line">2	youku2	23	毕业生</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-5-空值查询"><a href="#5-5-空值查询" class="headerlink" title="5.5 空值查询"></a>5.5 空值查询</h2><p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM student WHERE  age IS NULL;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>语句分析：</p>
+<p>查询所有字段来自学生表，过滤条件 学生年龄 为空；数据库表不填充数据默认为空（NULL），当然你也可以给指定类型的列设置默认值；</p>
+<h2 id="5-6-IN-操作"><a href="#5-6-IN-操作" class="headerlink" title="5.6 IN 操作"></a>5.6 IN 操作</h2><p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM student WHERE  age IN (18,23,25);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>语句分析：</p>
+<p>查询所有字段来自学生表 ，过滤条件 年龄 是 18 或者 23 或者 25 ；IN是个范围查询，匹配小括号中指定的任意值，其功能跟OR类似，一个IN 就相当于好多个OR；</p>
+<p>语句结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1	youku1	18	大一新生</span><br><span class="line">2	youku2	23	毕业生</span><br><span class="line">3	jeff	25	社会人士</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-7-NOT-操作符"><a href="#5-7-NOT-操作符" class="headerlink" title="5.7 NOT 操作符"></a>5.7 NOT 操作符</h2><p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM student WHERE  NOT age&#x3D;&#39;25&#39;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>语句分析：</p>
+<p>NOT 操作符表是否定；其跟在WHERE后面功能类似&lt;&gt;;</p>
+<h1 id="六-通配符检索"><a href="#六-通配符检索" class="headerlink" title="六 通配符检索"></a>六 通配符检索</h1><h2 id="6-1-通配符的介绍"><a href="#6-1-通配符的介绍" class="headerlink" title="6.1 通配符的介绍"></a>6.1 通配符的介绍</h2><p>通配符是组成匹配模式的特殊字符串；如果有用过正则表达式的同学肯定不陌生，这个与其类似；检索文本的通配符是用在关键词Like 后面；</p>
+<h2 id="6-2-通配符"><a href="#6-2-通配符" class="headerlink" title="6.2 通配符 %"></a>6.2 通配符 %</h2><p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM student WHERE name LIKE &#39;you%&#39; ;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>语句分析：</p>
+<p>查询所有字段来自学生表，过滤条件 名字匹配以you开头的字符串后面匹配任意个任意字符；%通配符代表任意个任意字符串,0也算在内，但不包括null；</p>
+<p>语句结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1	youku1	18	大一新生</span><br><span class="line">2	youku2	23	毕业生</span><br></pre></td></tr></table></figure>
+
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM student WHERE name LIKE &#39;%i%&#39; ;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>语句分析：</p>
+<p>查询所有列来自学生表，过滤条件学生的名称匹配中间必须出现一次字母i，字母i的前后可以匹配任意个任意字符串；</p>
+<p>语句结果;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4	smile	17	高三学子</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-3-通配符"><a href="#6-3-通配符" class="headerlink" title="6.3 通配符 _"></a>6.3 通配符 _</h2><p>通配符 _ 代表匹配一个字符串；在Access数据库中不是 _ 而是 ?；</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM student WHERE name LIKE &#39;youku_&#39; ;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>语句分析：</p>
+<p>查询所有列来自学生表，过滤条件 学生名称 匹配模式 youku 后面一个为任意字符串；</p>
+<p>语句结果;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1	youku1	18	大一新生</span><br><span class="line">2	youku2	23	毕业生</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-4-通配符"><a href="#6-4-通配符" class="headerlink" title="6.4 通配符 []"></a>6.4 通配符 []</h2><p>通配符 [] 表示匹配指定一个位置一个字符；其里面可以存放多个字符，关系是or，模式匹配时只占用一个位置，Access,SQL SERVER 支持；</p>
+<h1 id="七-字段基本操作"><a href="#七-字段基本操作" class="headerlink" title="七 字段基本操作"></a>七 字段基本操作</h1><h2 id="7-1-字段拼接"><a href="#7-1-字段拼接" class="headerlink" title="7.1 字段拼接"></a>7.1 字段拼接</h2><p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT concat(&#39;你好啊&#39;,name,&#39;327今天心情怎么样&#39;) FROM student WHERE id &#x3D; &#39;1&#39; ;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>语句分析： </p>
+<p>函数 concat 就是将多个字符子串拼接成一个字符串；不同的数据库管理系统其使用的方式略有差别，应查阅官方文档；<br>在 mysql 中使用 concat函数；在postgresql中使用 || ； 在 Access和 sql server中使用 +;</p>
+<p>语句结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">你好啊youku1327今天心情怎么样</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-2-去除空白字符串"><a href="#7-2-去除空白字符串" class="headerlink" title="7.2 去除空白字符串"></a>7.2 去除空白字符串</h2><p>语句示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT  RTRIM(&#39;      哥，今天管饱        &#39;) FROM student WHERE id &#x3D; &#39;1&#39; ;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>语句分析：</p>
+<p>RTRIM(STR) 函数是去掉右边的字符串；TRIM(STR)是去掉字符串两边的空白字符；LTRIM(STR)是去掉字符串左边的空白字符；</p>
+<p>语句结果;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">哥，今天管饱</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-3-别名"><a href="#7-3-别名" class="headerlink" title="7.3 别名"></a>7.3 别名</h2><p>语句示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT name as student_name FROM student WHERE  id &#x3D; &#39;1&#39; ;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>语句分析：</p>
+<p>别名（alias）是可以给字段，或者表起别名；当多表操作出现重复字段时使用别名是个很好的选择；别名可以使用AS关键字，虽然其是可省略，但平时我们最好加上它增强阅读性；</p>
+<h2 id="7-4-计算"><a href="#7-4-计算" class="headerlink" title="7.4 计算"></a>7.4 计算</h2><table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>*</td>
+<td>乘</td>
+</tr>
+<tr>
+<td>+</td>
+<td>加</td>
+</tr>
+<tr>
+<td>-</td>
+<td>减</td>
+</tr>
+<tr>
+<td>/</td>
+<td>除</td>
+</tr>
+</tbody></table>
+<p>语句示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT 2 * 8; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>语句结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">16</span><br></pre></td></tr></table></figure>
+
+<h1 id="八-关于作者"><a href="#八-关于作者" class="headerlink" title="八  关于作者"></a>八  关于作者</h1><p><img src="https://img-blog.csdnimg.cn/20191128140028624.png" alt="在这里插入图片描述"></p>
+
+    </div>
+</article>
+
+
+                </div>
+                <aside class="col-md-4 gal-left" id="sidebar">
+    <!-- 此为sidebar的搜索框, 非搜索结果页面 -->
+<aside id="sidebar-search">
+    <div class="search hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <form class="form-inline clearfix" id="search-form" method="get"
+              action="/search/index.html">
+            <input type="text" name="s" class="form-control" id="searchInput" placeholder="搜索文章~" autocomplete="off">
+            <button class="btn btn-danger btn-gal" type="submit">
+                <i class="fa fa-search"></i>
+            </button>
+        </form>
+    </div>
+</aside>
+    <aside id="sidebar-author">
+    <div class="panel panel-gal" data-aos="flip-right" data-aos-duration="3000">
+        <div class="panel-heading" style="text-align: center">
+            <i class="fa fa-quote-left"></i>
+            lsc
+            <i class="fa fa-quote-right"></i>
+        </div>
+        <div class="author-panel text-center">
+            <img src="https://gitee.com/lsc180/images/raw/master/img/main.png" width="140" height="140"
+                 alt="个人头像" class="author-image">
+            <p class="author-description"></p>
+        </div>
+    </div>
+</aside>
+    
+    <aside id="sidebar-recent_comments">
+    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <div class="panel-heading">
+            <i class="fa fa-comments"></i>
+            最新评论
+            <i class="fa fa-times-circle panel-remove"></i>
+            <i class="fa fa-chevron-circle-up panel-toggle"></i>
+        </div>
+        <ul class="list-group list-group-flush"></ul>
+    </div>
+</aside>
+    
+    <!-- 要配置好leancloud才能开启此小工具 -->
+    
+    
+    <aside id="sidebar-recent_posts">
+    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <div class="panel-heading">
+            <i class="fa fa-refresh"></i>
+            近期文章
+            <i class="fa fa-times-circle panel-remove"></i>
+            <i class="fa fa-chevron-circle-up panel-toggle"></i>
+        </div>
+        <ul class="list-group list-group-flush">
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%B4%A2%E5%BC%95-%E7%AC%AC%E5%8D%81%E5%85%AD%E8%AE%B2/">MYSQL索引(第十六讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92-%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/">MYSQLl执行计划(第十五讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%93%8D%E4%BD%9Cjson-%E7%AC%AC%E5%8D%81%E5%9B%9B%E8%AE%B2/">MYSQLl操作json(第十四讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E9%94%81%E7%AD%89%E5%BE%85%E4%B8%8E%E6%AD%BB%E9%94%81-%E7%AC%AC%E5%8D%81%E4%B8%89%E8%AE%B2/">MYSQL锁等待与死锁(第十三讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%9E%B6%E6%9E%84%E5%85%A5%E9%97%A8-%E7%AC%AC%E5%8D%81%E4%BA%8C%E8%AE%B2/">MYSQLl架构入门(第十二讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86-%E7%AC%AC%E5%8D%81%E4%B8%80%E8%AE%B2/">MYSQL用户权限管理(第十一讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%B8%B8%E6%A0%87%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8-%E7%AC%AC%E5%8D%81%E8%AE%B2/">MYSQL游标与触发器(第十讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E5%82%A8%E5%AD%98%E8%BF%87%E7%A8%8B-%E7%AC%AC%E4%B9%9D%E8%AE%B2/">MYSQLl储存过程(第九讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E8%A7%86%E5%9B%BE-%E7%AC%AC%E5%85%AB%E8%AE%B2/">MYSQL视图(第八讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E8%A1%A8%E7%BB%93%E6%9E%84%E6%93%8D%E4%BD%9C-%E7%AC%AC%E4%B8%83%E8%AE%B2/">MYSQL表结构操作(第七讲)</a>
+                </span>
+            </li>
+            
+        </ul>
+    </div>
+</aside>
+    
+    
+    <aside id="sidebar-rand_posts">
+    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <div class="panel-heading">
+            <i class="fa fa-refresh"></i>
+            随机文章
+            <i class="fa fa-times-circle panel-remove"></i>
+            <i class="fa fa-chevron-circle-up panel-toggle"></i>
+        </div>
+        <ul class="list-group list-group-flush">
+            
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/05/%E8%87%AA%E5%AE%9A%E4%B9%89github%E4%B8%BB%E9%A1%B5/">自定义github主页</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/%E6%8F%90%E5%8D%87%E5%B7%A5%E4%BD%9C%E6%95%88%E7%8E%87100-%E7%9A%84%E8%BD%AF%E4%BB%B6/">提升工作效率100%的软件</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E5%82%A8%E5%AD%98%E8%BF%87%E7%A8%8B-%E7%AC%AC%E4%B9%9D%E8%AE%B2/">MYSQLl储存过程(第九讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92-%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/">MYSQLl执行计划(第十五讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%93%8D%E4%BD%9Cjson-%E7%AC%AC%E5%8D%81%E5%9B%9B%E8%AE%B2/">MYSQLl操作json(第十四讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E4%BA%8B%E7%89%A9-%E7%AC%AC%E4%BA%94%E8%AE%B2/">MYSQL事物(第五讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%9E%B6%E6%9E%84%E5%85%A5%E9%97%A8-%E7%AC%AC%E5%8D%81%E4%BA%8C%E8%AE%B2/">MYSQLl架构入门(第十二讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86-%E7%AC%AC%E5%8D%81%E4%B8%80%E8%AE%B2/">MYSQL用户权限管理(第十一讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E9%94%81%E7%AD%89%E5%BE%85%E4%B8%8E%E6%AD%BB%E9%94%81-%E7%AC%AC%E5%8D%81%E4%B8%89%E8%AE%B2/">MYSQL锁等待与死锁(第十三讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E8%A7%86%E5%9B%BE-%E7%AC%AC%E5%85%AB%E8%AE%B2/">MYSQL视图(第八讲)</a>
+                </span>
+            </li>
+            
+        </ul>
+    </div>
+</aside>
+    
+    
+    <aside id="gal-sets">
+        <div class="panel panel-gal hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+            <ul class="nav nav-pills pills-gal">
+
+                
+                <li>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%A3%80%E7%B4%A21-%E7%AC%AC%E4%BA%8C%E8%AE%B2/index.html#sidebar-tags" data-toggle="tab" id="tags-tab">热门标签</a>
+                </li>
+                
+                
+                <li>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%A3%80%E7%B4%A21-%E7%AC%AC%E4%BA%8C%E8%AE%B2/index.html#sidebar-friend-links" data-toggle="tab" id="friend-links-tab">友情链接</a>
+                </li>
+                
+                
+                <li>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%A3%80%E7%B4%A21-%E7%AC%AC%E4%BA%8C%E8%AE%B2/index.html#sidebar-links" data-toggle="tab" id="links-tab">个人链接</a>
+                </li>
+                
+            </ul>
+            <div class="tab-content">
+                
+                <div class="cloud-tags tab-pane nav bs-sidenav fade" id="sidebar-tags">
+    
+    <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 14.687078487371231px;" class="tag-cloud-link">分享</a>
+    
+    <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" style="font-size: 9.337909911424074px;" class="tag-cloud-link">高效工具</a>
+    
+    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 15.799978469914908px;" class="tag-cloud-link">数据库</a>
+    
+</div>
+                
+                
+                <div class="friend-links tab-pane nav bs-sidenav fade" id="sidebar-friend-links">
+    
+    <li>
+        <a href="https://qssily.com/netdisc-search/" target="_blank">有趣导航</a>
+    </li>
+    
+</div>
+                
+                
+                <div class="links tab-pane nav bs-sidenav fade" id="sidebar-links">
+    
+    <li>
+        <a href="https://github.com/zszxz" target="_blank">Github</a>
+    </li>
+    
+    <li>
+        <a href="https://www.cnblogs.com/zszxz/" target="_blank">博客园</a>
+    </li>
+    
+    <li>
+        <a href="https://juejin.im/user/2506542244436135" target="_blank">掘金</a>
+    </li>
+    
+    <li>
+        <a href="https://www.zhihu.com/people/yin-fu-63-30" target="_blank">知乎</a>
+    </li>
+    
+</div>
+                
+            </div>
+        </div>
+    </aside>
+    
+</aside>
+            </div>
+        </div>
+    </div>
+    <footer id="gal-footer">
+    <div class="container">
+        Copyright © 2018 lsc Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
+    </div>
+</footer>
+
+<!-- 回到顶端 -->
+<div id="gal-gotop">
+    <i class="fa fa-angle-up"></i>
+</div>
+</body>
+
+<script src="/js/activate-power-mode.js"></script>
+
+<script>
+
+    // 配置highslide
+	hs.graphicsDir = '/js/highslide/graphics/'
+    hs.outlineType = "rounded-white";
+    hs.dimmingOpacity = 0.8;
+    hs.outlineWhileAnimating = true;
+    hs.showCredits = false;
+    hs.captionEval = "this.thumb.alt";
+    hs.numberPosition = "caption";
+    hs.align = "center";
+    hs.transitions = ["expand", "crossfade"];
+    hs.lang.number = '共%2张图, 当前是第%1张';
+    hs.addSlideshow({
+      interval: 5000,
+      repeat: true,
+      useControls: true,
+      fixedControls: "fit",
+      overlayOptions: {
+        opacity: 0.75,
+        position: "bottom center",
+        hideOnMouseOut: true
+      }
+    })
+
+    // 初始化aos
+    AOS.init({
+      duration: 1000,
+      delay: 0,
+      easing: 'ease-out-back'
+    });
+
+</script>
+<script>
+	POWERMODE.colorful = 'true';    // make power mode colorful
+	POWERMODE.shake = 'true';       // turn off shake
+	// TODO 这里根据具体情况修改
+	document.body.addEventListener('input', POWERMODE);
+</script>
+<script>
+    window.slideConfig = {
+      prefix: '/imgs/slide/background',
+      ext: 'jpg',
+      maxCount: '10'
+    }
+</script>
+
+<script src="/js/hs.js"></script>
+<script src="/js/blog.js"></script>
+
+
+
+
+</html>

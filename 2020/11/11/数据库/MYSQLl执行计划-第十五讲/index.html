@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="lsc">
+    
+    
+    
+    
+    
+    
+    <title>MYSQLl执行计划(第十五讲) | 知识追寻者个人博客</title>
+    <link href="https://zszxz.github.io" rel="prefetch" />
+
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/aos.css">
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/js/jquery.min.js"></script>
+
+    
+<script src="/js/bootstrap.min.js"></script>
+
+    
+<script src="/js/aos.js"></script>
+
+    
+<script src="/js/highslide/highslide-full.min.js"></script>
+
+    
+<link rel="stylesheet" href="/js/highslide/highslide.css">
+
+    <style type="text/css">
+        @media (max-width: 768px) {
+            body {
+                background-color: #f0f0f0;
+                background: url('/imgs/xsbg.gif');
+                background-attachment: fixed;
+            }
+        }
+    </style>
+    
+    <!--<script type="text/javascript">
+      if (document.images) {
+        var avatar = new Image();
+        avatar.src = '/imgs/https:/gitee.com/lsc180/images/raw/master/img/main.png'
+        var previews = 'preview1.jpg,preview2.jpg,preview3.jpg,preview4.jpg,preview5.jpg,preview6.jpg,preview7.jpg,preview8.jpg,preview9.jpg,preview10.jpg,preview11.jpg,preview12.jpg,preview13.jpg,preview14.jpg,preview15.jpg,preview16.jpg,preview17.jpg,preview18.jpg,preview19.jpg'.split(',')
+        var previewsPreLoad = []
+        for(var i = 0; i < length; i++) {
+          previewsPreLoad.push(new Image())
+          previewsPreLoad[previewsPreLoad.length - 1].src = '/imgs/preview' + previews[i]
+        }
+      }
+    </script>-->
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body>
+    <!-- 背景轮播图功能 -->
+    <section class="hidden-xs">
+    
+	<!-- 
+<ul class="cb-slideshow">
+        <li><span>天若</span></li>
+        <li><span>有情</span></li>
+        <li><span>天亦老</span></li>
+        <li><span>我为</span></li>
+        <li><span>长者</span></li>
+        <li><span>续一秒</span></li>
+    </ul>
+
+	-->
+</section>
+    <!-- 欧尼酱功能, 谁用谁知道 -->
+    
+    <header class="navbar navbar-inverse" id="gal-header">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target=".bs-navbar-collapse"
+                    aria-expanded="false">
+                <span class="fa fa-lg fa-reorder"></span>
+            </button>
+            <a href="https://zszxz.github.io">
+                
+                <style>
+                    #gal-header .navbar-brand {
+                        height: 54px;
+                        line-height: 24px;
+                        font-size: 28px;
+                        opacity: 1;
+                        background-color: rgba(0,0,0,0);
+                        <!-- text-shadow: 0 0 5px #fff,0 0 10px #fff,0 0 15px #fff,0 0 20px #228DFF,0 0 35px #228DFF,0 0 40px #228DFF,0 0 50px #228DFF,0 0 75px #228DFF; -->
+                    }
+                </style>
+                <!-- 这里使用文字(navbar_text or config.title) -->
+                <div class="navbar-brand">知识追寻者个人博客</div>
+                
+            </a>
+        </div>
+        <div class="collapse navbar-collapse bs-navbar-collapse">
+            <ul class="nav navbar-nav" id="menu-gal">
+                
+                
+                <li class="">
+                    <a href="/">
+                        <i class="fa fa-home"></i>首页
+                    </a>
+                </li>
+                
+                
+                
+                <li class="">
+                    <a href="/archives">
+                        <i class="fa fa-archive"></i>归档
+                    </a>
+                </li>
+                
+                
+                
+                
+                <li class="dropdown">
+                    <!-- TODO 添加hover dropdown效果 -->
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false" data-hover="dropdown">
+                        <i class="fa fa-list"></i>分类
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li>
+                            <a href="/categories/%E5%88%86%E4%BA%AB/">分享</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/">高效工具</a>
+                        </li>
+                        
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+                
+                
+                <li class="dropdown">
+                    <!-- TODO 添加hover dropdown效果 -->
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false" data-hover="dropdown">
+                        <i class="fa fa-tags"></i>标签
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li>
+                            <a href="/tags/%E5%88%86%E4%BA%AB/">分享</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/">高效工具</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                        </li>
+                        
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+                
+                <li class="">
+                    <a href="/about">
+                        <i class="fa fa-user"></i>关于我
+                    </a>
+                </li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</header>
+    <div id="gal-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 gal-right" id="mainstay">
+                    
+<article class="article well article-body" id="article">
+    <div class="breadcrumb">
+        <i class="fa fa-home"></i>
+        <a href="https://zszxz.github.io">知识追寻者个人博客</a>
+        >
+        <span>MYSQLl执行计划(第十五讲)</span>
+    </div>
+    <!-- 大型设备详细文章 -->
+    <div class="hidden-xs">
+        <div class="title-article">
+            <h1>
+                <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92-%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/">MYSQLl执行计划(第十五讲)</a>
+            </h1>
+        </div>
+        <div class="tag-article">
+            
+            <span class="label label-gal">
+                <i class="fa fa-tags"></i>
+                
+                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                
+            </span>
+            
+            <span class="label label-gal">
+                <i class="fa fa-calendar"></i> 2020-11-11
+            </span>
+            
+        </div>
+    </div>
+    <!-- 小型设备详细文章 -->
+    <div class="visible-xs">
+        <center>
+            <div class="title-article">
+                <h4>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92-%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/">MYSQLl执行计划(第十五讲)</a>
+                </h4>
+            </div>
+            <p>
+                <i class="fa fa-calendar"></i> 2020-11-11
+            </p>
+            <p>
+                
+                <i class="fa fa-tags"></i>
+                
+                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                
+                
+                
+            </p>
+        </center>
+    </div>
+    <div class="content-article">
+        <h1 id="一-前言"><a href="#一-前言" class="headerlink" title="一 前言"></a>一 前言</h1><p>本篇是MYSQL进阶第三篇，SQL调优的前置知识之一；学习本篇的基础是知识追寻者发布的MYSQL系列文章；</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/102964957">《SQL-你真的了解什么SQL么？》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/102979381">《SQL-小白最佳入门sql查询一》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/103112780">《SQL-小白最佳入门sql查询二》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/103300277">《SQL- 多年开发人员都不懂的插入与更新删除操作注意点》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/106723045">《SQL-SQL事物操作》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/106733296">《SQL-Mysql数据类型》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/106844479">《SQL-mysql视图的前世今生》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/106883757">《SQL-mysql储存过程》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/106956690">《SQL-mysql游标与触发器》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/107050063">《SQL-mysql用户权限管理》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/107146355">《SQL-mysql架构入门》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/107172931">《SQL-mysql锁等待与死锁》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/107242215">《SQL-mysql操作json》</a></p>
+<p>公众号：<strong>知识追寻者</strong></p>
+<blockquote>
+<p>知识追寻者(Inheriting the spirit of open source, Spreading technology knowledge;)</p>
+</blockquote>
+<h1 id="二-执行计划概念"><a href="#二-执行计划概念" class="headerlink" title="二 执行计划概念"></a>二 执行计划概念</h1><p>执行计划（EXPLAIN）即表示MYSQL这条语句是如何执行，其执行顺序如何，使用到哪些索引，表之间的关联关系等；如何对一条查询语句实行执行计划？很简单，在查询语句上面加上<code>explain</code> 关键字即可；</p>
+<p>示例 ：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">from</span> sys_user  <span class="keyword">where</span> last_name = <span class="string">&#x27;ijklmnopqrs&#x27;</span> </span><br></pre></td></tr></table></figure>
+
+<p>输出结果如下，总共有十二个字段，我们可以根据这12个字段给出的信息对SQL语句进行评估，然后进行调整优化我们的查询语句；</p>
+<p><img src="https://gitee.com/lsc180/images/raw/master/img/20200712225500.png"></p>
+<h1 id="三-关键字段详解"><a href="#三-关键字段详解" class="headerlink" title="三 关键字段详解"></a>三 关键字段详解</h1><h2 id="3-1id"><a href="#3-1id" class="headerlink" title="3.1id"></a>3.1id</h2><p>表示查询语句中的执行顺序，其值越大，优先级越高，被优先执行的可能性久越大；</p>
+<p>示例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">from</span> <span class="string">`order`</span> , oder_detail <span class="keyword">where</span> <span class="string">`order`</span>.id = oder_detail.oid</span><br></pre></td></tr></table></figure>
+
+<p>如上语句查询中涉及2张表，但它们id 是一致，故拥有执行的优先权一样；</p>
+<p><img src="https://gitee.com/lsc180/images/raw/master/img/20200712230708.png"></p>
+<p>示例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">select</span> * <span class="keyword">from</span> sys_user <span class="keyword">where</span> <span class="keyword">id</span> = <span class="string">&#x27;1&#x27;</span> <span class="keyword">UNION</span> (<span class="keyword">select</span> * <span class="keyword">from</span> sys_user )</span><br></pre></td></tr></table></figure>
+
+<p>如上语句 出现了id 不同的，id 越大，越优先被执行，但也出现了情况id 为 <code>null </code></p>
+<p><img src="https://gitee.com/lsc180/images/raw/master/img/20200712231418.png"></p>
+<h2 id="3-2select-type"><a href="#3-2select-type" class="headerlink" title="3.2select_type"></a>3.2select_type</h2><p><code>select_type</code> 表示 区分查询类型，通常用来判定该查询是简单查询还是复杂查询（子查询，联合查询等）；</p>
+<ul>
+<li><code>SIMPLE</code>：表示不包含子查询或者UNION;</li>
+<li><code>PRIMARY</code>: 包含子查询最外层的查询;</li>
+<li><code>SUBQUERY</code>：当 <code>select</code> 或 <code>where</code> 列表中包含子查询;</li>
+<li><code>DERIVED</code>：表示包含在<code>from</code>子句中的子查询;</li>
+<li><code>UNION </code>:  表示<code>union</code>后边又出现的<code>select</code> 语句，则会被标记为<code>union</code>；</li>
+<li><code>UNION RESULT</code>: 代表从<code>union</code>的临时表中读取数据, <code>&lt;union 1,2&gt;</code>表示从第一个查询和第二个查询的临时表中进行union操作；</li>
+<li><code>dependent union</code>：与union一样，出现在union 或union all语句中，但是这个查询要受到外部查询的影响</li>
+<li><code>dependent subquery</code>：与dependent union类似，表示这个subquery的查询要受到外部表查询的影响</li>
+</ul>
+<h2 id="3-3-table"><a href="#3-3-table" class="headerlink" title="3.3 table"></a>3.3 table</h2><p>查询行的表名，也有可能是临时表；</p>
+<h2 id="3-4-type"><a href="#3-4-type" class="headerlink" title="3.4 type"></a>3.4 type</h2><p>type 联合查询使用的类型；SQL优化的重要指标之一；</p>
+<ul>
+<li><p><code>system</code>：仅当只有一条数据时（系统表）</p>
+</li>
+<li><p><code>const</code>：表示 表中最多有一个匹配行</p>
+</li>
+</ul>
+<p>示例 ：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">from</span> <span class="string">`order`</span>  <span class="keyword">where</span> <span class="keyword">id</span> = <span class="string">&#x27;1&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<p><img src="https://gitee.com/lsc180/images/raw/master/img/20200713221022.png"></p>
+<ul>
+<li><code>eq_ref</code>：关联查询时命中主键<code>primary key</code> 或者 <code>unique key</code>索引，必须是等值操作；</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">from</span> <span class="string">`order`</span> , oder_detail <span class="keyword">where</span> <span class="string">`order`</span>.id = oder_detail.oid</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<p><img src="https://gitee.com/lsc180/images/raw/master/img/20200713221126.png"></p>
+<ul>
+<li><code>ref</code>：非唯一索引列；</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">from</span> <span class="string">`order`</span>  <span class="keyword">where</span> order_name = <span class="string">&#x27;小天使的订单&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<p><img src="https://gitee.com/lsc180/images/raw/master/img/20200713230022.png"></p>
+<ul>
+<li><code>fulltext</code>：使用到全文索引检索;</li>
+<li><code>ref_or_null</code>：类似于ref，但是可以搜索包含null值的行;</li>
+<li><code>index_merge</code>：关联查询使用了两个以上的索引</li>
+<li><code>unique_subquery</code> 在in中使用了子查询中某些时候会取代 ref;</li>
+<li><code>index_subquery</code> : 与<code>unique_subquery</code> 类似，但非作用在唯一索引上；</li>
+<li><code>range</code>：按范围来检索,比如 &gt; , &lt; , between….and ,in等</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">from</span> <span class="string">`order`</span> <span class="keyword">where</span> <span class="keyword">id</span> &gt; <span class="string">&#x27;2&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<p><img src="https://gitee.com/lsc180/images/raw/master/img/20200713221924.png"></p>
+<ul>
+<li><code>index</code>：从索取树中查找，也属于全表扫描；</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span>  <span class="string">`order`</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<p><img src="https://gitee.com/lsc180/images/raw/master/img/20200713222427.png"></p>
+<ul>
+<li><code>ALL</code>：全表扫描;</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">select</span> * <span class="keyword">from</span> <span class="string">`sys_user`</span> <span class="keyword">where</span> last_name = <span class="string">&#x27;ijklmnopqrs&#x27;</span> </span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<p><img src="https://gitee.com/lsc180/images/raw/master/img/20200713220857.png"></p>
+<h2 id="3-5-partitions"><a href="#3-5-partitions" class="headerlink" title="3.5 partitions"></a>3.5 partitions</h2><p>partitions 查询匹配到的分区，没有分区就是null；</p>
+<p>示例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span>  <span class="string">`order`</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<p><img src="https://gitee.com/lsc180/images/raw/master/img/20200713222427.png"></p>
+<h2 id="3-6-possible-keys"><a href="#3-6-possible-keys" class="headerlink" title="3.6 possible_keys"></a>3.6 possible_keys</h2><p>可能会使用到的索引</p>
+<p>示例</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">from</span> <span class="string">`order`</span>  <span class="keyword">where</span> order_name = <span class="string">&#x27;小天使的订单&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<p><img src="https://gitee.com/lsc180/images/raw/master/img/20200713230022.png"></p>
+<h2 id="3-7-key"><a href="#3-7-key" class="headerlink" title="3.7 key"></a>3.7 key</h2><p>mysql中实际使用到的索引，否则为null；</p>
+<p>示例</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">from</span> <span class="string">`order`</span>  <span class="keyword">where</span> order_name = <span class="string">&#x27;小天使的订单&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<p><img src="https://gitee.com/lsc180/images/raw/master/img/20200713230022.png"></p>
+<h2 id="3-8-key-length"><a href="#3-8-key-length" class="headerlink" title="3.8  key_length"></a>3.8  key_length</h2><p>key_length ：表示查询用到的索引长度（字节数），越短越好</p>
+<p>示例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">from</span> <span class="string">`order`</span>  <span class="keyword">where</span>  <span class="keyword">id</span> =<span class="string">&#x27;9&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<p><img src="https://gitee.com/lsc180/images/raw/master/img/20200713224043.png"></p>
+<h2 id="3-9-ref"><a href="#3-9-ref" class="headerlink" title="3.9 ref"></a>3.9 ref</h2><ul>
+<li>const : 等值查询</li>
+<li>func: 关联查询,使用了函数，表达式</li>
+<li>null: 其它情况</li>
+</ul>
+<h2 id="3-10-rows"><a href="#3-10-rows" class="headerlink" title="3.10 rows"></a>3.10 rows</h2><p>扫描表的行，非精确值；一般情况下 <code>rows</code>  越小越好。</p>
+<p>示例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">from</span> <span class="string">`order`</span>  <span class="keyword">where</span>  <span class="keyword">id</span> =<span class="string">&#x27;9&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<p><img src="https://gitee.com/lsc180/images/raw/master/img/20200713224043.png"></p>
+<h2 id="3-11-extra"><a href="#3-11-extra" class="headerlink" title="3.11 extra"></a>3.11 extra</h2><p>扩展信息</p>
+<ul>
+<li><code>Using index</code>： 使用了覆盖索引;</li>
+<li><code>Using where</code>: 使用了where 条件过滤数据；</li>
+<li><code>Using temporary</code>：表示查询后结果需要使用临时表来存储;</li>
+<li><code>Using filesort</code>: 排序时未使用到索引；</li>
+<li><code>Using join buffer</code>：官联表查询的时候，表的连接条件没有用到索引；</li>
+</ul>
+<p>更多扩展信息参考官网： <a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.htm">https://dev.mysql.com/doc/refman/5.7/en/explain-output.htm</a></p>
+<h1 id="四-何时需要优化"><a href="#四-何时需要优化" class="headerlink" title="四 何时需要优化"></a>四 何时需要优化</h1><p>explain 执行计划的参数非常多我们一般是记不过来，于是筛选了一些性能极差的条件用作SQL优化标准，知识追寻者的认为如下情况是必须需要优化；</p>
+<ul>
+<li><p>当type 出现all 为 全表扫描时一般需要优化</p>
+</li>
+<li><p>当 row 的数值 非常大，或接近全表时需要优化</p>
+</li>
+<li><p>extra 出现 <code>Using filesort</code>， <code>Using temporary</code> 时需要优化；</p>
+</li>
+</ul>
+
+    </div>
+</article>
+
+
+                </div>
+                <aside class="col-md-4 gal-left" id="sidebar">
+    <!-- 此为sidebar的搜索框, 非搜索结果页面 -->
+<aside id="sidebar-search">
+    <div class="search hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <form class="form-inline clearfix" id="search-form" method="get"
+              action="/search/index.html">
+            <input type="text" name="s" class="form-control" id="searchInput" placeholder="搜索文章~" autocomplete="off">
+            <button class="btn btn-danger btn-gal" type="submit">
+                <i class="fa fa-search"></i>
+            </button>
+        </form>
+    </div>
+</aside>
+    <aside id="sidebar-author">
+    <div class="panel panel-gal" data-aos="flip-right" data-aos-duration="3000">
+        <div class="panel-heading" style="text-align: center">
+            <i class="fa fa-quote-left"></i>
+            lsc
+            <i class="fa fa-quote-right"></i>
+        </div>
+        <div class="author-panel text-center">
+            <img src="https://gitee.com/lsc180/images/raw/master/img/main.png" width="140" height="140"
+                 alt="个人头像" class="author-image">
+            <p class="author-description"></p>
+        </div>
+    </div>
+</aside>
+    
+    <aside id="sidebar-recent_comments">
+    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <div class="panel-heading">
+            <i class="fa fa-comments"></i>
+            最新评论
+            <i class="fa fa-times-circle panel-remove"></i>
+            <i class="fa fa-chevron-circle-up panel-toggle"></i>
+        </div>
+        <ul class="list-group list-group-flush"></ul>
+    </div>
+</aside>
+    
+    <!-- 要配置好leancloud才能开启此小工具 -->
+    
+    
+    <aside id="sidebar-recent_posts">
+    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <div class="panel-heading">
+            <i class="fa fa-refresh"></i>
+            近期文章
+            <i class="fa fa-times-circle panel-remove"></i>
+            <i class="fa fa-chevron-circle-up panel-toggle"></i>
+        </div>
+        <ul class="list-group list-group-flush">
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%B4%A2%E5%BC%95-%E7%AC%AC%E5%8D%81%E5%85%AD%E8%AE%B2/">MYSQL索引(第十六讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92-%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/">MYSQLl执行计划(第十五讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%93%8D%E4%BD%9Cjson-%E7%AC%AC%E5%8D%81%E5%9B%9B%E8%AE%B2/">MYSQLl操作json(第十四讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E9%94%81%E7%AD%89%E5%BE%85%E4%B8%8E%E6%AD%BB%E9%94%81-%E7%AC%AC%E5%8D%81%E4%B8%89%E8%AE%B2/">MYSQL锁等待与死锁(第十三讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%9E%B6%E6%9E%84%E5%85%A5%E9%97%A8-%E7%AC%AC%E5%8D%81%E4%BA%8C%E8%AE%B2/">MYSQLl架构入门(第十二讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86-%E7%AC%AC%E5%8D%81%E4%B8%80%E8%AE%B2/">MYSQL用户权限管理(第十一讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%B8%B8%E6%A0%87%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8-%E7%AC%AC%E5%8D%81%E8%AE%B2/">MYSQL游标与触发器(第十讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E5%82%A8%E5%AD%98%E8%BF%87%E7%A8%8B-%E7%AC%AC%E4%B9%9D%E8%AE%B2/">MYSQLl储存过程(第九讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E8%A7%86%E5%9B%BE-%E7%AC%AC%E5%85%AB%E8%AE%B2/">MYSQL视图(第八讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E8%A1%A8%E7%BB%93%E6%9E%84%E6%93%8D%E4%BD%9C-%E7%AC%AC%E4%B8%83%E8%AE%B2/">MYSQL表结构操作(第七讲)</a>
+                </span>
+            </li>
+            
+        </ul>
+    </div>
+</aside>
+    
+    
+    <aside id="sidebar-rand_posts">
+    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <div class="panel-heading">
+            <i class="fa fa-refresh"></i>
+            随机文章
+            <i class="fa fa-times-circle panel-remove"></i>
+            <i class="fa fa-chevron-circle-up panel-toggle"></i>
+        </div>
+        <ul class="list-group list-group-flush">
+            
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/Another-Redis-DeskTop-Manager%E4%B8%80%E6%AC%BE%E7%A8%B3%E5%AE%9A%E5%85%A8%E6%96%B0%E7%9A%84redis%E8%BF%9E%E6%8E%A5%E5%B7%A5%E5%85%B7/">Another Redis DeskTop Manager一款稳定全新的redis连接工具</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%93%8D%E4%BD%9Cjson-%E7%AC%AC%E5%8D%81%E5%9B%9B%E8%AE%B2/">MYSQLl操作json(第十四讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%9E%B6%E6%9E%84%E5%85%A5%E9%97%A8-%E7%AC%AC%E5%8D%81%E4%BA%8C%E8%AE%B2/">MYSQLl架构入门(第十二讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E7%AC%AC%E5%85%AD%E8%AE%B2/">MYSQL数据类型(第六讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%8F%92%E5%85%A5%E4%B8%8E%E6%9B%B4%E6%96%B0%E5%88%A0%E9%99%A4-%E7%AC%AC%E5%9B%9B%E8%AE%B2/">MYSQL插入与更新删除(第四讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%A3%80%E7%B4%A21-%E7%AC%AC%E4%BA%8C%E8%AE%B2/">MYSQL检索1(第二讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%A3%80%E7%B4%A22-%E7%AC%AC%E4%B8%89%E8%AE%B2/">MYSQL检索2(第三讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%B4%A2%E5%BC%95-%E7%AC%AC%E5%8D%81%E5%85%AD%E8%AE%B2/">MYSQL索引(第十六讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%B8%B8%E6%A0%87%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8-%E7%AC%AC%E5%8D%81%E8%AE%B2/">MYSQL游标与触发器(第十讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E8%A7%86%E5%9B%BE-%E7%AC%AC%E5%85%AB%E8%AE%B2/">MYSQL视图(第八讲)</a>
+                </span>
+            </li>
+            
+        </ul>
+    </div>
+</aside>
+    
+    
+    <aside id="gal-sets">
+        <div class="panel panel-gal hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+            <ul class="nav nav-pills pills-gal">
+
+                
+                <li>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92-%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/index.html#sidebar-tags" data-toggle="tab" id="tags-tab">热门标签</a>
+                </li>
+                
+                
+                <li>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92-%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/index.html#sidebar-friend-links" data-toggle="tab" id="friend-links-tab">友情链接</a>
+                </li>
+                
+                
+                <li>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92-%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/index.html#sidebar-links" data-toggle="tab" id="links-tab">个人链接</a>
+                </li>
+                
+            </ul>
+            <div class="tab-content">
+                
+                <div class="cloud-tags tab-pane nav bs-sidenav fade" id="sidebar-tags">
+    
+    <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 17.94564077024055px;" class="tag-cloud-link">分享</a>
+    
+    <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" style="font-size: 11.241348958242101px;" class="tag-cloud-link">高效工具</a>
+    
+    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 14.555709230481604px;" class="tag-cloud-link">数据库</a>
+    
+</div>
+                
+                
+                <div class="friend-links tab-pane nav bs-sidenav fade" id="sidebar-friend-links">
+    
+    <li>
+        <a href="https://qssily.com/netdisc-search/" target="_blank">有趣导航</a>
+    </li>
+    
+</div>
+                
+                
+                <div class="links tab-pane nav bs-sidenav fade" id="sidebar-links">
+    
+    <li>
+        <a href="https://github.com/zszxz" target="_blank">Github</a>
+    </li>
+    
+    <li>
+        <a href="https://www.cnblogs.com/zszxz/" target="_blank">博客园</a>
+    </li>
+    
+    <li>
+        <a href="https://juejin.im/user/2506542244436135" target="_blank">掘金</a>
+    </li>
+    
+    <li>
+        <a href="https://www.zhihu.com/people/yin-fu-63-30" target="_blank">知乎</a>
+    </li>
+    
+</div>
+                
+            </div>
+        </div>
+    </aside>
+    
+</aside>
+            </div>
+        </div>
+    </div>
+    <footer id="gal-footer">
+    <div class="container">
+        Copyright © 2018 lsc Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
+    </div>
+</footer>
+
+<!-- 回到顶端 -->
+<div id="gal-gotop">
+    <i class="fa fa-angle-up"></i>
+</div>
+</body>
+
+<script src="/js/activate-power-mode.js"></script>
+
+<script>
+
+    // 配置highslide
+	hs.graphicsDir = '/js/highslide/graphics/'
+    hs.outlineType = "rounded-white";
+    hs.dimmingOpacity = 0.8;
+    hs.outlineWhileAnimating = true;
+    hs.showCredits = false;
+    hs.captionEval = "this.thumb.alt";
+    hs.numberPosition = "caption";
+    hs.align = "center";
+    hs.transitions = ["expand", "crossfade"];
+    hs.lang.number = '共%2张图, 当前是第%1张';
+    hs.addSlideshow({
+      interval: 5000,
+      repeat: true,
+      useControls: true,
+      fixedControls: "fit",
+      overlayOptions: {
+        opacity: 0.75,
+        position: "bottom center",
+        hideOnMouseOut: true
+      }
+    })
+
+    // 初始化aos
+    AOS.init({
+      duration: 1000,
+      delay: 0,
+      easing: 'ease-out-back'
+    });
+
+</script>
+<script>
+	POWERMODE.colorful = 'true';    // make power mode colorful
+	POWERMODE.shake = 'true';       // turn off shake
+	// TODO 这里根据具体情况修改
+	document.body.addEventListener('input', POWERMODE);
+</script>
+<script>
+    window.slideConfig = {
+      prefix: '/imgs/slide/background',
+      ext: 'jpg',
+      maxCount: '10'
+    }
+</script>
+
+<script src="/js/hs.js"></script>
+<script src="/js/blog.js"></script>
+
+
+
+
+</html>

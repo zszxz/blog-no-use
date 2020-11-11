@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="lsc">
+    
+    
+    
+    
+    
+    
+    <title>MYSQL游标与触发器(第十讲) | 知识追寻者个人博客</title>
+    <link href="https://zszxz.github.io" rel="prefetch" />
+
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/aos.css">
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/js/jquery.min.js"></script>
+
+    
+<script src="/js/bootstrap.min.js"></script>
+
+    
+<script src="/js/aos.js"></script>
+
+    
+<script src="/js/highslide/highslide-full.min.js"></script>
+
+    
+<link rel="stylesheet" href="/js/highslide/highslide.css">
+
+    <style type="text/css">
+        @media (max-width: 768px) {
+            body {
+                background-color: #f0f0f0;
+                background: url('/imgs/xsbg.gif');
+                background-attachment: fixed;
+            }
+        }
+    </style>
+    
+    <!--<script type="text/javascript">
+      if (document.images) {
+        var avatar = new Image();
+        avatar.src = '/imgs/https:/gitee.com/lsc180/images/raw/master/img/main.png'
+        var previews = 'preview1.jpg,preview2.jpg,preview3.jpg,preview4.jpg,preview5.jpg,preview6.jpg,preview7.jpg,preview8.jpg,preview9.jpg,preview10.jpg,preview11.jpg,preview12.jpg,preview13.jpg,preview14.jpg,preview15.jpg,preview16.jpg,preview17.jpg,preview18.jpg,preview19.jpg'.split(',')
+        var previewsPreLoad = []
+        for(var i = 0; i < length; i++) {
+          previewsPreLoad.push(new Image())
+          previewsPreLoad[previewsPreLoad.length - 1].src = '/imgs/preview' + previews[i]
+        }
+      }
+    </script>-->
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body>
+    <!-- 背景轮播图功能 -->
+    <section class="hidden-xs">
+    
+	<!-- 
+<ul class="cb-slideshow">
+        <li><span>天若</span></li>
+        <li><span>有情</span></li>
+        <li><span>天亦老</span></li>
+        <li><span>我为</span></li>
+        <li><span>长者</span></li>
+        <li><span>续一秒</span></li>
+    </ul>
+
+	-->
+</section>
+    <!-- 欧尼酱功能, 谁用谁知道 -->
+    
+    <header class="navbar navbar-inverse" id="gal-header">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target=".bs-navbar-collapse"
+                    aria-expanded="false">
+                <span class="fa fa-lg fa-reorder"></span>
+            </button>
+            <a href="https://zszxz.github.io">
+                
+                <style>
+                    #gal-header .navbar-brand {
+                        height: 54px;
+                        line-height: 24px;
+                        font-size: 28px;
+                        opacity: 1;
+                        background-color: rgba(0,0,0,0);
+                        <!-- text-shadow: 0 0 5px #fff,0 0 10px #fff,0 0 15px #fff,0 0 20px #228DFF,0 0 35px #228DFF,0 0 40px #228DFF,0 0 50px #228DFF,0 0 75px #228DFF; -->
+                    }
+                </style>
+                <!-- 这里使用文字(navbar_text or config.title) -->
+                <div class="navbar-brand">知识追寻者个人博客</div>
+                
+            </a>
+        </div>
+        <div class="collapse navbar-collapse bs-navbar-collapse">
+            <ul class="nav navbar-nav" id="menu-gal">
+                
+                
+                <li class="">
+                    <a href="/">
+                        <i class="fa fa-home"></i>首页
+                    </a>
+                </li>
+                
+                
+                
+                <li class="">
+                    <a href="/archives">
+                        <i class="fa fa-archive"></i>归档
+                    </a>
+                </li>
+                
+                
+                
+                
+                <li class="dropdown">
+                    <!-- TODO 添加hover dropdown效果 -->
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false" data-hover="dropdown">
+                        <i class="fa fa-list"></i>分类
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li>
+                            <a href="/categories/%E5%88%86%E4%BA%AB/">分享</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/">高效工具</a>
+                        </li>
+                        
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+                
+                
+                <li class="dropdown">
+                    <!-- TODO 添加hover dropdown效果 -->
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false" data-hover="dropdown">
+                        <i class="fa fa-tags"></i>标签
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li>
+                            <a href="/tags/%E5%88%86%E4%BA%AB/">分享</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/">高效工具</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                        </li>
+                        
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+                
+                <li class="">
+                    <a href="/about">
+                        <i class="fa fa-user"></i>关于我
+                    </a>
+                </li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</header>
+    <div id="gal-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 gal-right" id="mainstay">
+                    
+<article class="article well article-body" id="article">
+    <div class="breadcrumb">
+        <i class="fa fa-home"></i>
+        <a href="https://zszxz.github.io">知识追寻者个人博客</a>
+        >
+        <span>MYSQL游标与触发器(第十讲)</span>
+    </div>
+    <!-- 大型设备详细文章 -->
+    <div class="hidden-xs">
+        <div class="title-article">
+            <h1>
+                <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%B8%B8%E6%A0%87%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8-%E7%AC%AC%E5%8D%81%E8%AE%B2/">MYSQL游标与触发器(第十讲)</a>
+            </h1>
+        </div>
+        <div class="tag-article">
+            
+            <span class="label label-gal">
+                <i class="fa fa-tags"></i>
+                
+                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                
+            </span>
+            
+            <span class="label label-gal">
+                <i class="fa fa-calendar"></i> 2020-11-11
+            </span>
+            
+        </div>
+    </div>
+    <!-- 小型设备详细文章 -->
+    <div class="visible-xs">
+        <center>
+            <div class="title-article">
+                <h4>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%B8%B8%E6%A0%87%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8-%E7%AC%AC%E5%8D%81%E8%AE%B2/">MYSQL游标与触发器(第十讲)</a>
+                </h4>
+            </div>
+            <p>
+                <i class="fa fa-calendar"></i> 2020-11-11
+            </p>
+            <p>
+                
+                <i class="fa fa-tags"></i>
+                
+                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                
+                
+                
+            </p>
+        </center>
+    </div>
+    <div class="content-article">
+        <h1 id="一-前言"><a href="#一-前言" class="headerlink" title="一 前言"></a>一 前言</h1><p>本篇内容是关于mysql游标和触发器的知识，学习本篇的基础是知识追寻者之前发过的文章（公众号读者看专辑）</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/102964957">《SQL-你真的了解什么SQL么？》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/102979381">《SQL-小白最佳入门sql查询一》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/103112780">《SQL-小白最佳入门sql查询二》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/103300277">《SQL- 多年开发人员都不懂的插入与更新删除操作注意点》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/106723045">《SQL-SQL事物操作》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/106733296">《SQL-Mysql数据类型》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/106844479">《SQL-mysql视图的前世今生》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/106883757">《SQL-mysql储存过程》</a></p>
+<p>公众号：<strong>知识追寻者</strong></p>
+<blockquote>
+<p>知识追寻者(Inheriting the spirit of open source, Spreading technology knowledge;)   </p>
+</blockquote>
+<h1 id="二-游标"><a href="#二-游标" class="headerlink" title="二 游标"></a>二 游标</h1><h2 id="2-1-游标的概念"><a href="#2-1-游标的概念" class="headerlink" title="2.1 游标的概念"></a>2.1 游标的概念</h2><p>游标的本质就是查询后的结果集；当我们对查询的结果集进行前一行或者后一行类似的操作时就可以使用到游标</p>
+<h2 id="2-2-游标的语法"><a href="#2-2-游标的语法" class="headerlink" title="2.2 游标的语法"></a>2.2 游标的语法</h2><ul>
+<li>首先需要 定义游标； declare 游标名称 cursor for  查询语句；</li>
+<li>其次，打开游标； open 游标名称</li>
+<li>然后，对查询的结果集 即游标进行 检索行至变量提供使用</li>
+<li>最后关闭游标； close 游标名称</li>
+</ul>
+<h2 id="2-3-使用游标"><a href="#2-3-使用游标" class="headerlink" title="2.3 使用游标"></a>2.3 使用游标</h2><p>准备的表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`oder_detail`</span> (</span><br><span class="line">  <span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT <span class="keyword">COMMENT</span> <span class="string">&#x27;主键&#x27;</span>,</span><br><span class="line">  <span class="string">`detail_name`</span> <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">&#x27;订单明细&#x27;</span>,</span><br><span class="line">  <span class="string">`price`</span> <span class="built_in">decimal</span>(<span class="number">10</span>,<span class="number">2</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">&#x27;价格&#x27;</span>,</span><br><span class="line">  <span class="string">`oid`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">&#x27;订单id&#x27;</span>,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> AUTO_INCREMENT=<span class="number">7</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8 <span class="keyword">COMMENT</span>=<span class="string">&#x27;订单明细表&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>准备的数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`zszxz`</span>.<span class="string">`oder_detail`</span>(<span class="string">`id`</span>, <span class="string">`detail_name`</span>, <span class="string">`price`</span>, <span class="string">`oid`</span>) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="string">&#x27;毛巾&#x27;</span>, <span class="number">20.00</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`zszxz`</span>.<span class="string">`oder_detail`</span>(<span class="string">`id`</span>, <span class="string">`detail_name`</span>, <span class="string">`price`</span>, <span class="string">`oid`</span>) <span class="keyword">VALUES</span> (<span class="number">2</span>, <span class="string">&#x27;牙膏&#x27;</span>, <span class="number">15.00</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`zszxz`</span>.<span class="string">`oder_detail`</span>(<span class="string">`id`</span>, <span class="string">`detail_name`</span>, <span class="string">`price`</span>, <span class="string">`oid`</span>) <span class="keyword">VALUES</span> (<span class="number">3</span>, <span class="string">&#x27;杯子&#x27;</span>, <span class="number">5.00</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`zszxz`</span>.<span class="string">`oder_detail`</span>(<span class="string">`id`</span>, <span class="string">`detail_name`</span>, <span class="string">`price`</span>, <span class="string">`oid`</span>) <span class="keyword">VALUES</span> (<span class="number">4</span>, <span class="string">&#x27;毛巾&#x27;</span>, <span class="number">15.00</span>, <span class="number">2</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`zszxz`</span>.<span class="string">`oder_detail`</span>(<span class="string">`id`</span>, <span class="string">`detail_name`</span>, <span class="string">`price`</span>, <span class="string">`oid`</span>) <span class="keyword">VALUES</span> (<span class="number">5</span>, <span class="string">&#x27;杯子&#x27;</span>, <span class="number">15.00</span>, <span class="number">2</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>简单的使用游标</strong></p>
+<p>查询oid为1 的订单明细名称 的结果集作为游标；</p>
+<p>打开游标后抓取每行将结果赋值给变量name</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">PROCEDURE</span> printName()</span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">	<span class="comment">-- 订单名称</span></span><br><span class="line">    <span class="keyword">declare</span> <span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">20</span>);</span><br><span class="line">    <span class="comment">-- 创建游标</span></span><br><span class="line">    <span class="keyword">declare</span> cur <span class="keyword">cursor</span> <span class="keyword">for</span> <span class="keyword">select</span> detail_name <span class="keyword">from</span> oder_detail <span class="keyword">where</span> <span class="keyword">oid</span> = <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">    <span class="comment">-- 打开游标</span></span><br><span class="line">    open cur;</span><br><span class="line">		fetch cur into name;</span><br><span class="line">		<span class="keyword">select</span> <span class="keyword">name</span>;</span><br><span class="line">    <span class="comment">-- 关闭游标</span></span><br><span class="line">    close cur;</span><br><span class="line"><span class="keyword">END</span>;</span><br></pre></td></tr></table></figure>
+
+<p>调用储存过程</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">call</span> printName;</span><br></pre></td></tr></table></figure>
+
+<p>打印结果如下，只有一条数据，说明上述方式只在游标中抓取到一条数据，而且是表里面行号最小的行；</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">name</span><br><span class="line"><span class="comment">------</span></span><br><span class="line">毛巾</span><br></pre></td></tr></table></figure>
+
+<p><strong>在循环中使用游标</strong></p>
+<p>将 查询oid为1的 结果集赋值给游标；通过游标抓取每行 将 订单明细名称和价格分别赋值给变量 name 和 detail_price;  在 循环无法继续时 会出现 SQLSTATE ‘02000’ ; 即此通过 变量 <code>continue</code> 时设置 done 为1 代表 true，此时循环结束，跳出循环；</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">procedure</span> <span class="keyword">if</span> <span class="keyword">exists</span>  printDetail;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">PROCEDURE</span> printDetail()</span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">	<span class="comment">-- 订单名称</span></span><br><span class="line">    <span class="keyword">declare</span> <span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">20</span>);</span><br><span class="line">		<span class="comment">-- 价格</span></span><br><span class="line">    <span class="keyword">declare</span> detail_price <span class="built_in">decimal</span>(<span class="number">8</span>,<span class="number">2</span>);</span><br><span class="line">    <span class="comment">-- 结束标志变量（默认为假）</span></span><br><span class="line">    <span class="keyword">declare</span> done <span class="built_in">boolean</span> <span class="keyword">default</span> <span class="number">0</span>;</span><br><span class="line">    <span class="comment">-- 创建游标</span></span><br><span class="line">    <span class="keyword">declare</span> cur <span class="keyword">cursor</span> <span class="keyword">for</span> <span class="keyword">select</span> detail_name,price <span class="keyword">from</span> oder_detail <span class="keyword">where</span> <span class="keyword">oid</span> = <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">    <span class="comment">-- 指定游标循环结束时的返回值</span></span><br><span class="line">    <span class="keyword">declare</span> continue <span class="keyword">HANDLER</span> <span class="keyword">for</span> <span class="keyword">SQLSTATE</span> <span class="string">&#x27;02000&#x27;</span> <span class="keyword">set</span> done = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">-- 打开游标</span></span><br><span class="line">    open cur;</span><br><span class="line">    <span class="comment">-- 循环游标数据</span></span><br><span class="line">    detail_loop:loop</span><br><span class="line">			<span class="comment">-- 根据游标当前指向的一条数据</span></span><br><span class="line">			fetch cur into name,detail_price;</span><br><span class="line">			<span class="keyword">select</span> <span class="keyword">name</span> , detail_price;</span><br><span class="line">			<span class="comment">-- 判断游标的循环是否结束</span></span><br><span class="line">			if done then</span><br><span class="line">					<span class="comment">-- 跳出游标循环</span></span><br><span class="line">					leave detail_loop;    </span><br><span class="line">			<span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line">		<span class="comment">-- 结束游标循环</span></span><br><span class="line">    <span class="keyword">end</span> <span class="keyword">loop</span>;</span><br><span class="line">    <span class="comment">-- 关闭游标</span></span><br><span class="line">    close cur;</span><br><span class="line"><span class="keyword">END</span>;</span><br></pre></td></tr></table></figure>
+
+<p>调用储存过程</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 调用存储过程</span></span><br><span class="line"><span class="keyword">call</span> printDetail();</span><br></pre></td></tr></table></figure>
+
+<p>美中不足的是会多遍历最后一行，如果要精细处理还是需要自定义标志位进行跳出循环；</p>
+<h1 id="三-触发器"><a href="#三-触发器" class="headerlink" title="三 触发器"></a>三 触发器</h1><h2 id="3-1触发器的概念"><a href="#3-1触发器的概念" class="headerlink" title="3.1触发器的概念"></a>3.1触发器的概念</h2><p>触发器是指当表发生改变的时候触发的动作；听起来有点抽象，举个栗子，当你往表中插入数据的时候，此时表发生了改变，现在想要在每次插入数据之前检测所有的入参是否都是小写，此时就可以用触发器来检测；经过上面的分析知道使用一个基本的触发器，至少表要发生改变，还要满足一个被触发的事件；</p>
+<p>表发生改变通常指 增删改，其动作可以发生在增删改 之前或者之后；触发事件就是我们需要写的储存过程；</p>
+<ul>
+<li>update (after/ before)</li>
+<li>insert (after/ before)</li>
+<li>delete (after/ before)</li>
+</ul>
+<h2 id="3-2-触发器的基本语法"><a href="#3-2-触发器的基本语法" class="headerlink" title="3.2 触发器的基本语法"></a>3.2 触发器的基本语法</h2><ul>
+<li>创建触发器： create trigger 触发器名称 触发动作  on 表名 for each row [触发事件]</li>
+<li>删除触发器：drop trigger 触发器名称；</li>
+<li>查看触发器：show triggers;</li>
+</ul>
+<blockquote>
+<p>tip : 触发器是依赖于表创建，没有表就没有触发器，比如视图，临时表都不是真实的表，它们是没有触发器；一般来说每个表都有触发器的限制，一般最多支持6个不同类型的触发器；由于使用触发器会频繁的改变表的每行，故其十分影响性能，特别对一些更新频率比较快的大表，如果设置触发器就非常占用系统资源；一般来说触发器用在表变动较小的小表, 不使用触发器就立即删除；</p>
+</blockquote>
+<h2 id="3-3-insert-触发器示例"><a href="#3-3-insert-触发器示例" class="headerlink" title="3.3 insert 触发器示例"></a>3.3 insert 触发器示例</h2><p><code>创建触发器</code>; 创建一个触发器 getPrice 作用于 oder_detail 表的每行，每当 插入数据之后就查询这条订单明细的价格赋值给变量 @price ；小伙伴可能会疑惑 NEW 是何物，其是一张虚表，记录者被插入数据的行；故我们能在NEW表中获取每次插入的数据； </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- insert 触发器</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TRIGGER</span> getPrice <span class="keyword">AFTER</span> <span class="keyword">INSERT</span> <span class="keyword">ON</span> oder_detail <span class="keyword">FOR</span> <span class="keyword">EACH</span> <span class="keyword">ROW</span></span><br><span class="line"><span class="keyword">SELECT</span> NEW.price <span class="keyword">INTO</span> @price;</span><br></pre></td></tr></table></figure>
+
+<p><code>检测插入触发器</code>; 插入一条数据，使用查询语句查询变量 显示为 20；</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 检测插入触发器</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`oder_detail`</span>( <span class="string">`detail_name`</span>, <span class="string">`price`</span>, <span class="string">`oid`</span>) <span class="keyword">VALUES</span> ( <span class="string">&#x27;脸盆&#x27;</span>, <span class="number">20.00</span>, <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> @price;</span><br></pre></td></tr></table></figure>
+
+<p><code>删除触发器</code>;</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 删除触发器</span></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">trigger</span> getPrice;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-4-update-触发器示例"><a href="#3-4-update-触发器示例" class="headerlink" title="3.4 update 触发器示例"></a>3.4 update 触发器示例</h2><p>将插入后触发器改为更新后的触发器如下 ， 只需要改动 after insert 为 after update 即可；</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TRIGGER</span> getPrice <span class="keyword">AFTER</span> <span class="keyword">update</span> <span class="keyword">ON</span> oder_detail <span class="keyword">FOR</span> <span class="keyword">EACH</span> <span class="keyword">ROW</span></span><br><span class="line"><span class="keyword">SELECT</span> NEW.price <span class="keyword">INTO</span> @price;</span><br></pre></td></tr></table></figure>
+
+<p>将之前的插入的SQL语句进行修改价格,并查询价格,此时价格为30；NEW虚表储存的是即将更新的数据；</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> <span class="string">`oder_detail`</span> <span class="keyword">SET</span> <span class="string">`price`</span> = <span class="number">30.00</span> <span class="keyword">WHERE</span> <span class="string">`id`</span> = <span class="number">6</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> @price;</span><br></pre></td></tr></table></figure>
+
+<p>删除触发器</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 删除触发器</span></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">trigger</span> getPrice;</span><br></pre></td></tr></table></figure>
+
+<p>将 更新触发器的NEW表改为OLD表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TRIGGER</span> getPrice <span class="keyword">AFTER</span> <span class="keyword">update</span> <span class="keyword">ON</span> oder_detail <span class="keyword">FOR</span> <span class="keyword">EACH</span> <span class="keyword">ROW</span></span><br><span class="line"><span class="keyword">SELECT</span> OLD.price <span class="keyword">INTO</span> @price;</span><br></pre></td></tr></table></figure>
+
+<p>更新价格为40</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> <span class="string">`oder_detail`</span> <span class="keyword">SET</span> <span class="string">`price`</span> = <span class="number">40.00</span> <span class="keyword">WHERE</span> <span class="string">`id`</span> = <span class="number">6</span>;</span><br></pre></td></tr></table></figure>
+
+<p>此时查询 价格为30，说明OLD表触发的是原始数据值；</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> @price;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>tip ： 更新触发器主要是要搞懂OLD存放原始数据，NEW存放即将更新的数据；NEW表可以设置更改值，二OLD表是只读；</p>
+</blockquote>
+<h2 id="3-5-delete-触发器"><a href="#3-5-delete-触发器" class="headerlink" title="3.5 delete 触发器"></a>3.5 delete 触发器</h2><p>将 更新触发器改为 delete 触发器, 之前我们省略了 begin, end 如果是多条执行语句则需要加上；</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TRIGGER</span> getPrice <span class="keyword">AFTER</span> <span class="keyword">delete</span> <span class="keyword">ON</span> oder_detail <span class="keyword">FOR</span> <span class="keyword">EACH</span> <span class="keyword">ROW</span></span><br><span class="line"><span class="keyword">begin</span> </span><br><span class="line"><span class="keyword">SELECT</span> OLD.price <span class="keyword">INTO</span> @price;</span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
+
+<p>删除之前的SQL数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> oder_detail <span class="keyword">where</span> <span class="string">`id`</span> = <span class="number">6</span>;</span><br></pre></td></tr></table></figure>
+
+<p>查询价格为40，OLD表存放的是将要被删除的数据；</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> @price;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+</article>
+
+
+                </div>
+                <aside class="col-md-4 gal-left" id="sidebar">
+    <!-- 此为sidebar的搜索框, 非搜索结果页面 -->
+<aside id="sidebar-search">
+    <div class="search hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <form class="form-inline clearfix" id="search-form" method="get"
+              action="/search/index.html">
+            <input type="text" name="s" class="form-control" id="searchInput" placeholder="搜索文章~" autocomplete="off">
+            <button class="btn btn-danger btn-gal" type="submit">
+                <i class="fa fa-search"></i>
+            </button>
+        </form>
+    </div>
+</aside>
+    <aside id="sidebar-author">
+    <div class="panel panel-gal" data-aos="flip-right" data-aos-duration="3000">
+        <div class="panel-heading" style="text-align: center">
+            <i class="fa fa-quote-left"></i>
+            lsc
+            <i class="fa fa-quote-right"></i>
+        </div>
+        <div class="author-panel text-center">
+            <img src="https://gitee.com/lsc180/images/raw/master/img/main.png" width="140" height="140"
+                 alt="个人头像" class="author-image">
+            <p class="author-description"></p>
+        </div>
+    </div>
+</aside>
+    
+    <aside id="sidebar-recent_comments">
+    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <div class="panel-heading">
+            <i class="fa fa-comments"></i>
+            最新评论
+            <i class="fa fa-times-circle panel-remove"></i>
+            <i class="fa fa-chevron-circle-up panel-toggle"></i>
+        </div>
+        <ul class="list-group list-group-flush"></ul>
+    </div>
+</aside>
+    
+    <!-- 要配置好leancloud才能开启此小工具 -->
+    
+    
+    <aside id="sidebar-recent_posts">
+    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <div class="panel-heading">
+            <i class="fa fa-refresh"></i>
+            近期文章
+            <i class="fa fa-times-circle panel-remove"></i>
+            <i class="fa fa-chevron-circle-up panel-toggle"></i>
+        </div>
+        <ul class="list-group list-group-flush">
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%B4%A2%E5%BC%95-%E7%AC%AC%E5%8D%81%E5%85%AD%E8%AE%B2/">MYSQL索引(第十六讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92-%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/">MYSQLl执行计划(第十五讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%93%8D%E4%BD%9Cjson-%E7%AC%AC%E5%8D%81%E5%9B%9B%E8%AE%B2/">MYSQLl操作json(第十四讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E9%94%81%E7%AD%89%E5%BE%85%E4%B8%8E%E6%AD%BB%E9%94%81-%E7%AC%AC%E5%8D%81%E4%B8%89%E8%AE%B2/">MYSQL锁等待与死锁(第十三讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%9E%B6%E6%9E%84%E5%85%A5%E9%97%A8-%E7%AC%AC%E5%8D%81%E4%BA%8C%E8%AE%B2/">MYSQLl架构入门(第十二讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86-%E7%AC%AC%E5%8D%81%E4%B8%80%E8%AE%B2/">MYSQL用户权限管理(第十一讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%B8%B8%E6%A0%87%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8-%E7%AC%AC%E5%8D%81%E8%AE%B2/">MYSQL游标与触发器(第十讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E5%82%A8%E5%AD%98%E8%BF%87%E7%A8%8B-%E7%AC%AC%E4%B9%9D%E8%AE%B2/">MYSQLl储存过程(第九讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E8%A7%86%E5%9B%BE-%E7%AC%AC%E5%85%AB%E8%AE%B2/">MYSQL视图(第八讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E8%A1%A8%E7%BB%93%E6%9E%84%E6%93%8D%E4%BD%9C-%E7%AC%AC%E4%B8%83%E8%AE%B2/">MYSQL表结构操作(第七讲)</a>
+                </span>
+            </li>
+            
+        </ul>
+    </div>
+</aside>
+    
+    
+    <aside id="sidebar-rand_posts">
+    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <div class="panel-heading">
+            <i class="fa fa-refresh"></i>
+            随机文章
+            <i class="fa fa-times-circle panel-remove"></i>
+            <i class="fa fa-chevron-circle-up panel-toggle"></i>
+        </div>
+        <ul class="list-group list-group-flush">
+            
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/%E6%8F%90%E5%8D%87%E5%B7%A5%E4%BD%9C%E6%95%88%E7%8E%87100-%E7%9A%84%E8%BD%AF%E4%BB%B6/">提升工作效率100%的软件</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E5%82%A8%E5%AD%98%E8%BF%87%E7%A8%8B-%E7%AC%AC%E4%B9%9D%E8%AE%B2/">MYSQLl储存过程(第九讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92-%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/">MYSQLl执行计划(第十五讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E4%BA%8B%E7%89%A9-%E7%AC%AC%E4%BA%94%E8%AE%B2/">MYSQL事物(第五讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BB%8B%E7%BB%8D-%E7%AC%AC%E4%B8%80%E8%AE%B2/">MYSQL数据库介绍(第一讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%8F%92%E5%85%A5%E4%B8%8E%E6%9B%B4%E6%96%B0%E5%88%A0%E9%99%A4-%E7%AC%AC%E5%9B%9B%E8%AE%B2/">MYSQL插入与更新删除(第四讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%A3%80%E7%B4%A21-%E7%AC%AC%E4%BA%8C%E8%AE%B2/">MYSQL检索1(第二讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%B4%A2%E5%BC%95-%E7%AC%AC%E5%8D%81%E5%85%AD%E8%AE%B2/">MYSQL索引(第十六讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E8%A1%A8%E7%BB%93%E6%9E%84%E6%93%8D%E4%BD%9C-%E7%AC%AC%E4%B8%83%E8%AE%B2/">MYSQL表结构操作(第七讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E9%94%81%E7%AD%89%E5%BE%85%E4%B8%8E%E6%AD%BB%E9%94%81-%E7%AC%AC%E5%8D%81%E4%B8%89%E8%AE%B2/">MYSQL锁等待与死锁(第十三讲)</a>
+                </span>
+            </li>
+            
+        </ul>
+    </div>
+</aside>
+    
+    
+    <aside id="gal-sets">
+        <div class="panel panel-gal hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+            <ul class="nav nav-pills pills-gal">
+
+                
+                <li>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%B8%B8%E6%A0%87%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8-%E7%AC%AC%E5%8D%81%E8%AE%B2/index.html#sidebar-tags" data-toggle="tab" id="tags-tab">热门标签</a>
+                </li>
+                
+                
+                <li>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%B8%B8%E6%A0%87%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8-%E7%AC%AC%E5%8D%81%E8%AE%B2/index.html#sidebar-friend-links" data-toggle="tab" id="friend-links-tab">友情链接</a>
+                </li>
+                
+                
+                <li>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%B8%B8%E6%A0%87%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8-%E7%AC%AC%E5%8D%81%E8%AE%B2/index.html#sidebar-links" data-toggle="tab" id="links-tab">个人链接</a>
+                </li>
+                
+            </ul>
+            <div class="tab-content">
+                
+                <div class="cloud-tags tab-pane nav bs-sidenav fade" id="sidebar-tags">
+    
+    <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 14.839583364886527px;" class="tag-cloud-link">分享</a>
+    
+    <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" style="font-size: 9.554506218076884px;" class="tag-cloud-link">高效工具</a>
+    
+    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 19.87305976334096px;" class="tag-cloud-link">数据库</a>
+    
+</div>
+                
+                
+                <div class="friend-links tab-pane nav bs-sidenav fade" id="sidebar-friend-links">
+    
+    <li>
+        <a href="https://qssily.com/netdisc-search/" target="_blank">有趣导航</a>
+    </li>
+    
+</div>
+                
+                
+                <div class="links tab-pane nav bs-sidenav fade" id="sidebar-links">
+    
+    <li>
+        <a href="https://github.com/zszxz" target="_blank">Github</a>
+    </li>
+    
+    <li>
+        <a href="https://www.cnblogs.com/zszxz/" target="_blank">博客园</a>
+    </li>
+    
+    <li>
+        <a href="https://juejin.im/user/2506542244436135" target="_blank">掘金</a>
+    </li>
+    
+    <li>
+        <a href="https://www.zhihu.com/people/yin-fu-63-30" target="_blank">知乎</a>
+    </li>
+    
+</div>
+                
+            </div>
+        </div>
+    </aside>
+    
+</aside>
+            </div>
+        </div>
+    </div>
+    <footer id="gal-footer">
+    <div class="container">
+        Copyright © 2018 lsc Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
+    </div>
+</footer>
+
+<!-- 回到顶端 -->
+<div id="gal-gotop">
+    <i class="fa fa-angle-up"></i>
+</div>
+</body>
+
+<script src="/js/activate-power-mode.js"></script>
+
+<script>
+
+    // 配置highslide
+	hs.graphicsDir = '/js/highslide/graphics/'
+    hs.outlineType = "rounded-white";
+    hs.dimmingOpacity = 0.8;
+    hs.outlineWhileAnimating = true;
+    hs.showCredits = false;
+    hs.captionEval = "this.thumb.alt";
+    hs.numberPosition = "caption";
+    hs.align = "center";
+    hs.transitions = ["expand", "crossfade"];
+    hs.lang.number = '共%2张图, 当前是第%1张';
+    hs.addSlideshow({
+      interval: 5000,
+      repeat: true,
+      useControls: true,
+      fixedControls: "fit",
+      overlayOptions: {
+        opacity: 0.75,
+        position: "bottom center",
+        hideOnMouseOut: true
+      }
+    })
+
+    // 初始化aos
+    AOS.init({
+      duration: 1000,
+      delay: 0,
+      easing: 'ease-out-back'
+    });
+
+</script>
+<script>
+	POWERMODE.colorful = 'true';    // make power mode colorful
+	POWERMODE.shake = 'true';       // turn off shake
+	// TODO 这里根据具体情况修改
+	document.body.addEventListener('input', POWERMODE);
+</script>
+<script>
+    window.slideConfig = {
+      prefix: '/imgs/slide/background',
+      ext: 'jpg',
+      maxCount: '10'
+    }
+</script>
+
+<script src="/js/hs.js"></script>
+<script src="/js/blog.js"></script>
+
+
+
+
+</html>

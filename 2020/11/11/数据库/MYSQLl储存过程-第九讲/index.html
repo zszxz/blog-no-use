@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="lsc">
+    
+    
+    
+    
+    
+    
+    <title>MYSQLl储存过程(第九讲) | 知识追寻者个人博客</title>
+    <link href="https://zszxz.github.io" rel="prefetch" />
+
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/aos.css">
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/js/jquery.min.js"></script>
+
+    
+<script src="/js/bootstrap.min.js"></script>
+
+    
+<script src="/js/aos.js"></script>
+
+    
+<script src="/js/highslide/highslide-full.min.js"></script>
+
+    
+<link rel="stylesheet" href="/js/highslide/highslide.css">
+
+    <style type="text/css">
+        @media (max-width: 768px) {
+            body {
+                background-color: #f0f0f0;
+                background: url('/imgs/xsbg.gif');
+                background-attachment: fixed;
+            }
+        }
+    </style>
+    
+    <!--<script type="text/javascript">
+      if (document.images) {
+        var avatar = new Image();
+        avatar.src = '/imgs/https:/gitee.com/lsc180/images/raw/master/img/main.png'
+        var previews = 'preview1.jpg,preview2.jpg,preview3.jpg,preview4.jpg,preview5.jpg,preview6.jpg,preview7.jpg,preview8.jpg,preview9.jpg,preview10.jpg,preview11.jpg,preview12.jpg,preview13.jpg,preview14.jpg,preview15.jpg,preview16.jpg,preview17.jpg,preview18.jpg,preview19.jpg'.split(',')
+        var previewsPreLoad = []
+        for(var i = 0; i < length; i++) {
+          previewsPreLoad.push(new Image())
+          previewsPreLoad[previewsPreLoad.length - 1].src = '/imgs/preview' + previews[i]
+        }
+      }
+    </script>-->
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body>
+    <!-- 背景轮播图功能 -->
+    <section class="hidden-xs">
+    
+	<!-- 
+<ul class="cb-slideshow">
+        <li><span>天若</span></li>
+        <li><span>有情</span></li>
+        <li><span>天亦老</span></li>
+        <li><span>我为</span></li>
+        <li><span>长者</span></li>
+        <li><span>续一秒</span></li>
+    </ul>
+
+	-->
+</section>
+    <!-- 欧尼酱功能, 谁用谁知道 -->
+    
+    <header class="navbar navbar-inverse" id="gal-header">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target=".bs-navbar-collapse"
+                    aria-expanded="false">
+                <span class="fa fa-lg fa-reorder"></span>
+            </button>
+            <a href="https://zszxz.github.io">
+                
+                <style>
+                    #gal-header .navbar-brand {
+                        height: 54px;
+                        line-height: 24px;
+                        font-size: 28px;
+                        opacity: 1;
+                        background-color: rgba(0,0,0,0);
+                        <!-- text-shadow: 0 0 5px #fff,0 0 10px #fff,0 0 15px #fff,0 0 20px #228DFF,0 0 35px #228DFF,0 0 40px #228DFF,0 0 50px #228DFF,0 0 75px #228DFF; -->
+                    }
+                </style>
+                <!-- 这里使用文字(navbar_text or config.title) -->
+                <div class="navbar-brand">知识追寻者个人博客</div>
+                
+            </a>
+        </div>
+        <div class="collapse navbar-collapse bs-navbar-collapse">
+            <ul class="nav navbar-nav" id="menu-gal">
+                
+                
+                <li class="">
+                    <a href="/">
+                        <i class="fa fa-home"></i>首页
+                    </a>
+                </li>
+                
+                
+                
+                <li class="">
+                    <a href="/archives">
+                        <i class="fa fa-archive"></i>归档
+                    </a>
+                </li>
+                
+                
+                
+                
+                <li class="dropdown">
+                    <!-- TODO 添加hover dropdown效果 -->
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false" data-hover="dropdown">
+                        <i class="fa fa-list"></i>分类
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li>
+                            <a href="/categories/%E5%88%86%E4%BA%AB/">分享</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/">高效工具</a>
+                        </li>
+                        
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+                
+                
+                <li class="dropdown">
+                    <!-- TODO 添加hover dropdown效果 -->
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false" data-hover="dropdown">
+                        <i class="fa fa-tags"></i>标签
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li>
+                            <a href="/tags/%E5%88%86%E4%BA%AB/">分享</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/">高效工具</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                        </li>
+                        
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+                
+                <li class="">
+                    <a href="/about">
+                        <i class="fa fa-user"></i>关于我
+                    </a>
+                </li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</header>
+    <div id="gal-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 gal-right" id="mainstay">
+                    
+<article class="article well article-body" id="article">
+    <div class="breadcrumb">
+        <i class="fa fa-home"></i>
+        <a href="https://zszxz.github.io">知识追寻者个人博客</a>
+        >
+        <span>MYSQLl储存过程(第九讲)</span>
+    </div>
+    <!-- 大型设备详细文章 -->
+    <div class="hidden-xs">
+        <div class="title-article">
+            <h1>
+                <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E5%82%A8%E5%AD%98%E8%BF%87%E7%A8%8B-%E7%AC%AC%E4%B9%9D%E8%AE%B2/">MYSQLl储存过程(第九讲)</a>
+            </h1>
+        </div>
+        <div class="tag-article">
+            
+            <span class="label label-gal">
+                <i class="fa fa-tags"></i>
+                
+                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                
+            </span>
+            
+            <span class="label label-gal">
+                <i class="fa fa-calendar"></i> 2020-11-11
+            </span>
+            
+        </div>
+    </div>
+    <!-- 小型设备详细文章 -->
+    <div class="visible-xs">
+        <center>
+            <div class="title-article">
+                <h4>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E5%82%A8%E5%AD%98%E8%BF%87%E7%A8%8B-%E7%AC%AC%E4%B9%9D%E8%AE%B2/">MYSQLl储存过程(第九讲)</a>
+                </h4>
+            </div>
+            <p>
+                <i class="fa fa-calendar"></i> 2020-11-11
+            </p>
+            <p>
+                
+                <i class="fa fa-tags"></i>
+                
+                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                
+                
+                
+            </p>
+        </center>
+    </div>
+    <div class="content-article">
+        <h1 id="一-前言"><a href="#一-前言" class="headerlink" title="一 前言"></a>一 前言</h1><p>本篇内容是关于mysql储存过程的知识，学习本篇的基础是知识追寻者之前发过的文章（公众号读者看专辑）</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/102964957">《SQL-你真的了解什么SQL么？》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/102979381">《SQL-小白最佳入门sql查询一》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/103112780">《SQL-小白最佳入门sql查询二》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/103300277">《SQL- 多年开发人员都不懂的插入与更新删除操作注意点》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/106723045">《SQL-SQL事物操作》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/106733296">《SQL-Mysql数据类型》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/106844479">《SQL-mysql视图的前世今生》</a></p>
+<p>公众号：<strong>知识追寻者</strong></p>
+<blockquote>
+<p>知识追寻者(Inheriting the spirit of open source, Spreading technology knowledge;)   </p>
+</blockquote>
+<h1 id="二-储存过程"><a href="#二-储存过程" class="headerlink" title="二 储存过程"></a>二 储存过程</h1><h2 id="2-1-储存过程的概念"><a href="#2-1-储存过程的概念" class="headerlink" title="2.1 储存过程的概念"></a>2.1 储存过程的概念</h2><p>我们经常使用的SQL查询语句都是单条语句，如果要使用多条语句达到一个目的就显得力不从心了，储存过程就是使用多条语句完成业务的操作，你可以理解为linux脚本编程类似，window的批处理文件那样；简单的定义储存过程就是多条SQL的集合；</p>
+<p>我们使用储存过程能够简化复杂的单条SQL，相比于单条复杂的SQL极大提高了性能；如果表结构发生变化只需要改变储存过程使用到SQL语句的表名，如果业务逻辑发生变化，只需要跳转储存过程即可，具有很强的灵活性；建立一次储存过程，即可使用，不用反复建立，保证开发人员使用到都是相同的储存过程，保证数据可靠性；总之使用储存过程，简单，灵活，安全可靠，性能好；</p>
+<h2 id="2-2-存储过程语法"><a href="#2-2-存储过程语法" class="headerlink" title="2.2 存储过程语法"></a>2.2 存储过程语法</h2><ul>
+<li>创建存储过程</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Create</span> <span class="keyword">PROCEDURE</span> 储存过程名称 （参数列表）</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">	过程体</span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+<ul>
+<li>参数列表</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">IN 表示输入; 示例 IN var1 Decimal(6,2)</span><br><span class="line"></span><br><span class="line">OUT 表示输出;示例 IN var2 Decimal(6,2)</span><br><span class="line"></span><br><span class="line">INOUT 表示输入输出；示例 IN var3 Decimal(6,2)</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>变量</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> 变量名称 变量类型 [<span class="keyword">default</span> <span class="keyword">value</span>]</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>执行存储过程</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">call</span> 储存过程名称</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>删除储存过程</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">PROCEDURE</span> 储存过程名称</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>赋值</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">使用 <span class="keyword">set</span> 和 <span class="keyword">select</span> <span class="keyword">into</span> 语句为变量赋值。</span><br><span class="line"><span class="keyword">set</span> @<span class="keyword">var</span> := <span class="number">20</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">sum</span>(price) <span class="keyword">into</span> total <span class="keyword">from</span> table_name</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>if 语句</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">f 条件 then</span><br><span class="line">    表达式   </span><br><span class="line">[elseif 条件 then</span><br><span class="line">    表达式]</span><br><span class="line">...</span><br><span class="line">[else</span><br><span class="line">    表达式]</span><br><span class="line"><span class="keyword">end</span> <span class="keyword">if</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>case语句</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CASE 值 WHEN 匹配值 THEN 结果</span><br><span class="line">[WHEN 匹配值 THEN 结果]</span><br><span class="line">......</span><br><span class="line">[ELSE 结果]</span><br><span class="line">END</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>while语句</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[开始标签:]while 条件 <span class="keyword">do</span></span><br><span class="line">    循环体</span><br><span class="line">[结尾标签]    </span><br><span class="line"><span class="keyword">end</span> <span class="keyword">while</span> ;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>loop 语句</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[开始标签:] loop  </span><br><span class="line">	语句体</span><br><span class="line">[结尾标签]  </span><br><span class="line">end loop;  </span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>iterate/ leave语句</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">其是通过标签可以实现；iterate 表示迭代， leave表示离开</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>repeat语句</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">repeat</span><br><span class="line"><span class="comment">--循环体</span></span><br><span class="line">until 循环条件  </span><br><span class="line"><span class="keyword">end</span> <span class="keyword">repeat</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>tip : 如果你是用命令行学习，在写多行SQL的时候 使用 // 可以实现换行哟！</p>
+</blockquote>
+<h2 id="2-3-储存过程示例"><a href="#2-3-储存过程示例" class="headerlink" title="2.3 储存过程示例"></a>2.3 储存过程示例</h2><p>我们准备表如下，一个订单明细表；</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`oder_detail`</span> (</span><br><span class="line">  <span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT <span class="keyword">COMMENT</span> <span class="string">&#x27;主键&#x27;</span>,</span><br><span class="line">  <span class="string">`detail_name`</span> <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">&#x27;订单明细&#x27;</span>,</span><br><span class="line">  <span class="string">`price`</span> <span class="built_in">decimal</span>(<span class="number">10</span>,<span class="number">2</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">&#x27;价格&#x27;</span>,</span><br><span class="line">  <span class="string">`oid`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">&#x27;订单id&#x27;</span>,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> AUTO_INCREMENT=<span class="number">3</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8 <span class="keyword">COMMENT</span>=<span class="string">&#x27;订单明细表&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>准备数据如下</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`zszxz`</span>.<span class="string">`oder_detail`</span>(<span class="string">`id`</span>, <span class="string">`detail_name`</span>, <span class="string">`price`</span>, <span class="string">`oid`</span>) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="string">&#x27;毛巾&#x27;</span>, <span class="number">20.00</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`zszxz`</span>.<span class="string">`oder_detail`</span>(<span class="string">`id`</span>, <span class="string">`detail_name`</span>, <span class="string">`price`</span>, <span class="string">`oid`</span>) <span class="keyword">VALUES</span> (<span class="number">2</span>, <span class="string">&#x27;牙膏&#x27;</span>, <span class="number">15.00</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`zszxz`</span>.<span class="string">`oder_detail`</span>(<span class="string">`id`</span>, <span class="string">`detail_name`</span>, <span class="string">`price`</span>, <span class="string">`oid`</span>) <span class="keyword">VALUES</span> (<span class="number">3</span>, <span class="string">&#x27;杯子&#x27;</span>, <span class="number">5.00</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`zszxz`</span>.<span class="string">`oder_detail`</span>(<span class="string">`id`</span>, <span class="string">`detail_name`</span>, <span class="string">`price`</span>, <span class="string">`oid`</span>) <span class="keyword">VALUES</span> (<span class="number">4</span>, <span class="string">&#x27;毛巾&#x27;</span>, <span class="number">15.00</span>, <span class="number">2</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`zszxz`</span>.<span class="string">`oder_detail`</span>(<span class="string">`id`</span>, <span class="string">`detail_name`</span>, <span class="string">`price`</span>, <span class="string">`oid`</span>) <span class="keyword">VALUES</span> (<span class="number">5</span>, <span class="string">&#x27;杯子&#x27;</span>, <span class="number">15.00</span>, <span class="number">2</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>无参储存过程</strong></p>
+<p>查看订单明细的所有订单名称,示例如下，跟普通的查询语句没区别；</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">procedure</span> slelect_detail()</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">	<span class="keyword">select</span> detail_name <span class="keyword">from</span> oder_detail;</span><br><span class="line"><span class="keyword">end</span>;	</span><br></pre></td></tr></table></figure>
+
+<p>我们再调用储存过程</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">call</span> slelect_detail();</span><br></pre></td></tr></table></figure>
+
+<p>此时就会打印内容如下</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">毛巾</span><br><span class="line">牙膏</span><br><span class="line">杯子</span><br><span class="line">毛巾</span><br><span class="line">杯子</span><br></pre></td></tr></table></figure>
+
+<p>删除储存过程</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">procedure</span> slelect_detail;</span><br></pre></td></tr></table></figure>
+
+<p><strong>带入参储存过程示例</strong></p>
+<p>现在我们需要查询oid为动态的所有订单明细名称，由于考虑到oid为动态，就是需要用户自己输入，故将oid作为入参;</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">procedure</span> slelect_detail(<span class="keyword">IN</span> order_id <span class="built_in">INT</span>)</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">	<span class="keyword">select</span> detail_name <span class="keyword">from</span> oder_detail <span class="keyword">where</span> <span class="keyword">oid</span> = order_id;</span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
+
+<p>调用储存过程，只查询oid为1的用户的订单明细名称</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">call slelect_detail(1);</span><br></pre></td></tr></table></figure>
+
+<p>打印内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">毛巾</span><br><span class="line">牙膏</span><br><span class="line">杯子</span><br></pre></td></tr></table></figure>
+
+<p>删除储存过程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop procedure slelect_detail;</span><br></pre></td></tr></table></figure>
+
+<p><strong>带入参和出参的存储过程示例</strong></p>
+<p>查询任意用户的订单明细的所有金额；定义入参订单id 为 order_id ， 输出总金额为 total；</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">procedure</span> slelect_toatal_money(<span class="keyword">IN</span> order_id <span class="built_in">INT</span>, <span class="keyword">OUT</span> total <span class="built_in">DECIMAL</span>(<span class="number">8</span>,<span class="number">2</span>))</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">	<span class="keyword">select</span> <span class="keyword">sum</span>(price) <span class="keyword">into</span> total <span class="keyword">from</span> oder_detail <span class="keyword">where</span> <span class="keyword">oid</span> = order_id;</span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
+
+<p>调用储存过程示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">call slelect_toatal_money(1,@total);</span><br></pre></td></tr></table></figure>
+
+<p>查询 order_id 为1 总金额示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT @total;</span><br></pre></td></tr></table></figure>
+
+<p>输出为 40；</p>
+<p>删除储存过程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop procedure slelect_toatal_money;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-4-if-语句示例"><a href="#2-4-if-语句示例" class="headerlink" title="2.4 if 语句示例"></a>2.4 if 语句示例</h2><p>上节的储存过程都是单条SQL，这次我们开始使用控制流程，实现复杂的储存过程；</p>
+<p>知识追寻者对输入的 order_id 自动加5 ，然后判断 var 是否 小于7 ，如果是就查询订单明细价格，否则查询订单明细价格总和；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">create procedure slelect_toatal_money(IN order_id INT)</span><br><span class="line">begin</span><br><span class="line">	-- 定义变量</span><br><span class="line">	declare var  int;</span><br><span class="line">	-- 赋值</span><br><span class="line">	set var&#x3D; order_id+5;</span><br><span class="line">	-- if 判断</span><br><span class="line">	if var&lt;7 then</span><br><span class="line">		select price  from oder_detail where oid &#x3D; order_id;</span><br><span class="line">	else</span><br><span class="line">		select sum(price)  from oder_detail where oid &#x3D; order_id;</span><br><span class="line">	end if;</span><br><span class="line">end;</span><br></pre></td></tr></table></figure>
+
+<p>调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">call slelect_toatal_money(1);</span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">price</span><br><span class="line">20</span><br><span class="line">15</span><br><span class="line">5</span><br></pre></td></tr></table></figure>
+
+<p>调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">call slelect_toatal_money(2);</span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sum(price)</span><br><span class="line">30</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-6-while-语句示例"><a href="#2-6-while-语句示例" class="headerlink" title="2.6 while 语句示例"></a>2.6 while 语句示例</h2><p>对 变量 var 进行判断，如果 var &lt;7 就执行 查询价格语句，并且var 进行自增；</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">procedure</span> slelect_toatal_money(<span class="keyword">IN</span> order_id <span class="built_in">INT</span>)</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">	<span class="comment">-- 定义变量</span></span><br><span class="line">	<span class="keyword">declare</span> <span class="keyword">var</span>  <span class="built_in">int</span>;</span><br><span class="line">	<span class="comment">-- 赋值</span></span><br><span class="line">	<span class="keyword">set</span> <span class="keyword">var</span>= order_id+<span class="number">5</span>;</span><br><span class="line">	<span class="comment">-- while</span></span><br><span class="line">	while var&lt;7 do</span><br><span class="line">		<span class="keyword">select</span> price  <span class="keyword">from</span> oder_detail <span class="keyword">where</span> <span class="keyword">oid</span> = order_id;</span><br><span class="line">		<span class="keyword">set</span> <span class="keyword">var</span> = <span class="keyword">var</span> + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">end</span> <span class="keyword">while</span>;</span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
+
+<p>调用示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">call slelect_toatal_money(1);</span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">price </span><br><span class="line">20</span><br><span class="line">15</span><br><span class="line">5</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-7-case语句示例"><a href="#2-7-case语句示例" class="headerlink" title="2.7 case语句示例"></a>2.7 case语句示例</h2><p>如下语句实现的效果与上面if语句实现效果一致；</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">procedure</span> slelect_toatal_money(<span class="keyword">IN</span> order_id <span class="built_in">INT</span>)</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">	<span class="comment">-- 定义变量</span></span><br><span class="line">	<span class="keyword">declare</span> <span class="keyword">var</span>  <span class="built_in">int</span>;</span><br><span class="line">	<span class="comment">-- 赋值</span></span><br><span class="line">	<span class="keyword">set</span> <span class="keyword">var</span>:= order_id;</span><br><span class="line">	<span class="comment">-- case 判匹配</span></span><br><span class="line">	case var  </span><br><span class="line">	when 1 then </span><br><span class="line">		<span class="keyword">select</span> price  <span class="keyword">from</span> oder_detail <span class="keyword">where</span> <span class="keyword">oid</span> = order_id;</span><br><span class="line">	when 2	then</span><br><span class="line">		<span class="keyword">select</span> <span class="keyword">sum</span>(price)  <span class="keyword">from</span> oder_detail <span class="keyword">where</span> <span class="keyword">oid</span> = order_id;</span><br><span class="line">	<span class="keyword">end</span> <span class="keyword">case</span>;</span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
+
+<p>调用示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">call slelect_toatal_money(2);</span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sum(price)</span><br><span class="line">30</span><br></pre></td></tr></table></figure>
+
+<p>将参数改为1试试结果</p>
+<h2 id="2-8-loop语句"><a href="#2-8-loop语句" class="headerlink" title="2.8 loop语句"></a>2.8 loop语句</h2><p>如果 var 小于3 就 计算 价格 + var 的值；</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">procedure</span> slelect_toatal_money(<span class="keyword">IN</span> order_id <span class="built_in">INT</span>)</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">	<span class="comment">-- 定义变量</span></span><br><span class="line">	<span class="keyword">declare</span> <span class="keyword">var</span>  <span class="built_in">int</span>;</span><br><span class="line">	<span class="comment">-- 赋值</span></span><br><span class="line">	<span class="keyword">set</span> <span class="keyword">var</span>:= order_id;</span><br><span class="line">	<span class="comment">-- loop</span></span><br><span class="line">	select_loop :  loop</span><br><span class="line">		<span class="keyword">select</span> price+<span class="keyword">var</span>  <span class="keyword">from</span> oder_detail <span class="keyword">where</span> <span class="keyword">oid</span> = order_id;</span><br><span class="line">		<span class="keyword">set</span> <span class="keyword">var</span> = <span class="keyword">var</span> +<span class="number">1</span>;</span><br><span class="line">		<span class="comment">-- 跳出循环</span></span><br><span class="line">		if var &gt; 3 then</span><br><span class="line">			leave select_loop;</span><br><span class="line">		<span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line">	<span class="keyword">end</span> <span class="keyword">loop</span>;</span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
+
+<p>调用示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">call slelect_toatal_money(1);</span><br></pre></td></tr></table></figure>
+
+<p>会输出三组结果</p>
+<h2 id="2-7-repeat"><a href="#2-7-repeat" class="headerlink" title="2.7 repeat"></a>2.7 repeat</h2><p>repeat 与 while 的不同之处就是 ，while 在 执行之前检查条件，其实执行之后检查条件；</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">procedure</span> slelect_toatal_money(<span class="keyword">IN</span> order_id <span class="built_in">INT</span>)</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">	<span class="comment">-- 定义变量</span></span><br><span class="line">	<span class="keyword">declare</span> <span class="keyword">var</span>  <span class="built_in">int</span>;</span><br><span class="line">	<span class="comment">-- 赋值</span></span><br><span class="line">	<span class="keyword">set</span> <span class="keyword">var</span>= order_id+<span class="number">5</span>;</span><br><span class="line">	<span class="comment">-- repeat循环</span></span><br><span class="line">	repeat</span><br><span class="line">		<span class="keyword">select</span> price  <span class="keyword">from</span> oder_detail <span class="keyword">where</span> <span class="keyword">oid</span> = order_id;</span><br><span class="line">		<span class="keyword">set</span> <span class="keyword">var</span> = <span class="keyword">var</span> + <span class="number">1</span>;</span><br><span class="line">		until var&gt;7</span><br><span class="line">	<span class="keyword">end</span> <span class="keyword">repeat</span>;</span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
+
+<p>调用示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">call slelect_toatal_money(1);</span><br></pre></td></tr></table></figure>
+
+<p>此时会输出<strong>2组</strong>相同结果；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">price</span><br><span class="line">20</span><br><span class="line">15</span><br><span class="line">5</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>tip: loop, while , repeat , iterate 都是循环，loop,while, repeat 功能几乎相同；iterate可以通过标签的形式调用 循环，与 leave 语句使用方式一样；</p>
+</blockquote>
+<p>关注知识追寻者：<br><img src="https://user-gold-cdn.xitu.io/2020/6/12/172a61ed4478394f?w=312&h=282&f=png&s=39801" alt="tLeP2D.png"></p>
+
+    </div>
+</article>
+
+
+                </div>
+                <aside class="col-md-4 gal-left" id="sidebar">
+    <!-- 此为sidebar的搜索框, 非搜索结果页面 -->
+<aside id="sidebar-search">
+    <div class="search hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <form class="form-inline clearfix" id="search-form" method="get"
+              action="/search/index.html">
+            <input type="text" name="s" class="form-control" id="searchInput" placeholder="搜索文章~" autocomplete="off">
+            <button class="btn btn-danger btn-gal" type="submit">
+                <i class="fa fa-search"></i>
+            </button>
+        </form>
+    </div>
+</aside>
+    <aside id="sidebar-author">
+    <div class="panel panel-gal" data-aos="flip-right" data-aos-duration="3000">
+        <div class="panel-heading" style="text-align: center">
+            <i class="fa fa-quote-left"></i>
+            lsc
+            <i class="fa fa-quote-right"></i>
+        </div>
+        <div class="author-panel text-center">
+            <img src="https://gitee.com/lsc180/images/raw/master/img/main.png" width="140" height="140"
+                 alt="个人头像" class="author-image">
+            <p class="author-description"></p>
+        </div>
+    </div>
+</aside>
+    
+    <aside id="sidebar-recent_comments">
+    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <div class="panel-heading">
+            <i class="fa fa-comments"></i>
+            最新评论
+            <i class="fa fa-times-circle panel-remove"></i>
+            <i class="fa fa-chevron-circle-up panel-toggle"></i>
+        </div>
+        <ul class="list-group list-group-flush"></ul>
+    </div>
+</aside>
+    
+    <!-- 要配置好leancloud才能开启此小工具 -->
+    
+    
+    <aside id="sidebar-recent_posts">
+    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <div class="panel-heading">
+            <i class="fa fa-refresh"></i>
+            近期文章
+            <i class="fa fa-times-circle panel-remove"></i>
+            <i class="fa fa-chevron-circle-up panel-toggle"></i>
+        </div>
+        <ul class="list-group list-group-flush">
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%B4%A2%E5%BC%95-%E7%AC%AC%E5%8D%81%E5%85%AD%E8%AE%B2/">MYSQL索引(第十六讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92-%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/">MYSQLl执行计划(第十五讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%93%8D%E4%BD%9Cjson-%E7%AC%AC%E5%8D%81%E5%9B%9B%E8%AE%B2/">MYSQLl操作json(第十四讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E9%94%81%E7%AD%89%E5%BE%85%E4%B8%8E%E6%AD%BB%E9%94%81-%E7%AC%AC%E5%8D%81%E4%B8%89%E8%AE%B2/">MYSQL锁等待与死锁(第十三讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%9E%B6%E6%9E%84%E5%85%A5%E9%97%A8-%E7%AC%AC%E5%8D%81%E4%BA%8C%E8%AE%B2/">MYSQLl架构入门(第十二讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86-%E7%AC%AC%E5%8D%81%E4%B8%80%E8%AE%B2/">MYSQL用户权限管理(第十一讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%B8%B8%E6%A0%87%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8-%E7%AC%AC%E5%8D%81%E8%AE%B2/">MYSQL游标与触发器(第十讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E5%82%A8%E5%AD%98%E8%BF%87%E7%A8%8B-%E7%AC%AC%E4%B9%9D%E8%AE%B2/">MYSQLl储存过程(第九讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E8%A7%86%E5%9B%BE-%E7%AC%AC%E5%85%AB%E8%AE%B2/">MYSQL视图(第八讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E8%A1%A8%E7%BB%93%E6%9E%84%E6%93%8D%E4%BD%9C-%E7%AC%AC%E4%B8%83%E8%AE%B2/">MYSQL表结构操作(第七讲)</a>
+                </span>
+            </li>
+            
+        </ul>
+    </div>
+</aside>
+    
+    
+    <aside id="sidebar-rand_posts">
+    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <div class="panel-heading">
+            <i class="fa fa-refresh"></i>
+            随机文章
+            <i class="fa fa-times-circle panel-remove"></i>
+            <i class="fa fa-chevron-circle-up panel-toggle"></i>
+        </div>
+        <ul class="list-group list-group-flush">
+            
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/%E6%8F%90%E5%8D%87%E5%B7%A5%E4%BD%9C%E6%95%88%E7%8E%87100-%E7%9A%84%E8%BD%AF%E4%BB%B6/">提升工作效率100%的软件</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/%E6%9C%80%E5%A5%BD%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7/">最好用的数据库文档生成工具</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E5%82%A8%E5%AD%98%E8%BF%87%E7%A8%8B-%E7%AC%AC%E4%B9%9D%E8%AE%B2/">MYSQLl储存过程(第九讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92-%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/">MYSQLl执行计划(第十五讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E4%BA%8B%E7%89%A9-%E7%AC%AC%E4%BA%94%E8%AE%B2/">MYSQL事物(第五讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%9E%B6%E6%9E%84%E5%85%A5%E9%97%A8-%E7%AC%AC%E5%8D%81%E4%BA%8C%E8%AE%B2/">MYSQLl架构入门(第十二讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BB%8B%E7%BB%8D-%E7%AC%AC%E4%B8%80%E8%AE%B2/">MYSQL数据库介绍(第一讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E7%AC%AC%E5%85%AD%E8%AE%B2/">MYSQL数据类型(第六讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%A3%80%E7%B4%A21-%E7%AC%AC%E4%BA%8C%E8%AE%B2/">MYSQL检索1(第二讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%A3%80%E7%B4%A22-%E7%AC%AC%E4%B8%89%E8%AE%B2/">MYSQL检索2(第三讲)</a>
+                </span>
+            </li>
+            
+        </ul>
+    </div>
+</aside>
+    
+    
+    <aside id="gal-sets">
+        <div class="panel panel-gal hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+            <ul class="nav nav-pills pills-gal">
+
+                
+                <li>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E5%82%A8%E5%AD%98%E8%BF%87%E7%A8%8B-%E7%AC%AC%E4%B9%9D%E8%AE%B2/index.html#sidebar-tags" data-toggle="tab" id="tags-tab">热门标签</a>
+                </li>
+                
+                
+                <li>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E5%82%A8%E5%AD%98%E8%BF%87%E7%A8%8B-%E7%AC%AC%E4%B9%9D%E8%AE%B2/index.html#sidebar-friend-links" data-toggle="tab" id="friend-links-tab">友情链接</a>
+                </li>
+                
+                
+                <li>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E5%82%A8%E5%AD%98%E8%BF%87%E7%A8%8B-%E7%AC%AC%E4%B9%9D%E8%AE%B2/index.html#sidebar-links" data-toggle="tab" id="links-tab">个人链接</a>
+                </li>
+                
+            </ul>
+            <div class="tab-content">
+                
+                <div class="cloud-tags tab-pane nav bs-sidenav fade" id="sidebar-tags">
+    
+    <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 8.826428657587709px;" class="tag-cloud-link">分享</a>
+    
+    <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" style="font-size: 10.119497627594512px;" class="tag-cloud-link">高效工具</a>
+    
+    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 8.522398232846658px;" class="tag-cloud-link">数据库</a>
+    
+</div>
+                
+                
+                <div class="friend-links tab-pane nav bs-sidenav fade" id="sidebar-friend-links">
+    
+    <li>
+        <a href="https://qssily.com/netdisc-search/" target="_blank">有趣导航</a>
+    </li>
+    
+</div>
+                
+                
+                <div class="links tab-pane nav bs-sidenav fade" id="sidebar-links">
+    
+    <li>
+        <a href="https://github.com/zszxz" target="_blank">Github</a>
+    </li>
+    
+    <li>
+        <a href="https://www.cnblogs.com/zszxz/" target="_blank">博客园</a>
+    </li>
+    
+    <li>
+        <a href="https://juejin.im/user/2506542244436135" target="_blank">掘金</a>
+    </li>
+    
+    <li>
+        <a href="https://www.zhihu.com/people/yin-fu-63-30" target="_blank">知乎</a>
+    </li>
+    
+</div>
+                
+            </div>
+        </div>
+    </aside>
+    
+</aside>
+            </div>
+        </div>
+    </div>
+    <footer id="gal-footer">
+    <div class="container">
+        Copyright © 2018 lsc Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
+    </div>
+</footer>
+
+<!-- 回到顶端 -->
+<div id="gal-gotop">
+    <i class="fa fa-angle-up"></i>
+</div>
+</body>
+
+<script src="/js/activate-power-mode.js"></script>
+
+<script>
+
+    // 配置highslide
+	hs.graphicsDir = '/js/highslide/graphics/'
+    hs.outlineType = "rounded-white";
+    hs.dimmingOpacity = 0.8;
+    hs.outlineWhileAnimating = true;
+    hs.showCredits = false;
+    hs.captionEval = "this.thumb.alt";
+    hs.numberPosition = "caption";
+    hs.align = "center";
+    hs.transitions = ["expand", "crossfade"];
+    hs.lang.number = '共%2张图, 当前是第%1张';
+    hs.addSlideshow({
+      interval: 5000,
+      repeat: true,
+      useControls: true,
+      fixedControls: "fit",
+      overlayOptions: {
+        opacity: 0.75,
+        position: "bottom center",
+        hideOnMouseOut: true
+      }
+    })
+
+    // 初始化aos
+    AOS.init({
+      duration: 1000,
+      delay: 0,
+      easing: 'ease-out-back'
+    });
+
+</script>
+<script>
+	POWERMODE.colorful = 'true';    // make power mode colorful
+	POWERMODE.shake = 'true';       // turn off shake
+	// TODO 这里根据具体情况修改
+	document.body.addEventListener('input', POWERMODE);
+</script>
+<script>
+    window.slideConfig = {
+      prefix: '/imgs/slide/background',
+      ext: 'jpg',
+      maxCount: '10'
+    }
+</script>
+
+<script src="/js/hs.js"></script>
+<script src="/js/blog.js"></script>
+
+
+
+
+</html>

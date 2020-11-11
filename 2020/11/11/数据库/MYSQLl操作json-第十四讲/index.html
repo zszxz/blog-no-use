@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="lsc">
+    
+    
+    
+    
+    
+    
+    <title>MYSQLl操作json(第十四讲) | 知识追寻者个人博客</title>
+    <link href="https://zszxz.github.io" rel="prefetch" />
+
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/aos.css">
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/js/jquery.min.js"></script>
+
+    
+<script src="/js/bootstrap.min.js"></script>
+
+    
+<script src="/js/aos.js"></script>
+
+    
+<script src="/js/highslide/highslide-full.min.js"></script>
+
+    
+<link rel="stylesheet" href="/js/highslide/highslide.css">
+
+    <style type="text/css">
+        @media (max-width: 768px) {
+            body {
+                background-color: #f0f0f0;
+                background: url('/imgs/xsbg.gif');
+                background-attachment: fixed;
+            }
+        }
+    </style>
+    
+    <!--<script type="text/javascript">
+      if (document.images) {
+        var avatar = new Image();
+        avatar.src = '/imgs/https:/gitee.com/lsc180/images/raw/master/img/main.png'
+        var previews = 'preview1.jpg,preview2.jpg,preview3.jpg,preview4.jpg,preview5.jpg,preview6.jpg,preview7.jpg,preview8.jpg,preview9.jpg,preview10.jpg,preview11.jpg,preview12.jpg,preview13.jpg,preview14.jpg,preview15.jpg,preview16.jpg,preview17.jpg,preview18.jpg,preview19.jpg'.split(',')
+        var previewsPreLoad = []
+        for(var i = 0; i < length; i++) {
+          previewsPreLoad.push(new Image())
+          previewsPreLoad[previewsPreLoad.length - 1].src = '/imgs/preview' + previews[i]
+        }
+      }
+    </script>-->
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body>
+    <!-- 背景轮播图功能 -->
+    <section class="hidden-xs">
+    
+	<!-- 
+<ul class="cb-slideshow">
+        <li><span>天若</span></li>
+        <li><span>有情</span></li>
+        <li><span>天亦老</span></li>
+        <li><span>我为</span></li>
+        <li><span>长者</span></li>
+        <li><span>续一秒</span></li>
+    </ul>
+
+	-->
+</section>
+    <!-- 欧尼酱功能, 谁用谁知道 -->
+    
+    <header class="navbar navbar-inverse" id="gal-header">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target=".bs-navbar-collapse"
+                    aria-expanded="false">
+                <span class="fa fa-lg fa-reorder"></span>
+            </button>
+            <a href="https://zszxz.github.io">
+                
+                <style>
+                    #gal-header .navbar-brand {
+                        height: 54px;
+                        line-height: 24px;
+                        font-size: 28px;
+                        opacity: 1;
+                        background-color: rgba(0,0,0,0);
+                        <!-- text-shadow: 0 0 5px #fff,0 0 10px #fff,0 0 15px #fff,0 0 20px #228DFF,0 0 35px #228DFF,0 0 40px #228DFF,0 0 50px #228DFF,0 0 75px #228DFF; -->
+                    }
+                </style>
+                <!-- 这里使用文字(navbar_text or config.title) -->
+                <div class="navbar-brand">知识追寻者个人博客</div>
+                
+            </a>
+        </div>
+        <div class="collapse navbar-collapse bs-navbar-collapse">
+            <ul class="nav navbar-nav" id="menu-gal">
+                
+                
+                <li class="">
+                    <a href="/">
+                        <i class="fa fa-home"></i>首页
+                    </a>
+                </li>
+                
+                
+                
+                <li class="">
+                    <a href="/archives">
+                        <i class="fa fa-archive"></i>归档
+                    </a>
+                </li>
+                
+                
+                
+                
+                <li class="dropdown">
+                    <!-- TODO 添加hover dropdown效果 -->
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false" data-hover="dropdown">
+                        <i class="fa fa-list"></i>分类
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li>
+                            <a href="/categories/%E5%88%86%E4%BA%AB/">分享</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/">高效工具</a>
+                        </li>
+                        
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+                
+                
+                <li class="dropdown">
+                    <!-- TODO 添加hover dropdown效果 -->
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false" data-hover="dropdown">
+                        <i class="fa fa-tags"></i>标签
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li>
+                            <a href="/tags/%E5%88%86%E4%BA%AB/">分享</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/">高效工具</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                        </li>
+                        
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+                
+                <li class="">
+                    <a href="/about">
+                        <i class="fa fa-user"></i>关于我
+                    </a>
+                </li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</header>
+    <div id="gal-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 gal-right" id="mainstay">
+                    
+<article class="article well article-body" id="article">
+    <div class="breadcrumb">
+        <i class="fa fa-home"></i>
+        <a href="https://zszxz.github.io">知识追寻者个人博客</a>
+        >
+        <span>MYSQLl操作json(第十四讲)</span>
+    </div>
+    <!-- 大型设备详细文章 -->
+    <div class="hidden-xs">
+        <div class="title-article">
+            <h1>
+                <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%93%8D%E4%BD%9Cjson-%E7%AC%AC%E5%8D%81%E5%9B%9B%E8%AE%B2/">MYSQLl操作json(第十四讲)</a>
+            </h1>
+        </div>
+        <div class="tag-article">
+            
+            <span class="label label-gal">
+                <i class="fa fa-tags"></i>
+                
+                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                
+            </span>
+            
+            <span class="label label-gal">
+                <i class="fa fa-calendar"></i> 2020-11-11
+            </span>
+            
+        </div>
+    </div>
+    <!-- 小型设备详细文章 -->
+    <div class="visible-xs">
+        <center>
+            <div class="title-article">
+                <h4>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%93%8D%E4%BD%9Cjson-%E7%AC%AC%E5%8D%81%E5%9B%9B%E8%AE%B2/">MYSQLl操作json(第十四讲)</a>
+                </h4>
+            </div>
+            <p>
+                <i class="fa fa-calendar"></i> 2020-11-11
+            </p>
+            <p>
+                
+                <i class="fa fa-tags"></i>
+                
+                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                
+                
+                
+            </p>
+        </center>
+    </div>
+    <div class="content-article">
+        <h1 id="一-前言"><a href="#一-前言" class="headerlink" title="一 前言"></a>一 前言</h1><p>MySQL 5.7.8 之后 支持 JSON （由rfc7159规定）数据类型，其能在字段中使用json 类型，做到了自动校验是否为json类型数据，否则插入数据会报异常；其次，储存json数据内部做到了优化储存，能够快速读取json类型数据，比如无需将二进制json转为文本形式后读取；</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/102964957">《SQL-你真的了解什么SQL么？》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/102979381">《SQL-小白最佳入门sql查询一》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/103112780">《SQL-小白最佳入门sql查询二》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/103300277">《SQL- 多年开发人员都不懂的插入与更新删除操作注意点》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/106723045">《SQL-SQL事物操作》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/106733296">《SQL-Mysql数据类型》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/106844479">《SQL-mysql视图的前世今生》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/106883757">《SQL-mysql储存过程》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/106956690">《SQL-mysql游标与触发器》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/107050063">《SQL-mysql用户权限管理》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/107146355">《SQL-mysql架构入门》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/107172931">《SQL-mysql锁等待与死锁》</a></p>
+<p>公众号：<strong>知识追寻者</strong></p>
+<blockquote>
+<p>知识追寻者(Inheriting the spirit of open source, Spreading technology knowledge;)</p>
+</blockquote>
+<h1 id="二-操作-JOSN"><a href="#二-操作-JOSN" class="headerlink" title="二 操作 JOSN"></a>二 操作 JOSN</h1><p>建表语句如下，为 area 字段 声明为 JSON 类型；</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`order`</span> (</span><br><span class="line">  <span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT <span class="keyword">COMMENT</span> <span class="string">&#x27;订单编号&#x27;</span>,</span><br><span class="line">  <span class="string">`order_name`</span> <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">&#x27;订单名称&#x27;</span>,</span><br><span class="line">  <span class="string">`create_time`</span> datetime <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">&#x27;创建时间&#x27;</span>,</span><br><span class="line">  <span class="string">`year`</span> <span class="keyword">year</span>(<span class="number">4</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">&#x27;年份&#x27;</span>,</span><br><span class="line">  <span class="string">`area`</span> <span class="keyword">json</span> <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">&#x27;地区&#x27;</span>,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>),</span><br><span class="line">  <span class="keyword">UNIQUE</span> <span class="keyword">KEY</span> <span class="string">`order_name`</span> (<span class="string">`order_name`</span>,<span class="string">`create_time`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> AUTO_INCREMENT=<span class="number">9</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8;</span><br></pre></td></tr></table></figure>
+
+<p>MySQL 中支持 json 对象 和json 数组，他们之间可以相互嵌套；json类似map，在java中json就是map得实现类，初学者若不懂何为json，就当作map来用，即储存 key - value 形式得数据结构；<strong>注意点是 json 数据 得key 必须是字符串，可以有key无value</strong>；</p>
+<h2 id="2-1-插入-josn数据"><a href="#2-1-插入-josn数据" class="headerlink" title="2.1 插入 josn数据"></a>2.1 插入 josn数据</h2><p>插入 json 对象，east 得值 为 50 ， sourth 值为65 得 json对象；</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`order`</span>(<span class="string">`order_name`</span>, <span class="string">`year`</span>, <span class="string">`area`</span>) </span><br><span class="line"><span class="keyword">VALUES</span> (<span class="string">&#x27;荷小花的订单&#x27;</span>, <span class="number">2020</span>, <span class="string">&#x27;&#123;&quot;east&quot;: &quot;50&quot;, &quot;south&quot;: &quot;65&quot;&#125;&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>等效于使用 <code>JSON_OBJECT</code> 函数， 示例如下</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`order`</span>(<span class="string">`order_name`</span>, <span class="string">`year`</span>, <span class="string">`area`</span>) </span><br><span class="line"><span class="keyword">VALUES</span> (<span class="string">&#x27;荷小花的订单&#x27;</span>, <span class="number">2020</span>, JSON_OBJECT(<span class="string">&quot;east&quot;</span>, <span class="string">&quot;50&quot;</span>, <span class="string">&quot;south&quot;</span>, <span class="string">&quot;65&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<p>插入 json 数组</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`order`</span>(<span class="string">`order_name`</span>, <span class="string">`year`</span>, <span class="string">`area`</span>) </span><br><span class="line"><span class="keyword">VALUES</span> (<span class="string">&#x27;荷小花的订单&#x27;</span>, <span class="number">2020</span>, <span class="string">&#x27;[&#123;&quot;east&quot;: &quot;50&quot;, &quot;south&quot;: &quot;65&quot;&#125;]&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>等效于使用 <code>JSON_ARRAY</code> 函数，示例如下</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`order`</span>(<span class="string">`order_name`</span>, <span class="string">`year`</span>, <span class="string">`area`</span>) </span><br><span class="line"><span class="keyword">VALUES</span> (<span class="string">&#x27;荷小花的订单&#x27;</span>, <span class="number">2020</span>, JSON_ARRAY(<span class="string">&quot;east&quot;</span>, <span class="string">&quot;50&quot;</span>, <span class="string">&quot;south&quot;</span>, <span class="string">&quot;65&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2-查询json数据"><a href="#2-2-查询json数据" class="headerlink" title="2.2 查询json数据"></a>2.2 查询json数据</h2><p>使用 column - path 路径符 <code>-&gt;</code> 查询 指定key 得值，</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> order_name, area -&gt; <span class="string">&#x27;$.east&#x27;</span> <span class="keyword">from</span> <span class="string">`order`</span></span><br></pre></td></tr></table></figure>
+
+<p>注意，如果json 数据中不存在 east 得键，则列出为null值</p>
+<p>输出如下</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">---------   ------</span></span><br><span class="line">荷小花的订单	&quot;50&quot;</span><br><span class="line">荷小花的订单	</span><br></pre></td></tr></table></figure>
+
+<p>也可以使用 -&gt;&gt; 符号, 不同之处是使用 <code>-&gt;&gt;</code> 更加直观，输出得json数据最外层不会携带双引号，内层数据中存在双引号不会有反斜杠转义；</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> order_name, area -&gt;&gt; <span class="string">&#x27;$.east&#x27;</span> <span class="keyword">from</span> <span class="string">`order`</span></span><br></pre></td></tr></table></figure>
+
+<p>使用 单引号 代替 双引号</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> order_name, area -&gt;&gt; <span class="string">&quot;$.east&quot;</span> <span class="keyword">from</span> <span class="string">`order`</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>我们 也可以使用 <code>JSON_EXTRACT</code> 函数 达到同样得效果； </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> order_name,JSON_EXTRACT(area, <span class="string">&#x27;$.east&#x27;</span>) <span class="keyword">from</span> <span class="string">`order`</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-3-修改json数据"><a href="#2-3-修改json数据" class="headerlink" title="2.3 修改json数据"></a>2.3 修改json数据</h2><p>使用 <code>JSON_SET</code> 设置 json key 得 值</p>
+<p>id = 1 得 area 数据如下</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;north&quot;: &quot;55&quot;, &quot;south&quot;: &quot;66&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在将south 值改为 60 的语句示例如下</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> <span class="string">`order`</span> <span class="keyword">set</span> area = json_set(area, <span class="string">&#x27;$[0].south&#x27;</span>, <span class="string">&#x27;60&#x27;</span>) <span class="keyword">where</span> <span class="keyword">id</span> = <span class="string">&#x27;1&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>其中 $[0] 代表 json 中的第一个对象 ,以此类推 $[1] 为 josn 中的第二个对象；</p>
+<p>示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&quot;6&quot;,&quot;2&quot;,&#123;&quot;east&quot;: &quot;50&quot;, &quot;south&quot;: &quot;65&quot;&#125;]</span><br></pre></td></tr></table></figure>
+
+<p>$[0] 为”6”，$[1] 为 “2” , $[2] 为 {“east”: “50”, “south”: “65”}; $[2].east 为 “50” , 或者 <code>$[2][1]</code>;</p>
+<p>如果上面$[*] 表达式式理解困难也可以使用如下方式</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> <span class="string">`order`</span> <span class="keyword">set</span> area = json_set(area, <span class="string">&#x27;$.south&#x27;</span>, <span class="string">&#x27;60&#x27;</span>) <span class="keyword">where</span> <span class="keyword">id</span> = <span class="string">&#x27;1&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>tip: 如果更改整个json值 与 平时的更新数据方式一致</p>
+</blockquote>
+<h2 id="2-4-删除json中的数据"><a href="#2-4-删除json中的数据" class="headerlink" title="2.4 删除json中的数据"></a>2.4 删除json中的数据</h2><p>使用 json_remove 可以达到效果；</p>
+<p>示例: 删除json 中的 south 键</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> <span class="string">`order`</span> <span class="keyword">set</span> area =json_remove(area, <span class="string">&#x27;$.south&#x27;</span>) <span class="keyword">where</span> <span class="keyword">id</span> = <span class="string">&#x27;1&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="三-jsom函数"><a href="#三-jsom函数" class="headerlink" title="三 jsom函数"></a>三 jsom函数</h1><h2 id="3-1-cast"><a href="#3-1-cast" class="headerlink" title="3.1 cast"></a>3.1 cast</h2><p>cast 函数 是特殊函数，可以使用 <code>CAST(expr AS type)</code> 函数进行数据类型得转换，此函数 与 convert 用法 类似 ，即 期望得表达式转为期望得类型；</p>
+<p>比如 将 字符串 <code>知识追寻者</code>从默认类型转为utf8类型</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">CONVERT</span>(<span class="string">&#x27;知识追寻者&#x27;</span> <span class="keyword">USING</span> utf8);</span><br></pre></td></tr></table></figure>
+
+<p>如下情况下查询是字符串，非json数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="string">&#x27;&#123;&quot;east&quot;: &quot;50&quot;, &quot;south&quot;: &quot;65&quot;&#125;&#x27;</span> <span class="keyword">as</span> <span class="keyword">str</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>再来看看 cast 函数使用，将字符串转为json 类型</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">cast</span>( <span class="string">&#x27;&#123;&quot;east&quot;: &quot;50&quot;, &quot;south&quot;: &quot;65&quot;&#125;&#x27;</span> <span class="keyword">as</span> <span class="keyword">json</span> )</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-2-JSON-TYPE"><a href="#3-2-JSON-TYPE" class="headerlink" title="3.2 JSON_TYPE"></a>3.2 JSON_TYPE</h2><p>JSON_TYPE 函数 会尝试 去解析 参数为json值，</p>
+<p>示例</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> JSON_TYPE(<span class="string">&#x27;&#123;&quot;east&quot;: &quot;50&quot;, &quot;south&quot;: &quot;65&quot;&#125;&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>得到结果为json 对象</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OBJECT</span><br></pre></td></tr></table></figure>
+
+<p>示例 </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> JSON_TYPE(<span class="string">&#x27;[&#123;&quot;east&quot;: &quot;50&quot;, &quot;south&quot;: &quot;65&quot;&#125;]&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>得到结果为json数组</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ARRAY</span><br></pre></td></tr></table></figure>
+
+<p>示例</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> JSON_TYPE(<span class="string">&#x27;hello&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>输出为异常，无效得json</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Invalid JSON text in argument 1 to function json_type: &quot;Invalid value.&quot; at position 0.</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-3-JSON-MERGE"><a href="#3-3-JSON-MERGE" class="headerlink" title="3.3 JSON_MERGE"></a>3.3 JSON_MERGE</h2><p>JSON_MERGE 函数 即 将合并多个json文档； 合并规则如下</p>
+<ul>
+<li>如果都是json array，合并为json array；</li>
+<li>如果都是json object，合并为json object；</li>
+<li>如果有多种类型数据，则将非json array的元素封装成json array再按照如上规则进行合并；</li>
+</ul>
+<p>示例</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> json_merge(<span class="string">&#x27;[&quot;west&quot;,&quot;20&quot;]&#x27;</span>, <span class="string">&#x27;&#123;&quot;east&quot;: &quot;50&quot;, &quot;south&quot;: &quot;65&quot;&#125;&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&quot;west&quot;, &quot;20&quot;, &#123;&quot;east&quot;: &quot;50&quot;, &quot;south&quot;: &quot;65&quot;&#125;]</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-4-JSON-VALID"><a href="#3-4-JSON-VALID" class="headerlink" title="3.4  JSON_VALID"></a>3.4  JSON_VALID</h2><p>JSON_VALID 函数 为 校验是否是json 函数，是返回 1 ，否则 返回0；</p>
+<p>示例如下，返回1；</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> JSON_VALID(<span class="string">&#x27;&#123;&quot;east&quot;: &quot;50&quot;, &quot;south&quot;: &quot;65&quot;&#125;&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>示例如下，返回 0；</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> JSON_VALID(<span class="string">&#x27;hello&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-5-JSON-INSERT"><a href="#3-5-JSON-INSERT" class="headerlink" title="3.5 JSON_INSERT"></a>3.5 JSON_INSERT</h2><p>JSON_INSERT 函数 向 json 中添加新的值，不会改变已经存在的值；</p>
+<p>id = 1 的数据如下</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;north&quot;: &quot;55&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>更新语句如下</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> <span class="string">`order`</span> <span class="keyword">set</span> area =JSON_INSERT(area, <span class="string">&#x27;$.north&#x27;</span>, <span class="number">55</span> ,<span class="string">&#x27;$.south&#x27;</span>, <span class="string">&quot;60&quot;</span>) <span class="keyword">where</span> <span class="keyword">id</span> = <span class="string">&#x27;1&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>更改结果如下</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;north&quot;: &quot;55&quot;, &quot;south&quot;: &quot;60&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-6-JSON-REPLACE"><a href="#3-6-JSON-REPLACE" class="headerlink" title="3.6 JSON_REPLACE"></a>3.6 JSON_REPLACE</h2><p>JSON_REPLACE 替换现有的值，如果存在新的值不会添加；</p>
+<p>id = 1 的数据如下</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;north&quot;: &quot;55&quot;, &quot;south&quot;: &quot;60&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>更新语句如下</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> <span class="string">`order`</span> <span class="keyword">set</span> area =JSON_REPLACE (area, <span class="string">&#x27;$.north&#x27;</span>, <span class="string">&quot;50&quot;</span> ,<span class="string">&#x27;$.east&#x27;</span>, <span class="string">&quot;60&quot;</span>)</span><br><span class="line"><span class="keyword">where</span> <span class="keyword">id</span> = <span class="string">&#x27;1&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>更改结果如下</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;north&quot;: &quot;50&quot;, &quot;south&quot;: &quot;60&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-7-JSON-SEARCH"><a href="#3-7-JSON-SEARCH" class="headerlink" title="3.7 JSON_SEARCH"></a>3.7 JSON_SEARCH</h2><p>JSON_SEARCH ， 返回路径，支持返回单个和返回多个；</p>
+<p>id = 1 的数据如下</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123;&quot;north&quot;: &quot;50&quot;, &quot;south&quot;: &quot;60&quot;&#125;, &#123;&quot;north&quot;: &quot;50&quot;, &quot;south&quot;: &quot;70&quot;&#125;]</span><br></pre></td></tr></table></figure>
+
+<p>查询 一个值为 50 的key路径</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> JSON_SEARCH(area, <span class="string">&#x27;one&#x27;</span>, <span class="string">&#x27;50&#x27;</span>)  <span class="keyword">from</span> <span class="string">`order`</span>  <span class="keyword">where</span> <span class="keyword">id</span> = <span class="string">&#x27;1&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;$[0].north&quot;</span><br></pre></td></tr></table></figure>
+
+<p>查询 所有值为 50 的key路径</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> JSON_SEARCH(area, <span class="string">&#x27;all&#x27;</span>, <span class="string">&#x27;50&#x27;</span>)  <span class="keyword">from</span> <span class="string">`order`</span>  <span class="keyword">where</span> <span class="keyword">id</span> = <span class="string">&#x27;1&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&quot;$[0].north&quot;, &quot;$[1].north&quot;]</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-8-JSON-KEYS"><a href="#3-8-JSON-KEYS" class="headerlink" title="3.8 JSON_KEYS"></a>3.8 JSON_KEYS</h2><p>返回json顶级值底下所有key</p>
+<p>id = 1 的数据如下</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123;&quot;north&quot;: &quot;50&quot;, &quot;south&quot;: &quot;60&quot;&#125;, &#123;&quot;north&quot;: &quot;50&quot;, &quot;south&quot;: &quot;70&quot;&#125;]</span><br></pre></td></tr></table></figure>
+
+<p>查询json数据中第一个json对象所有的key</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> JSON_KEYS(area, <span class="string">&#x27;$[0]&#x27;</span>)  <span class="keyword">from</span> <span class="string">`order`</span>  <span class="keyword">where</span> <span class="keyword">id</span> = <span class="string">&#x27;1&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&quot;north&quot;, &quot;south&quot;]</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+</article>
+
+
+                </div>
+                <aside class="col-md-4 gal-left" id="sidebar">
+    <!-- 此为sidebar的搜索框, 非搜索结果页面 -->
+<aside id="sidebar-search">
+    <div class="search hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <form class="form-inline clearfix" id="search-form" method="get"
+              action="/search/index.html">
+            <input type="text" name="s" class="form-control" id="searchInput" placeholder="搜索文章~" autocomplete="off">
+            <button class="btn btn-danger btn-gal" type="submit">
+                <i class="fa fa-search"></i>
+            </button>
+        </form>
+    </div>
+</aside>
+    <aside id="sidebar-author">
+    <div class="panel panel-gal" data-aos="flip-right" data-aos-duration="3000">
+        <div class="panel-heading" style="text-align: center">
+            <i class="fa fa-quote-left"></i>
+            lsc
+            <i class="fa fa-quote-right"></i>
+        </div>
+        <div class="author-panel text-center">
+            <img src="https://gitee.com/lsc180/images/raw/master/img/main.png" width="140" height="140"
+                 alt="个人头像" class="author-image">
+            <p class="author-description"></p>
+        </div>
+    </div>
+</aside>
+    
+    <aside id="sidebar-recent_comments">
+    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <div class="panel-heading">
+            <i class="fa fa-comments"></i>
+            最新评论
+            <i class="fa fa-times-circle panel-remove"></i>
+            <i class="fa fa-chevron-circle-up panel-toggle"></i>
+        </div>
+        <ul class="list-group list-group-flush"></ul>
+    </div>
+</aside>
+    
+    <!-- 要配置好leancloud才能开启此小工具 -->
+    
+    
+    <aside id="sidebar-recent_posts">
+    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <div class="panel-heading">
+            <i class="fa fa-refresh"></i>
+            近期文章
+            <i class="fa fa-times-circle panel-remove"></i>
+            <i class="fa fa-chevron-circle-up panel-toggle"></i>
+        </div>
+        <ul class="list-group list-group-flush">
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%B4%A2%E5%BC%95-%E7%AC%AC%E5%8D%81%E5%85%AD%E8%AE%B2/">MYSQL索引(第十六讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92-%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/">MYSQLl执行计划(第十五讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%93%8D%E4%BD%9Cjson-%E7%AC%AC%E5%8D%81%E5%9B%9B%E8%AE%B2/">MYSQLl操作json(第十四讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E9%94%81%E7%AD%89%E5%BE%85%E4%B8%8E%E6%AD%BB%E9%94%81-%E7%AC%AC%E5%8D%81%E4%B8%89%E8%AE%B2/">MYSQL锁等待与死锁(第十三讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%9E%B6%E6%9E%84%E5%85%A5%E9%97%A8-%E7%AC%AC%E5%8D%81%E4%BA%8C%E8%AE%B2/">MYSQLl架构入门(第十二讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86-%E7%AC%AC%E5%8D%81%E4%B8%80%E8%AE%B2/">MYSQL用户权限管理(第十一讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%B8%B8%E6%A0%87%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8-%E7%AC%AC%E5%8D%81%E8%AE%B2/">MYSQL游标与触发器(第十讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E5%82%A8%E5%AD%98%E8%BF%87%E7%A8%8B-%E7%AC%AC%E4%B9%9D%E8%AE%B2/">MYSQLl储存过程(第九讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E8%A7%86%E5%9B%BE-%E7%AC%AC%E5%85%AB%E8%AE%B2/">MYSQL视图(第八讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E8%A1%A8%E7%BB%93%E6%9E%84%E6%93%8D%E4%BD%9C-%E7%AC%AC%E4%B8%83%E8%AE%B2/">MYSQL表结构操作(第七讲)</a>
+                </span>
+            </li>
+            
+        </ul>
+    </div>
+</aside>
+    
+    
+    <aside id="sidebar-rand_posts">
+    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <div class="panel-heading">
+            <i class="fa fa-refresh"></i>
+            随机文章
+            <i class="fa fa-times-circle panel-remove"></i>
+            <i class="fa fa-chevron-circle-up panel-toggle"></i>
+        </div>
+        <ul class="list-group list-group-flush">
+            
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/Another-Redis-DeskTop-Manager%E4%B8%80%E6%AC%BE%E7%A8%B3%E5%AE%9A%E5%85%A8%E6%96%B0%E7%9A%84redis%E8%BF%9E%E6%8E%A5%E5%B7%A5%E5%85%B7/">Another Redis DeskTop Manager一款稳定全新的redis连接工具</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/%E6%8F%90%E5%8D%87%E5%B7%A5%E4%BD%9C%E6%95%88%E7%8E%87100-%E7%9A%84%E8%BD%AF%E4%BB%B6/">提升工作效率100%的软件</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92-%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/">MYSQLl执行计划(第十五讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%93%8D%E4%BD%9Cjson-%E7%AC%AC%E5%8D%81%E5%9B%9B%E8%AE%B2/">MYSQLl操作json(第十四讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%9E%B6%E6%9E%84%E5%85%A5%E9%97%A8-%E7%AC%AC%E5%8D%81%E4%BA%8C%E8%AE%B2/">MYSQLl架构入门(第十二讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BB%8B%E7%BB%8D-%E7%AC%AC%E4%B8%80%E8%AE%B2/">MYSQL数据库介绍(第一讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E7%AC%AC%E5%85%AD%E8%AE%B2/">MYSQL数据类型(第六讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%A3%80%E7%B4%A21-%E7%AC%AC%E4%BA%8C%E8%AE%B2/">MYSQL检索1(第二讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%B8%B8%E6%A0%87%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8-%E7%AC%AC%E5%8D%81%E8%AE%B2/">MYSQL游标与触发器(第十讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E8%A7%86%E5%9B%BE-%E7%AC%AC%E5%85%AB%E8%AE%B2/">MYSQL视图(第八讲)</a>
+                </span>
+            </li>
+            
+        </ul>
+    </div>
+</aside>
+    
+    
+    <aside id="gal-sets">
+        <div class="panel panel-gal hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+            <ul class="nav nav-pills pills-gal">
+
+                
+                <li>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%93%8D%E4%BD%9Cjson-%E7%AC%AC%E5%8D%81%E5%9B%9B%E8%AE%B2/index.html#sidebar-tags" data-toggle="tab" id="tags-tab">热门标签</a>
+                </li>
+                
+                
+                <li>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%93%8D%E4%BD%9Cjson-%E7%AC%AC%E5%8D%81%E5%9B%9B%E8%AE%B2/index.html#sidebar-friend-links" data-toggle="tab" id="friend-links-tab">友情链接</a>
+                </li>
+                
+                
+                <li>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%93%8D%E4%BD%9Cjson-%E7%AC%AC%E5%8D%81%E5%9B%9B%E8%AE%B2/index.html#sidebar-links" data-toggle="tab" id="links-tab">个人链接</a>
+                </li>
+                
+            </ul>
+            <div class="tab-content">
+                
+                <div class="cloud-tags tab-pane nav bs-sidenav fade" id="sidebar-tags">
+    
+    <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 19.542579797690824px;" class="tag-cloud-link">分享</a>
+    
+    <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" style="font-size: 10.075084814309232px;" class="tag-cloud-link">高效工具</a>
+    
+    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 18.21974797413069px;" class="tag-cloud-link">数据库</a>
+    
+</div>
+                
+                
+                <div class="friend-links tab-pane nav bs-sidenav fade" id="sidebar-friend-links">
+    
+    <li>
+        <a href="https://qssily.com/netdisc-search/" target="_blank">有趣导航</a>
+    </li>
+    
+</div>
+                
+                
+                <div class="links tab-pane nav bs-sidenav fade" id="sidebar-links">
+    
+    <li>
+        <a href="https://github.com/zszxz" target="_blank">Github</a>
+    </li>
+    
+    <li>
+        <a href="https://www.cnblogs.com/zszxz/" target="_blank">博客园</a>
+    </li>
+    
+    <li>
+        <a href="https://juejin.im/user/2506542244436135" target="_blank">掘金</a>
+    </li>
+    
+    <li>
+        <a href="https://www.zhihu.com/people/yin-fu-63-30" target="_blank">知乎</a>
+    </li>
+    
+</div>
+                
+            </div>
+        </div>
+    </aside>
+    
+</aside>
+            </div>
+        </div>
+    </div>
+    <footer id="gal-footer">
+    <div class="container">
+        Copyright © 2018 lsc Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
+    </div>
+</footer>
+
+<!-- 回到顶端 -->
+<div id="gal-gotop">
+    <i class="fa fa-angle-up"></i>
+</div>
+</body>
+
+<script src="/js/activate-power-mode.js"></script>
+
+<script>
+
+    // 配置highslide
+	hs.graphicsDir = '/js/highslide/graphics/'
+    hs.outlineType = "rounded-white";
+    hs.dimmingOpacity = 0.8;
+    hs.outlineWhileAnimating = true;
+    hs.showCredits = false;
+    hs.captionEval = "this.thumb.alt";
+    hs.numberPosition = "caption";
+    hs.align = "center";
+    hs.transitions = ["expand", "crossfade"];
+    hs.lang.number = '共%2张图, 当前是第%1张';
+    hs.addSlideshow({
+      interval: 5000,
+      repeat: true,
+      useControls: true,
+      fixedControls: "fit",
+      overlayOptions: {
+        opacity: 0.75,
+        position: "bottom center",
+        hideOnMouseOut: true
+      }
+    })
+
+    // 初始化aos
+    AOS.init({
+      duration: 1000,
+      delay: 0,
+      easing: 'ease-out-back'
+    });
+
+</script>
+<script>
+	POWERMODE.colorful = 'true';    // make power mode colorful
+	POWERMODE.shake = 'true';       // turn off shake
+	// TODO 这里根据具体情况修改
+	document.body.addEventListener('input', POWERMODE);
+</script>
+<script>
+    window.slideConfig = {
+      prefix: '/imgs/slide/background',
+      ext: 'jpg',
+      maxCount: '10'
+    }
+</script>
+
+<script src="/js/hs.js"></script>
+<script src="/js/blog.js"></script>
+
+
+
+
+</html>

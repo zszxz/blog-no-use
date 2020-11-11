@@ -10,7 +10,7 @@
     
     
     
-    <title>最好用的数据库文档生成工具 | 知识追寻者个人博客</title>
+    <title>MYSQL数据类型(第六讲) | 知识追寻者个人博客</title>
     <link href="https://zszxz.github.io" rel="prefetch" />
 
     
@@ -196,13 +196,13 @@
         <i class="fa fa-home"></i>
         <a href="https://zszxz.github.io">知识追寻者个人博客</a>
         >
-        <span>最好用的数据库文档生成工具</span>
+        <span>MYSQL数据类型(第六讲)</span>
     </div>
     <!-- 大型设备详细文章 -->
     <div class="hidden-xs">
         <div class="title-article">
             <h1>
-                <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/%E6%9C%80%E5%A5%BD%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7/">最好用的数据库文档生成工具</a>
+                <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E7%AC%AC%E5%85%AD%E8%AE%B2/">MYSQL数据类型(第六讲)</a>
             </h1>
         </div>
         <div class="tag-article">
@@ -210,12 +210,12 @@
             <span class="label label-gal">
                 <i class="fa fa-tags"></i>
                 
-                <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/">高效工具</a>
+                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
                 
             </span>
             
             <span class="label label-gal">
-                <i class="fa fa-calendar"></i> 2020-11-05
+                <i class="fa fa-calendar"></i> 2020-11-11
             </span>
             
         </div>
@@ -225,17 +225,17 @@
         <center>
             <div class="title-article">
                 <h4>
-                    <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/%E6%9C%80%E5%A5%BD%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7/">最好用的数据库文档生成工具</a>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E7%AC%AC%E5%85%AD%E8%AE%B2/">MYSQL数据类型(第六讲)</a>
                 </h4>
             </div>
             <p>
-                <i class="fa fa-calendar"></i> 2020-11-05
+                <i class="fa fa-calendar"></i> 2020-11-11
             </p>
             <p>
                 
                 <i class="fa fa-tags"></i>
                 
-                <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/">高效工具</a>
+                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
                 
                 
                 
@@ -243,54 +243,62 @@
         </center>
     </div>
     <div class="content-article">
-        <h1 id="一-前言"><a href="#一-前言" class="headerlink" title="一 前言"></a>一 前言</h1><p>本文介绍一些比较流行的数据库文档生成工具，什么是数据库文档？ 其实在工作中进行项目交付的时候经常用到；简单来说数据库文档就是对整个数据库设计说明的文档，比如使用了哪个数据库，每张表的字段，类型说明等，然后整理成一个设计文档，这个文档多种多样，最常见的就是word，有了数据库文档对以后的数据库维护，或者进行二次开发都很方便；</p>
-<h1 id="二-流行的数据库文档生成工具"><a href="#二-流行的数据库文档生成工具" class="headerlink" title="二 流行的数据库文档生成工具"></a>二 流行的数据库文档生成工具</h1><h2 id="2-1-screw"><a href="#2-1-screw" class="headerlink" title="2.1 screw"></a>2.1 screw</h2><p>最近比较火的一款数据库文档生成工具目前支持如下几种数据库，其它还在开发中</p>
-<ul>
-<li> MySQL</li>
-<li> MariaDB</li>
-<li> TIDB</li>
-<li> Oracle</li>
-<li> SqlServer</li>
-<li> PostgreSQL</li>
-<li> Cache DB</li>
+        <h1 id="一-前言"><a href="#一-前言" class="headerlink" title="一 前言"></a>一 前言</h1><p>每个数据库的数据类型从来都不是一个简单的数据结构，特别是使用不同的数据库，不同的引擎，其支持的数据类型也不一样，选择那种数据类型作为字段类型对数据库的性能也是天差地别，故对数据类型有个全面的认知，在数据库表设计的时候选择合适的数据类型就尤其重要；本篇是基于mysql的InnoDB的数据类型知识，要学就学主流知识；                   </p>
+<p>学习本篇的基础是知识追寻者发过的SQL系列文章（<strong>公众号读者直接在专栏里面找即可</strong>）</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/102964957">《SQL-你真的了解什么SQL么？》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/102979381">《SQL-小白最佳入门sql查询一》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/103112780">《SQL-小白最佳入门sql查询二》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/103300277">《SQL- 多年开发人员都不懂的插入与更新删除操作注意点》</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/youku1327/article/details/106723045">《SQL-SQL事物操作》</a></p>
+<p>公众号：<strong>知识追寻者</strong></p>
+<blockquote>
+<p>知识追寻者(Inheriting the spirit of open source, Spreading technology knowledge;)   </p>
+</blockquote>
+<h1 id="二-基础数据类型"><a href="#二-基础数据类型" class="headerlink" title="二 基础数据类型"></a>二 基础数据类型</h1><h2 id="2-1-字符串类型"><a href="#2-1-字符串类型" class="headerlink" title="2.1 字符串类型"></a>2.1 字符串类型</h2><ul>
+<li><code>char(n)</code>  类型 ， 定长字符串，即储存的每个值占用的空间都一样； <strong>适用于储存长度都一样的字段，比如 电话号码，身份证号，密码等</strong>；mysql 在 储存char类型字段时，会自动删除末尾保留的空格；如果是SQL SERVER 其后面就会保留空白字符；其最多储存 0 - 255 个字符，即8位；</li>
+<li><code>varchar(n)</code> 类型, 变长字符串， 比如varchar(n)表示可以储存n个字节； 当字符串长度小于等于255个字节时，其会使用 n 个字节储存数据，额外一个字节记录n值，比如varchar(200), 其实际为 varchar(201)； 如果字符串长度大于255个字节，其会用2个字节记录n值，比如 varchar(500) ， 其实际为varchar(502)；其最多储存 0-65535 字节，即64位；由于其是可变长度，故在更新的时候，性能开销比较大；</li>
+<li><code>TEXT</code> 长文本类型，存储大数据，其有一定的字符集和排序规则，故如果设置位text类型，性能会降低很多，占用的磁盘空间较大；其长度为0-65535 字节；其衍生的数据类型还有<code> TINYTEXT</code> (0-255字节), <code>MEDIUMTEXT </code> (0-16 777 215 字节)，<code>LONGTEXT</code> 0-4 294 967 295字节）;</li>
+<li><code>blog </code>类型 ， 储存没有规则的二进制字符串，其存储 （0-65 535） 个字节；其衍生的类型有 <code>TINYBLOB</code>  (0-255字节), <code>MEDIUMBLOB</code>(0-16 777 215 字节)， <code>LONGBLOB</code>（0-4 294 967 295字节）;</li>
 </ul>
-<p>文档生成支持</p>
-<p> 文档生成支持</p>
-<ul>
-<li> html</li>
-<li> word</li>
-<li> markdwon</li>
+<p><strong>实际开发中 一般会选择 char ， varchar 类型进行储存数据，text少用，blog慎用，坑比较大</strong>；并且指定不同的数据类型长度也直接影响到数据库的性能，每次跟磁盘进行一次I/O的能力也不一样；</p>
+<h2 id="2-2-整型"><a href="#2-2-整型" class="headerlink" title="2.2 整型"></a>2.2 整型</h2><ul>
+<li>tinyint     1字节   8 位</li>
+<li>smallint    2字节   16位</li>
+<li>mediumint   3字节    24 位</li>
+<li>int         4字节 32位</li>
+<li>bigint      8字节 64 位</li>
 </ul>
-<p>生成示例 </p>
-<p><img src="https://gitee.com/lsc180/images/raw/master/img/20200808110204.png"></p>
-<p>使用方式 支持 java ,和 maven 插件, java方式看官方文档；</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>cn.smallbun.screw<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>screw-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;lastVersion&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- HikariCP --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.zaxxer<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>HikariCP<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.4.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--mysql driver--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">version</span>&gt;</span>8.0.20<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--username--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">username</span>&gt;</span>root<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--password--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">password</span>&gt;</span>password<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--driver--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">driverClassName</span>&gt;</span>com.mysql.cj.jdbc.Driver<span class="tag">&lt;/<span class="name">driverClassName</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--jdbc url--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">jdbcUrl</span>&gt;</span>jdbc:mysql://127.0.0.1:3306/xxxx<span class="tag">&lt;/<span class="name">jdbcUrl</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--生成文件类型--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">fileType</span>&gt;</span>HTML<span class="tag">&lt;/<span class="name">fileType</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--打开文件输出目录--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">openOutputDir</span>&gt;</span>false<span class="tag">&lt;/<span class="name">openOutputDir</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--生成模板--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">produceType</span>&gt;</span>freemarker<span class="tag">&lt;/<span class="name">produceType</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--文档名称 为空时:将采用[数据库名称-描述-版本号]作为文档名称--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">fileName</span>&gt;</span>测试文档名称<span class="tag">&lt;/<span class="name">fileName</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--描述--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">description</span>&gt;</span>数据库文档生成<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--版本--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;project.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--标题--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">title</span>&gt;</span>数据库文档<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">phase</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>run<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>其储存大小为 -2^（N-1）至 2^（N-1）-1 ，其中 N 为位数， 如果是无符号整型，则从0开似乎，没有负数，但其实际储存情况和有符号整型性能差不多，在实际开发中应该根据不同的业务需求，选择合适的类型；</p>
+<p>常用tinyint(1)表示布尔型，1 为真，0为假；</p>
+<h2 id="2-3-浮点型"><a href="#2-3-浮点型" class="headerlink" title="2.3 浮点型"></a>2.3 浮点型</h2><ul>
+<li>float(单精度)     4字节</li>
+<li>double(双精度)    8字节</li>
+<li>decimal, 其能指定储存精度，decimal(M,D) , 其中M代表总位数，D代表小数位，M-D 代表整数位；比如金钱相关的计算就推荐使用decimal ， 否则造成精度丢失问题，去面试的时候如果问道使用浮点型就回家等通知吧！</li>
+</ul>
+<h2 id="2-4-日期时间类型"><a href="#2-4-日期时间类型" class="headerlink" title="2.4 日期时间类型"></a>2.4 日期时间类型</h2><ul>
+<li>date , 日期 通常就是 YYYY-MM-DD 格式, 当然也可以格式化为其它格式，所有的格式化形式都不在本篇讨论范围内； </li>
+<li>time, 时间 格式 hh:mm:ss ；</li>
+<li>year 年份 YYYY;不建议使用YY</li>
+<li>datetime , 日期时间格式 ， 其日期范围 为 1001 至 9999 年，精度为秒；占用8位；</li>
+<li>timestamp, 挺多人称其为时间戳，其实其是与Unix时间戳相同而已，从 1970 1 月 1日 午夜来表示秒数，最多储存至2038 年。 其依赖于时区，占用4位；</li>
+</ul>
+<p><strong>在日常开发中推荐使用 timestamp 进行储存时间，性能相比于datetime 较好；它们的标准格式都为 YY-MM-DD hh:mm:ss</strong>；</p>
+<h2 id="2-5-枚举与SET类型"><a href="#2-5-枚举与SET类型" class="headerlink" title="2.5 枚举与SET类型"></a>2.5 枚举与SET类型</h2><ul>
+<li>enum(val1, val2, val3…)， 用于储存固定值，比如性别男女， 四级 春夏秋冬；其内部使用整型排序，显示时使用字符串，故在排序的时候可能会发生一些奇怪的现象，可以用<code>field</code>进行指定排序; 储存大小为16位；</li>
+</ul>
+<p>示例 </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> test_enum ( <span class="string">`gender`</span> enum(<span class="string">&#x27;男&#x27;</span>, <span class="string">&#x27;女&#x27;</span>) );</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`zszxz`</span>.<span class="string">`test_enum`</span>(<span class="string">`gender`</span>) <span class="keyword">VALUES</span> (<span class="string">&#x27;男&#x27;</span>);</span><br></pre></td></tr></table></figure>
 
-<p>项目地址： <a target="_blank" rel="noopener" href="https://gitee.com/leshalv/screw">https://gitee.com/leshalv/screw</a></p>
-<h2 id="2-2-DBCHM"><a href="#2-2-DBCHM" class="headerlink" title="2.2 DBCHM"></a>2.2 DBCHM</h2><p>DBCHM 支持SqlServer/MySQL/Oracle/PostgreSQL/DB2/SQLite数据库。</p>
-<p>支持的导出的文件格式；</p>
 <ul>
-<li> chm</li>
-<li> word</li>
-<li> excel</li>
-<li> pdf</li>
-<li> html</li>
-<li> xml</li>
-<li> markdown</li>
+<li>set(val1, val2, val3…), 集合, 类似于数组，相比于枚举只能存储单个值，其能储存多个值；储存大小为64位；</li>
 </ul>
-<p>效果展示</p>
-<p><img src="https://gitee.com/lsc180/images/raw/master/img/20200808110727.png"></p>
-<p>最新版本示 DBCHM.exe 软件，上手也容易；</p>
-<p>项目地址：<a target="_blank" rel="noopener" href="https://gitee.com/lztkdr/DBCHM">https://gitee.com/lztkdr/DBCHM</a></p>
-<h2 id="2-3-TableGo"><a href="#2-3-TableGo" class="headerlink" title="2.3 TableGo"></a>2.3 TableGo</h2><p>TableGo是基于数据库的代码自动生成工具，低代码编程技术的实现，可以零代码自动生成SpringBoot项目工程、生成JavaBean、生成MyBaits的Mapper映射配置文件、生成数据库设计文档（Word、Excel）、生成Swagger2离线API文档、生成前后端代码、能查出数据库数据生成各种代码和文档等；</p>
-<p>支持MySQL、Oracle、SQL Server、PostgreSQL、MariaDB五种数据库；</p>
-<p>使用自定义模板功能可以根据数据库表结构信息生成你想要的任何代码，例如：Java、C#、C++、Golang、Rust、Python、Objective-C、Swift、VB、VC、SQL、HTML、JSP、JS、PHP、Vue、React、Word、Excel等；</p>
-<p>界面展示：</p>
-<p><img src="https://gitee.com/lsc180/images/raw/master/img/20200808111424.png"></p>
-<p>详细介绍地址：<a target="_blank" rel="noopener" href="https://blog.csdn.net/vipbooks/article/details/78767469">https://blog.csdn.net/vipbooks/article/details/78767469</a></p>
-<p>官网地址：<a target="_blank" rel="noopener" href="http://www.tablego.cn/">http://www.tablego.cn/</a></p>
-<p>求关注关注吖</p>
-<p><img src="https://gitee.com/lsc180/images/raw/master/img/zszxz.jpg"></p>
+<p>示例</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> test_set ( <span class="string">`gender`</span> <span class="keyword">set</span>(<span class="string">&#x27;男&#x27;</span>, <span class="string">&#x27;女&#x27;</span>) );</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`zszxz`</span>.<span class="string">`test_set`</span>(<span class="string">`gender`</span>) <span class="keyword">VALUES</span> (<span class="string">&#x27;男,女&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-6-其它"><a href="#2-6-其它" class="headerlink" title="2.6 其它"></a>2.6 其它</h2><p>其它数据类型比如 ,bit , 储存位， 坑也很大；不建议使用；在众多数据类型中优先选择整型，其性能相比于字符串的排序规则等会快很多；字段的修饰符 通常有 NULL , NOT NULL , CONMENT 等， 如果是非空字段尽量默认为NOT NULL , 其能带来一定性能提升，并且在使用索引的时候相对简单；尽量不要使用外键，每次外键都会带来额外的性能开销；</p>
+<p>关注知识追寻者：<br><img src="https://user-gold-cdn.xitu.io/2020/6/12/172a61ed4478394f?w=312&h=282&f=png&s=39801" alt="tLeP2D.png"></p>
 
     </div>
 </article>
@@ -428,13 +436,7 @@
             
             <li class="list-group-item">
                 <span class="post-title">
-                    <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/Another-Redis-DeskTop-Manager%E4%B8%80%E6%AC%BE%E7%A8%B3%E5%AE%9A%E5%85%A8%E6%96%B0%E7%9A%84redis%E8%BF%9E%E6%8E%A5%E5%B7%A5%E5%85%B7/">Another Redis DeskTop Manager一款稳定全新的redis连接工具</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/%E6%8F%90%E5%8D%87%E5%B7%A5%E4%BD%9C%E6%95%88%E7%8E%87100-%E7%9A%84%E8%BD%AF%E4%BB%B6/">提升工作效率100%的软件</a>
+                    <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/%E6%9C%80%E5%A5%BD%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7/">最好用的数据库文档生成工具</a>
                 </span>
             </li>
             
@@ -446,7 +448,7 @@
             
             <li class="list-group-item">
                 <span class="post-title">
-                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%93%8D%E4%BD%9Cjson-%E7%AC%AC%E5%8D%81%E5%9B%9B%E8%AE%B2/">MYSQLl操作json(第十四讲)</a>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92-%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/">MYSQLl执行计划(第十五讲)</a>
                 </span>
             </li>
             
@@ -476,6 +478,12 @@
             
             <li class="list-group-item">
                 <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86-%E7%AC%AC%E5%8D%81%E4%B8%80%E8%AE%B2/">MYSQL用户权限管理(第十一讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
                     <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%B4%A2%E5%BC%95-%E7%AC%AC%E5%8D%81%E5%85%AD%E8%AE%B2/">MYSQL索引(第十六讲)</a>
                 </span>
             </li>
@@ -497,17 +505,17 @@
 
                 
                 <li>
-                    <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/%E6%9C%80%E5%A5%BD%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7/index.html#sidebar-tags" data-toggle="tab" id="tags-tab">热门标签</a>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E7%AC%AC%E5%85%AD%E8%AE%B2/index.html#sidebar-tags" data-toggle="tab" id="tags-tab">热门标签</a>
                 </li>
                 
                 
                 <li>
-                    <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/%E6%9C%80%E5%A5%BD%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7/index.html#sidebar-friend-links" data-toggle="tab" id="friend-links-tab">友情链接</a>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E7%AC%AC%E5%85%AD%E8%AE%B2/index.html#sidebar-friend-links" data-toggle="tab" id="friend-links-tab">友情链接</a>
                 </li>
                 
                 
                 <li>
-                    <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/%E6%9C%80%E5%A5%BD%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7/index.html#sidebar-links" data-toggle="tab" id="links-tab">个人链接</a>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E7%AC%AC%E5%85%AD%E8%AE%B2/index.html#sidebar-links" data-toggle="tab" id="links-tab">个人链接</a>
                 </li>
                 
             </ul>
@@ -515,11 +523,11 @@
                 
                 <div class="cloud-tags tab-pane nav bs-sidenav fade" id="sidebar-tags">
     
-    <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 19.13046937583289px;" class="tag-cloud-link">分享</a>
+    <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 13.188242019005209px;" class="tag-cloud-link">分享</a>
     
-    <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" style="font-size: 19.234612083711326px;" class="tag-cloud-link">高效工具</a>
+    <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" style="font-size: 19.046506513077627px;" class="tag-cloud-link">高效工具</a>
     
-    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 14.068824055043315px;" class="tag-cloud-link">数据库</a>
+    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 16.899650693427283px;" class="tag-cloud-link">数据库</a>
     
 </div>
                 

@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="lsc">
+    
+    
+    
+    
+    
+    
+    <title>MYSQL检索2(第三讲) | 知识追寻者个人博客</title>
+    <link href="https://zszxz.github.io" rel="prefetch" />
+
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/aos.css">
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/js/jquery.min.js"></script>
+
+    
+<script src="/js/bootstrap.min.js"></script>
+
+    
+<script src="/js/aos.js"></script>
+
+    
+<script src="/js/highslide/highslide-full.min.js"></script>
+
+    
+<link rel="stylesheet" href="/js/highslide/highslide.css">
+
+    <style type="text/css">
+        @media (max-width: 768px) {
+            body {
+                background-color: #f0f0f0;
+                background: url('/imgs/xsbg.gif');
+                background-attachment: fixed;
+            }
+        }
+    </style>
+    
+    <!--<script type="text/javascript">
+      if (document.images) {
+        var avatar = new Image();
+        avatar.src = '/imgs/https:/gitee.com/lsc180/images/raw/master/img/main.png'
+        var previews = 'preview1.jpg,preview2.jpg,preview3.jpg,preview4.jpg,preview5.jpg,preview6.jpg,preview7.jpg,preview8.jpg,preview9.jpg,preview10.jpg,preview11.jpg,preview12.jpg,preview13.jpg,preview14.jpg,preview15.jpg,preview16.jpg,preview17.jpg,preview18.jpg,preview19.jpg'.split(',')
+        var previewsPreLoad = []
+        for(var i = 0; i < length; i++) {
+          previewsPreLoad.push(new Image())
+          previewsPreLoad[previewsPreLoad.length - 1].src = '/imgs/preview' + previews[i]
+        }
+      }
+    </script>-->
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body>
+    <!-- 背景轮播图功能 -->
+    <section class="hidden-xs">
+    
+	<!-- 
+<ul class="cb-slideshow">
+        <li><span>天若</span></li>
+        <li><span>有情</span></li>
+        <li><span>天亦老</span></li>
+        <li><span>我为</span></li>
+        <li><span>长者</span></li>
+        <li><span>续一秒</span></li>
+    </ul>
+
+	-->
+</section>
+    <!-- 欧尼酱功能, 谁用谁知道 -->
+    
+    <header class="navbar navbar-inverse" id="gal-header">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target=".bs-navbar-collapse"
+                    aria-expanded="false">
+                <span class="fa fa-lg fa-reorder"></span>
+            </button>
+            <a href="https://zszxz.github.io">
+                
+                <style>
+                    #gal-header .navbar-brand {
+                        height: 54px;
+                        line-height: 24px;
+                        font-size: 28px;
+                        opacity: 1;
+                        background-color: rgba(0,0,0,0);
+                        <!-- text-shadow: 0 0 5px #fff,0 0 10px #fff,0 0 15px #fff,0 0 20px #228DFF,0 0 35px #228DFF,0 0 40px #228DFF,0 0 50px #228DFF,0 0 75px #228DFF; -->
+                    }
+                </style>
+                <!-- 这里使用文字(navbar_text or config.title) -->
+                <div class="navbar-brand">知识追寻者个人博客</div>
+                
+            </a>
+        </div>
+        <div class="collapse navbar-collapse bs-navbar-collapse">
+            <ul class="nav navbar-nav" id="menu-gal">
+                
+                
+                <li class="">
+                    <a href="/">
+                        <i class="fa fa-home"></i>首页
+                    </a>
+                </li>
+                
+                
+                
+                <li class="">
+                    <a href="/archives">
+                        <i class="fa fa-archive"></i>归档
+                    </a>
+                </li>
+                
+                
+                
+                
+                <li class="dropdown">
+                    <!-- TODO 添加hover dropdown效果 -->
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false" data-hover="dropdown">
+                        <i class="fa fa-list"></i>分类
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li>
+                            <a href="/categories/%E5%88%86%E4%BA%AB/">分享</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/">高效工具</a>
+                        </li>
+                        
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+                
+                
+                <li class="dropdown">
+                    <!-- TODO 添加hover dropdown效果 -->
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false" data-hover="dropdown">
+                        <i class="fa fa-tags"></i>标签
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li>
+                            <a href="/tags/%E5%88%86%E4%BA%AB/">分享</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/">高效工具</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                        </li>
+                        
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+                
+                <li class="">
+                    <a href="/about">
+                        <i class="fa fa-user"></i>关于我
+                    </a>
+                </li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</header>
+    <div id="gal-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 gal-right" id="mainstay">
+                    
+<article class="article well article-body" id="article">
+    <div class="breadcrumb">
+        <i class="fa fa-home"></i>
+        <a href="https://zszxz.github.io">知识追寻者个人博客</a>
+        >
+        <span>MYSQL检索2(第三讲)</span>
+    </div>
+    <!-- 大型设备详细文章 -->
+    <div class="hidden-xs">
+        <div class="title-article">
+            <h1>
+                <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%A3%80%E7%B4%A22-%E7%AC%AC%E4%B8%89%E8%AE%B2/">MYSQL检索2(第三讲)</a>
+            </h1>
+        </div>
+        <div class="tag-article">
+            
+            <span class="label label-gal">
+                <i class="fa fa-tags"></i>
+                
+                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                
+            </span>
+            
+            <span class="label label-gal">
+                <i class="fa fa-calendar"></i> 2020-11-11
+            </span>
+            
+        </div>
+    </div>
+    <!-- 小型设备详细文章 -->
+    <div class="visible-xs">
+        <center>
+            <div class="title-article">
+                <h4>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%A3%80%E7%B4%A22-%E7%AC%AC%E4%B8%89%E8%AE%B2/">MYSQL检索2(第三讲)</a>
+                </h4>
+            </div>
+            <p>
+                <i class="fa fa-calendar"></i> 2020-11-11
+            </p>
+            <p>
+                
+                <i class="fa fa-tags"></i>
+                
+                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                
+                
+                
+            </p>
+        </center>
+    </div>
+    <div class="content-article">
+        <p>﻿# 一 前提准备</p>
+<p>先声明一下，下面的库表只是简易的学习示例，不是生产的设计，不要深究，此文我们的目的是学习sql的检索不是库表设计；初学者最好跟着作者的文章一步一步敲一遍，如果没有使用过sql的可以查阅作者SQL系列专栏；</p>
+<h2 id="1-1-顾客表"><a href="#1-1-顾客表" class="headerlink" title="1.1 顾客表"></a>1.1 顾客表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE &#96;customer&#96; (</span><br><span class="line">  &#96;userId&#96; int(11) NOT NULL AUTO_INCREMENT COMMENT &#39;顾客id&#39;,</span><br><span class="line">  &#96;userName&#96; varchar(255) DEFAULT NULL COMMENT &#39;顾客名称&#39;,</span><br><span class="line">  &#96;telephone&#96; varchar(255) DEFAULT NULL COMMENT &#39;顾客电话&#39;,</span><br><span class="line">  PRIMARY KEY (&#96;userId&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB AUTO_INCREMENT&#x3D;3 DEFAULT CHARSET&#x3D;utf8;</span><br><span class="line"></span><br><span class="line">INSERT INTO &#96;springboot&#96;.&#96;customer&#96;(&#96;userId&#96;, &#96;userName&#96;, &#96;telephone&#96;) VALUES (1, &#39;zxzxz&#39;, &#39;1327&#39;);</span><br><span class="line">INSERT INTO &#96;springboot&#96;.&#96;customer&#96;(&#96;userId&#96;, &#96;userName&#96;, &#96;telephone&#96;) VALUES (2, &#39;youku1327&#39;, &#39;1996&#39;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="1-2-商品表"><a href="#1-2-商品表" class="headerlink" title="1.2 商品表"></a>1.2 商品表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE &#96;product&#96; (</span><br><span class="line">  &#96;productId&#96; int(11) NOT NULL AUTO_INCREMENT COMMENT &#39;产品id&#39;,</span><br><span class="line">  &#96;productName&#96; varchar(255) DEFAULT NULL COMMENT &#39;产品名称&#39;,</span><br><span class="line">  &#96;price&#96; varchar(255) DEFAULT NULL COMMENT &#39;产品价格&#39;,</span><br><span class="line">  PRIMARY KEY (&#96;productId&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB AUTO_INCREMENT&#x3D;4 DEFAULT CHARSET&#x3D;utf8;</span><br><span class="line"></span><br><span class="line">INSERT INTO &#96;springboot&#96;.&#96;product&#96;(&#96;productId&#96;, &#96;productName&#96;, &#96;price&#96;) VALUES (1, &#39;苹果&#39;, &#39;5&#39;);</span><br><span class="line">INSERT INTO &#96;springboot&#96;.&#96;product&#96;(&#96;productId&#96;, &#96;productName&#96;, &#96;price&#96;) VALUES (2, &#39;梨&#39;, &#39;4&#39;);</span><br><span class="line">INSERT INTO &#96;springboot&#96;.&#96;product&#96;(&#96;productId&#96;, &#96;productName&#96;, &#96;price&#96;) VALUES (3, &#39;香蕉&#39;, &#39;3&#39;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="1-3-订单表"><a href="#1-3-订单表" class="headerlink" title="1.3 订单表"></a>1.3 订单表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE &#96;order&#96; (</span><br><span class="line">  &#96;id&#96; int(11) NOT NULL AUTO_INCREMENT COMMENT &#39;id&#39;,</span><br><span class="line">  &#96;userId&#96; int(11) DEFAULT NULL COMMENT &#39;客户id&#39;,</span><br><span class="line">  &#96;productId&#96; int(11) DEFAULT NULL COMMENT &#39;产品id&#39;,</span><br><span class="line">  &#96;orderName&#96; varchar(255) DEFAULT NULL COMMENT &#39;订单名称&#39;,</span><br><span class="line">  PRIMARY KEY (&#96;id&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB AUTO_INCREMENT&#x3D;3 DEFAULT CHARSET&#x3D;utf8;</span><br><span class="line"></span><br><span class="line">INSERT INTO &#96;springboot&#96;.&#96;order&#96;(&#96;id&#96;, &#96;userId&#96;, &#96;productId&#96;, &#96;orderName&#96;) VALUES (1, 1, 1, &#39;乖乖订单&#39;);</span><br><span class="line">INSERT INTO &#96;springboot&#96;.&#96;order&#96;(&#96;id&#96;, &#96;userId&#96;, &#96;productId&#96;, &#96;orderName&#96;) VALUES (2, 2, 2, &#39;悦悦订单&#39;);</span><br><span class="line">INSERT INTO &#96;springboot&#96;.&#96;order&#96;(&#96;id&#96;, &#96;userId&#96;, &#96;productId&#96;, &#96;orderName&#96;) VALUES (3, 1, 3, &#39;香香订单&#39;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="二-聚集函数的使用"><a href="#二-聚集函数的使用" class="headerlink" title="二 聚集函数的使用"></a>二 聚集函数的使用</h1><p>聚集函数的定义就是讲一些行的数据运行某些函数，返回一个期望值；下面讲述的是开发中经常使用到的聚集函数；</p>
+<h2 id="2-1-avg"><a href="#2-1-avg" class="headerlink" title="2.1 avg()"></a>2.1 avg()</h2><p>avg函数也就是计算行的数量，通过计算这些行的特定列值和，计算出平均值(特定列值之和/行数=平均值)；使用时注意其会忽略列值为NULL的行；</p>
+<p>语句示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT AVG(price) FROM product;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>语句结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4</span><br></pre></td></tr></table></figure>
+
+<p>语句分析：<br>查询价格平均值来自商品表（5+4+3）/3=4；</p>
+<h2 id="2-2-count"><a href="#2-2-count" class="headerlink" title="2.2 count()"></a>2.2 count()</h2><p>count函数用于计算行数，其中count(*)计算所有行的数目，count(“column”)会忽略column为NULL的行数；</p>
+<p>语句示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT count(*) FROM product;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>语句结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3</span><br></pre></td></tr></table></figure>
+
+<p>语句分析：</p>
+<p>查询总行数来自商品表；</p>
+<h2 id="2-3-max"><a href="#2-3-max" class="headerlink" title="2.3 max()"></a>2.3 max()</h2><p>max函数返回特定列值的最大值；忽略特定列为NULL的行；</p>
+<p>语句示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT max(price) FROM product;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>语句结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5</span><br></pre></td></tr></table></figure>
+
+<p>语句分析：</p>
+<p>查询价格的最大值来自商品表；</p>
+<h2 id="2-4-min"><a href="#2-4-min" class="headerlink" title="2.4 min()"></a>2.4 min()</h2><p>返回特定列的最小值；忽略特定列为NULL的行；</p>
+<p>语句示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT min(price) FROM product;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>语句结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3</span><br></pre></td></tr></table></figure>
+
+<p>语句分析：</p>
+<p>查询价格的最小值来自商品表；</p>
+<h2 id="2-5-sum"><a href="#2-5-sum" class="headerlink" title="2.5 sum()"></a>2.5 sum()</h2><p>返回特定列的和；忽略特定列为NULL的行；</p>
+<p>语句示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT sum(price) FROM product;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>语句结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">12</span><br></pre></td></tr></table></figure>
+
+<p>语句分析：</p>
+<p>查询价格的总和来自商品表；</p>
+<h1 id="三-分组数据"><a href="#三-分组数据" class="headerlink" title="三 分组数据"></a>三 分组数据</h1><p>分组定义就是按照特定的列进行分组查询，使用 GROUP BY 子句进行分组查询；注意点：SELEC后面的列必须出现在group by 子句后面，否则报语法错误；通常 group by 子句的位置是where 条件之后，order by 子句之前；</p>
+<h2 id="3-1-分组求和"><a href="#3-1-分组求和" class="headerlink" title="3.1 分组求和"></a>3.1 分组求和</h2><p>语句示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT sum(price) FROM product GROUP BY productName;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>语句结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">4</span><br><span class="line">5</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
+
+<p>语句分析：</p>
+<p>先根据商品名称分为三组 苹果 ，梨 ， 香蕉 ；再根据不同的分组求和，因为我们表中的数据只有这三条所以就是每行的值；</p>
+<h2 id="3-2-分组过滤"><a href="#3-2-分组过滤" class="headerlink" title="3.2 分组过滤"></a>3.2 分组过滤</h2><p>语句示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT count(*) FROM &#96;order&#96; GROUP BY userId HAVING count(*) &gt; 1;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>语句结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2</span><br></pre></td></tr></table></figure>
+
+<p>语句分析</p>
+<p>查询 条数来自 订单表 根据客户id分组，过滤条件 条数大于2；注意 having 与 where其实差别不大，通常我们讲where当作标准的过滤条件，having用作分组过滤条件；注意有的数据库管理系统having不支持别名作为分组过滤条件中的一部分；</p>
+<h2 id="3-3-分组排序"><a href="#3-3-分组排序" class="headerlink" title="3.3 分组排序"></a>3.3 分组排序</h2><p>语句示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT count(*) as count FROM &#96;order&#96; GROUP BY userId ORDER BY count;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>语句结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
+
+<p>语句分析<br>查询 行数 来自 订单表 根据 客户id分组，根据 行数排序；注意点是经过分组后结果看似经过排序，其实并不能确保是排序后的结果，所以要排序一定要使用order by子句；</p>
+<h1 id="四-子查询"><a href="#四-子查询" class="headerlink" title="四 子查询"></a>四 子查询</h1><p>子查询的定义是在查询中嵌套查询；注意子查询只能返回单列，若企图返回多列会报语法错误；</p>
+<p>语句示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">	userName </span><br><span class="line">FROM</span><br><span class="line">	customer </span><br><span class="line">WHERE</span><br><span class="line">	userId &#x3D; ( SELECT userId FROM &#96;order&#96; WHERE orderName &#x3D; &#39;乖乖订单&#39; )</span><br></pre></td></tr></table></figure>
+
+<p>语句结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zxzxz</span><br></pre></td></tr></table></figure>
+
+<p>语句分析：</p>
+<p>是执行语句 【SELECT userId FROM <code>order</code> WHERE orderName = ‘乖乖订单’ 】得到结果 userId = ‘1’ ;<br>然后执行语句 【 SELECT userName FROM customer WHERE userId = ‘1’】；</p>
+<h1 id="五-联结表"><a href="#五-联结表" class="headerlink" title="五 联结表"></a>五 联结表</h1><p>联结表也就是我们通常意义上的关联表查询，主要功能是能在多表中使用一条sql检索出期望值，但实际库表中是存在的，只在查询期间存在；其主要分为内联结和外连接使用的 <code>join</code>  关键字；联结表会返回一对多，一对一，多对多关系；联结表不建议超过三张表以上；</p>
+<h1 id="5-1-简单联结"><a href="#5-1-简单联结" class="headerlink" title="5.1 简单联结"></a>5.1 简单联结</h1><p>语句示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">	userName,</span><br><span class="line">	orderName </span><br><span class="line">FROM</span><br><span class="line">	customer,</span><br><span class="line">	&#96;order&#96; </span><br><span class="line">WHERE</span><br><span class="line">	customer.userId &#x3D; &#96;order&#96;.userId;</span><br></pre></td></tr></table></figure>
+
+<p>语句结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">zxzxz	乖乖订单</span><br><span class="line">youku1327	悦悦订单</span><br><span class="line">zxzxz	香香订单</span><br></pre></td></tr></table></figure>
+
+<p>语句分析 ：</p>
+<p>查询 用户名来自用户表，查询订单名称来自订单表，根据 订单表的客户id 等于 客户表的客户id做为联结条件；也就是说会查询出两张表根据userId为等值条件的 userName 和 orderName 的 数据;</p>
+<p>注意点 ： 简单联结中where子句后面 必须 要带上 两张表的联结关系，否则会出现笛卡尔集（比如3行数据联结另一张表3行数据会产生3*3=9条） </p>
+<h2 id="5-2-内联结"><a href="#5-2-内联结" class="headerlink" title="5.2 内联结"></a>5.2 内联结</h2><p>内连接（inner join） 又称等值联结，其查询结果跟之前的简单联结一致；</p>
+<p>语句示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">	userName,</span><br><span class="line">	orderName </span><br><span class="line">FROM</span><br><span class="line">	customer</span><br><span class="line">	INNER JOIN &#96;order&#96; ON ( customer.userId &#x3D; &#96;order&#96;.userId );</span><br></pre></td></tr></table></figure>
+
+<p>语句结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">zxzxz	乖乖订单</span><br><span class="line">youku1327	悦悦订单</span><br><span class="line">zxzxz	香香订单</span><br></pre></td></tr></table></figure>
+
+<p>语句分析：</p>
+<p>跟之前的简单联结稍微不同的是 等值条件 是放在 on 关键字后面，在等值条件后面还可以进行 where 子句过滤条件查询；</p>
+<h2 id="5-3-自然联结"><a href="#5-3-自然联结" class="headerlink" title="5.3 自然联结"></a>5.3 自然联结</h2><p>自然联结与标准的联结不同就是只返回值唯一的列，不会返回重复的列；</p>
+<p>自然联结示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">	userName,</span><br><span class="line">	orderName </span><br><span class="line">FROM</span><br><span class="line">	customer</span><br><span class="line">	INNER JOIN &#96;order&#96; ON ( customer.userId &#x3D; &#96;order&#96;.userId );</span><br></pre></td></tr></table></figure>
+
+<p>自然联结结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">zxzxz	乖乖订单</span><br><span class="line">youku1327	悦悦订单</span><br><span class="line">zxzxz	香香订单</span><br></pre></td></tr></table></figure>
+
+<p>非自然联结示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">	* </span><br><span class="line">FROM</span><br><span class="line">	customer</span><br><span class="line">	INNER JOIN &#96;order&#96; ON ( customer.userId &#x3D; &#96;order&#96;.userId );	</span><br></pre></td></tr></table></figure>
+
+<p>非自然联结结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1	zxzxz	1327	1	1	1	乖乖订单</span><br><span class="line">2	youku1327	1996	2	2	2	悦悦订单</span><br><span class="line">1	zxzxz	1327	3	1	3	香香订单</span><br></pre></td></tr></table></figure>
+
+<p>重复列是 userId;</p>
+<h2 id="5-4-外联结"><a href="#5-4-外联结" class="headerlink" title="5.4 外联结"></a>5.4 外联结</h2><p>右外联结</p>
+<p>语句示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">	* </span><br><span class="line">FROM</span><br><span class="line">	&#96;order&#96;</span><br><span class="line">	RIGHT OUTER JOIN customer ON ( customer.userId &#x3D; &#96;order&#96;.userId );	</span><br></pre></td></tr></table></figure>
+
+<p>右外联结是指 相对于 OUTER JOIN 右边的表，那么这会查询出右边表的所有数据 和根据等值条件匹配左边表的数据，如果左边表的数据不匹配，那么其返回列的值是NULL充当；</p>
+<p>左外联结</p>
+<p>语句示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">	* </span><br><span class="line">FROM</span><br><span class="line">	customer</span><br><span class="line">	LEFT OUTER JOIN  	&#96;order&#96; ON ( customer.userId &#x3D; &#96;order&#96;.userId );	</span><br></pre></td></tr></table></figure>
+
+<p>左外联结是指 相对于 OUTER JOIN 左边的表，那么这会查询出左边表的所有数据 和根据等值条件匹配右边表的数据，如果右边表的数据不匹配，那么其返回列的值是NULL充当；</p>
+<p>区别：</p>
+<p>左外联结和右外联结其实没什么不同，只是查询表顺序不一致，我们通过置换 表的相对位置就可以查询出一样的结果；</p>
+<h1 id="六-组合查询"><a href="#六-组合查询" class="headerlink" title="六 组合查询"></a>六 组合查询</h1><p>组合查询是指可以执行多条SELECT 语句，其查询的结构是一致的，返回查询结果，通常我们称为复合操作或者并(union)</p>
+<p>语句示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">	userId </span><br><span class="line">FROM</span><br><span class="line">	customer UNION</span><br><span class="line">SELECT</span><br><span class="line">	userId </span><br><span class="line">FROM</span><br><span class="line">	&#96;order&#96;</span><br></pre></td></tr></table></figure>
+
+<p>返回结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
+
+<p>语句分析：</p>
+<p>union 关联的字段或者聚合函数在两张表中必须是相同的，其默认会讲结果进行去重处理；如果不去重可以使用 <code>union all</code></p>
+<p>语句示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">	userId </span><br><span class="line">FROM</span><br><span class="line">	customer UNION ALL</span><br><span class="line">SELECT</span><br><span class="line">	userId </span><br><span class="line">FROM</span><br><span class="line">	&#96;order&#96;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+
+<p>语句分析：<br>等同于讲客户表和订单表的用户id都合并为一个并集查询出来，而且不去重；如果对组合语句进行排序，默认是会作用于组合后的数据字段排序，而不是作用于其中的一条查询语句；</p>
+<h1 id="七-结束语"><a href="#七-结束语" class="headerlink" title="七 结束语"></a>七 结束语</h1><p>到本文看完，基本的查询语句都已经学会了，后面就是插入，更新，删除，相对于查询比较简单，有空后续会写相关文章；</p>
+<p><img src="https://img-blog.csdnimg.cn/20191128140105329.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lvdWt1MTMyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+    </div>
+</article>
+
+
+                </div>
+                <aside class="col-md-4 gal-left" id="sidebar">
+    <!-- 此为sidebar的搜索框, 非搜索结果页面 -->
+<aside id="sidebar-search">
+    <div class="search hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <form class="form-inline clearfix" id="search-form" method="get"
+              action="/search/index.html">
+            <input type="text" name="s" class="form-control" id="searchInput" placeholder="搜索文章~" autocomplete="off">
+            <button class="btn btn-danger btn-gal" type="submit">
+                <i class="fa fa-search"></i>
+            </button>
+        </form>
+    </div>
+</aside>
+    <aside id="sidebar-author">
+    <div class="panel panel-gal" data-aos="flip-right" data-aos-duration="3000">
+        <div class="panel-heading" style="text-align: center">
+            <i class="fa fa-quote-left"></i>
+            lsc
+            <i class="fa fa-quote-right"></i>
+        </div>
+        <div class="author-panel text-center">
+            <img src="https://gitee.com/lsc180/images/raw/master/img/main.png" width="140" height="140"
+                 alt="个人头像" class="author-image">
+            <p class="author-description"></p>
+        </div>
+    </div>
+</aside>
+    
+    <aside id="sidebar-recent_comments">
+    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <div class="panel-heading">
+            <i class="fa fa-comments"></i>
+            最新评论
+            <i class="fa fa-times-circle panel-remove"></i>
+            <i class="fa fa-chevron-circle-up panel-toggle"></i>
+        </div>
+        <ul class="list-group list-group-flush"></ul>
+    </div>
+</aside>
+    
+    <!-- 要配置好leancloud才能开启此小工具 -->
+    
+    
+    <aside id="sidebar-recent_posts">
+    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <div class="panel-heading">
+            <i class="fa fa-refresh"></i>
+            近期文章
+            <i class="fa fa-times-circle panel-remove"></i>
+            <i class="fa fa-chevron-circle-up panel-toggle"></i>
+        </div>
+        <ul class="list-group list-group-flush">
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%B4%A2%E5%BC%95-%E7%AC%AC%E5%8D%81%E5%85%AD%E8%AE%B2/">MYSQL索引(第十六讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92-%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/">MYSQLl执行计划(第十五讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%93%8D%E4%BD%9Cjson-%E7%AC%AC%E5%8D%81%E5%9B%9B%E8%AE%B2/">MYSQLl操作json(第十四讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E9%94%81%E7%AD%89%E5%BE%85%E4%B8%8E%E6%AD%BB%E9%94%81-%E7%AC%AC%E5%8D%81%E4%B8%89%E8%AE%B2/">MYSQL锁等待与死锁(第十三讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%9E%B6%E6%9E%84%E5%85%A5%E9%97%A8-%E7%AC%AC%E5%8D%81%E4%BA%8C%E8%AE%B2/">MYSQLl架构入门(第十二讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86-%E7%AC%AC%E5%8D%81%E4%B8%80%E8%AE%B2/">MYSQL用户权限管理(第十一讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%B8%B8%E6%A0%87%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8-%E7%AC%AC%E5%8D%81%E8%AE%B2/">MYSQL游标与触发器(第十讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E5%82%A8%E5%AD%98%E8%BF%87%E7%A8%8B-%E7%AC%AC%E4%B9%9D%E8%AE%B2/">MYSQLl储存过程(第九讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E8%A7%86%E5%9B%BE-%E7%AC%AC%E5%85%AB%E8%AE%B2/">MYSQL视图(第八讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E8%A1%A8%E7%BB%93%E6%9E%84%E6%93%8D%E4%BD%9C-%E7%AC%AC%E4%B8%83%E8%AE%B2/">MYSQL表结构操作(第七讲)</a>
+                </span>
+            </li>
+            
+        </ul>
+    </div>
+</aside>
+    
+    
+    <aside id="sidebar-rand_posts">
+    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <div class="panel-heading">
+            <i class="fa fa-refresh"></i>
+            随机文章
+            <i class="fa fa-times-circle panel-remove"></i>
+            <i class="fa fa-chevron-circle-up panel-toggle"></i>
+        </div>
+        <ul class="list-group list-group-flush">
+            
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/05/%E8%87%AA%E5%AE%9A%E4%B9%89github%E4%B8%BB%E9%A1%B5/">自定义github主页</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/%E6%8F%90%E5%8D%87%E5%B7%A5%E4%BD%9C%E6%95%88%E7%8E%87100-%E7%9A%84%E8%BD%AF%E4%BB%B6/">提升工作效率100%的软件</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/05/%E5%B7%A5%E5%85%B7/%E6%9C%80%E5%A5%BD%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7/">最好用的数据库文档生成工具</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%93%8D%E4%BD%9Cjson-%E7%AC%AC%E5%8D%81%E5%9B%9B%E8%AE%B2/">MYSQLl操作json(第十四讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BB%8B%E7%BB%8D-%E7%AC%AC%E4%B8%80%E8%AE%B2/">MYSQL数据库介绍(第一讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%8F%92%E5%85%A5%E4%B8%8E%E6%9B%B4%E6%96%B0%E5%88%A0%E9%99%A4-%E7%AC%AC%E5%9B%9B%E8%AE%B2/">MYSQL插入与更新删除(第四讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%A3%80%E7%B4%A21-%E7%AC%AC%E4%BA%8C%E8%AE%B2/">MYSQL检索1(第二讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%A3%80%E7%B4%A22-%E7%AC%AC%E4%B8%89%E8%AE%B2/">MYSQL检索2(第三讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86-%E7%AC%AC%E5%8D%81%E4%B8%80%E8%AE%B2/">MYSQL用户权限管理(第十一讲)</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E9%94%81%E7%AD%89%E5%BE%85%E4%B8%8E%E6%AD%BB%E9%94%81-%E7%AC%AC%E5%8D%81%E4%B8%89%E8%AE%B2/">MYSQL锁等待与死锁(第十三讲)</a>
+                </span>
+            </li>
+            
+        </ul>
+    </div>
+</aside>
+    
+    
+    <aside id="gal-sets">
+        <div class="panel panel-gal hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+            <ul class="nav nav-pills pills-gal">
+
+                
+                <li>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%A3%80%E7%B4%A22-%E7%AC%AC%E4%B8%89%E8%AE%B2/index.html#sidebar-tags" data-toggle="tab" id="tags-tab">热门标签</a>
+                </li>
+                
+                
+                <li>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%A3%80%E7%B4%A22-%E7%AC%AC%E4%B8%89%E8%AE%B2/index.html#sidebar-friend-links" data-toggle="tab" id="friend-links-tab">友情链接</a>
+                </li>
+                
+                
+                <li>
+                    <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%A3%80%E7%B4%A22-%E7%AC%AC%E4%B8%89%E8%AE%B2/index.html#sidebar-links" data-toggle="tab" id="links-tab">个人链接</a>
+                </li>
+                
+            </ul>
+            <div class="tab-content">
+                
+                <div class="cloud-tags tab-pane nav bs-sidenav fade" id="sidebar-tags">
+    
+    <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 10.299172952551249px;" class="tag-cloud-link">分享</a>
+    
+    <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" style="font-size: 15.32024676180393px;" class="tag-cloud-link">高效工具</a>
+    
+    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 12.14130216830672px;" class="tag-cloud-link">数据库</a>
+    
+</div>
+                
+                
+                <div class="friend-links tab-pane nav bs-sidenav fade" id="sidebar-friend-links">
+    
+    <li>
+        <a href="https://qssily.com/netdisc-search/" target="_blank">有趣导航</a>
+    </li>
+    
+</div>
+                
+                
+                <div class="links tab-pane nav bs-sidenav fade" id="sidebar-links">
+    
+    <li>
+        <a href="https://github.com/zszxz" target="_blank">Github</a>
+    </li>
+    
+    <li>
+        <a href="https://www.cnblogs.com/zszxz/" target="_blank">博客园</a>
+    </li>
+    
+    <li>
+        <a href="https://juejin.im/user/2506542244436135" target="_blank">掘金</a>
+    </li>
+    
+    <li>
+        <a href="https://www.zhihu.com/people/yin-fu-63-30" target="_blank">知乎</a>
+    </li>
+    
+</div>
+                
+            </div>
+        </div>
+    </aside>
+    
+</aside>
+            </div>
+        </div>
+    </div>
+    <footer id="gal-footer">
+    <div class="container">
+        Copyright © 2018 lsc Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
+    </div>
+</footer>
+
+<!-- 回到顶端 -->
+<div id="gal-gotop">
+    <i class="fa fa-angle-up"></i>
+</div>
+</body>
+
+<script src="/js/activate-power-mode.js"></script>
+
+<script>
+
+    // 配置highslide
+	hs.graphicsDir = '/js/highslide/graphics/'
+    hs.outlineType = "rounded-white";
+    hs.dimmingOpacity = 0.8;
+    hs.outlineWhileAnimating = true;
+    hs.showCredits = false;
+    hs.captionEval = "this.thumb.alt";
+    hs.numberPosition = "caption";
+    hs.align = "center";
+    hs.transitions = ["expand", "crossfade"];
+    hs.lang.number = '共%2张图, 当前是第%1张';
+    hs.addSlideshow({
+      interval: 5000,
+      repeat: true,
+      useControls: true,
+      fixedControls: "fit",
+      overlayOptions: {
+        opacity: 0.75,
+        position: "bottom center",
+        hideOnMouseOut: true
+      }
+    })
+
+    // 初始化aos
+    AOS.init({
+      duration: 1000,
+      delay: 0,
+      easing: 'ease-out-back'
+    });
+
+</script>
+<script>
+	POWERMODE.colorful = 'true';    // make power mode colorful
+	POWERMODE.shake = 'true';       // turn off shake
+	// TODO 这里根据具体情况修改
+	document.body.addEventListener('input', POWERMODE);
+</script>
+<script>
+    window.slideConfig = {
+      prefix: '/imgs/slide/background',
+      ext: 'jpg',
+      maxCount: '10'
+    }
+</script>
+
+<script src="/js/hs.js"></script>
+<script src="/js/blog.js"></script>
+
+
+
+
+</html>
