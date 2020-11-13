@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>redis我与SDS的初见(二) | 知识追寻者个人博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="zszxz" />
+  
+  <meta name="description" content="一 前言本篇文章是初步认识redis的字符串数据结构SDS（Simple Dynamic String）， 其意指简单的动态字符串，字面上的含义就是smiple 代指简单，操作简单，使用者能够快点理解上手，无需关心redis内部实现；Dynamic 指动态扩展，表是能够自动的对内存空间进行动态分配；String 表示字符串，不难理解；  公众号：知识追寻者  知识追寻者(Inheriting th">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis我与SDS的初见(二)">
+<meta property="og:url" content="https://zszxz.github.io/2020/11/13/redis/redis%E6%88%91%E4%B8%8ESDS%E7%9A%84%E5%88%9D%E8%A7%81-%E4%BA%8C/index.html">
+<meta property="og:site_name" content="知识追寻者个人博客">
+<meta property="og:description" content="一 前言本篇文章是初步认识redis的字符串数据结构SDS（Simple Dynamic String）， 其意指简单的动态字符串，字面上的含义就是smiple 代指简单，操作简单，使用者能够快点理解上手，无需关心redis内部实现；Dynamic 指动态扩展，表是能够自动的对内存空间进行动态分配；String 表示字符串，不难理解；  公众号：知识追寻者  知识追寻者(Inheriting th">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/lsc180/images/raw/master/img/20200913161353.png">
+<meta property="article:published_time" content="2020-11-13T09:26:09.000Z">
+<meta property="article:modified_time" content="2020-11-13T09:26:25.047Z">
+<meta property="article:author" content="lsc">
+<meta property="article:tag" content="redis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/lsc180/images/raw/master/img/20200913161353.png">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+  
+
+  
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">知识追寻者个人博客</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        知识追寻者个人博客
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        每天学一点点
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="主页" target="_blank" href="//zszxz.github.io">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/zszxz">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-redis/redis我与SDS的初见-二" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      redis我与SDS的初见(二)
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2020-11-13
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h1 id="一-前言"><a href="#一-前言" class="headerlink" title="一 前言"></a>一 前言</h1><p>本篇文章是初步认识redis的字符串数据结构SDS（Simple Dynamic String）， 其意指简单的动态字符串，字面上的含义就是smiple 代指简单，操作简单，使用者能够快点理解上手，无需关心redis内部实现；Dynamic 指动态扩展，表是能够自动的对内存空间进行动态分配；String 表示字符串，不难理解；</p>
+<blockquote>
+<p>公众号：<strong>知识追寻者</strong></p>
+<blockquote>
+<p>知识追寻者(Inheriting the spirit of open source, Spreading technology knowledge;)                                 </p>
+</blockquote>
+</blockquote>
+<h1 id="二-SDS结构"><a href="#二-SDS结构" class="headerlink" title="二 SDS结构"></a>二 SDS结构</h1><h2 id="2-1-redis-SDS数据结构"><a href="#2-1-redis-SDS数据结构" class="headerlink" title="2.1 redis SDS数据结构"></a>2.1 redis SDS数据结构</h2><p>redis3.2之前数据结构如下；</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sdshdr</span> &#123;</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> len;   </span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="built_in">free</span>;  </span><br><span class="line">    <span class="keyword">char</span> buf[];         </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>len 表示 buf（缓冲区）中已经使用的空间长度；</li>
+<li>free 表示 buf中未使用的长度；</li>
+<li>buf[] 表示缓冲区数组，存储字符；</li>
+</ul>
+<h2 id="2-12-redis-缓冲区结构"><a href="#2-12-redis-缓冲区结构" class="headerlink" title="2.12 redis 缓冲区结构"></a>2.12 redis 缓冲区结构</h2><p>更加的形象的一个存储图像如下 buf 中的实际大小为 11（len + free + 1），其中已经使用空间 len = 5 , 未使用空间 free=5; 保留位空字符 \0 占一位；当我们在redis储存进一个字符串<code>zxzxz</code> 的时候 就已经给我们分配好了内存空间，以及后面能用使用的内存空间；如果是c 语言那么要得到一个 zxzxz 字符长度就需要遍历整个字符数组 遇到 \0 （C语言以\0区分内存空间中的字符串）后结束，才计算出一个字符串的长度，然而redis只需要一个<code>sdslen</code>(非c语言读者不必纠结此类API) 就可以计算得出字符串长度； 从算法角度来看 redis 的一次获取字符串长度 为 O(1), c 语言 为 O(N), 所以redis 快很多;</p>
+<p><img src="https://gitee.com/lsc180/images/raw/master/img/20200913161353.png"></p>
+<h2 id="2-2-redis-空间分配策略"><a href="#2-2-redis-空间分配策略" class="headerlink" title="2.2 redis 空间分配策略"></a>2.2 redis 空间分配策略</h2><p>其次通过上图可以发现 储存一个字符串 <code>zxzxz</code> ， 其所占长度为5 ， 为使用空间为5，\0 占1 ；原因是 redis字符串 储存大小小于1MB 的时候 ， 存储任意的字符串， 其 free大小永远与 自身的大小相同；当字符串 大小大于1MB时，其就分配free大小固定为1MB， 此称为<code>空间预分配策略</code>； 如果是c语言 则需要 计算当前字符串在buf中的长度，再计算即将追加的字符串长度，然后分配空间大小；故redis 的速度是相当快，相比于c 操作内存空间；</p>
+<p>c 语言 在操作内存空间的时候要不断的计算大小，在追加字符串的时候分配空间大小，如果未进行分配，那么追加的字符串有可能覆盖已经 已经储存到 内存空间的字符串； 比如 内存空间 储存  <code>zzz \0kkk\0</code>; 储存 zzz 的时候所占用3 个位，加一个未分配空间1位，如果向zzz字符串进行追加一个ggg， 那么在未进行计算分配空间的情况下 原有的数据会变成 <code>zzzggg\0k\0</code>, 很直观的发现 内存溢出， 第一个字符串就覆盖至第二个字符串的部分内容；</p>
+<p>所以 redis 的操作内容空间是杜绝内存溢出，并且能够储存图片，视频等二进制数据，如果是c语言操作储存，二进制文件中一个\0就可能导致内存泄漏，缓冲区溢出等，故c语言一般只操作文本文件；</p>
+<h1 id="三-相关链接"><a href="#三-相关链接" class="headerlink" title="三 相关链接"></a>三 相关链接</h1><p>如果想要深入redis之SDS源码，可以参考如下链接；</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/yangbodong22011/article/details/78419966">https://blog.csdn.net/yangbodong22011/article/details/78419966</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5cdbafedf265da037c7d090f">https://juejin.im/post/5cdbafedf265da037c7d090f</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq193423571/article/details/81637075">https://blog.csdn.net/qq193423571/article/details/81637075</a></p>
+<p><a target="_blank" rel="noopener" href="https://lynnapan.github.io/2017/07/14/redis_sds/">https://lynnapan.github.io/2017/07/14/redis_sds/</a></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2020年11月13日 17:26</p>
+        <p>原始链接： <a class="post-url" href="/2020/11/13/redis/redis%E6%88%91%E4%B8%8ESDS%E7%9A%84%E5%88%9D%E8%A7%81-%E4%BA%8C/" title="redis我与SDS的初见(二)">https://zszxz.github.io/2020/11/13/redis/redis%E6%88%91%E4%B8%8ESDS%E7%9A%84%E5%88%9D%E8%A7%81-%E4%BA%8C/</a></p>
+        <footer>
+            <a href="https://zszxz.github.io">
+                <img src="/images/logo.png" alt="lsc">
+                lsc
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我喝杯咖啡~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
+                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zszxz.github.io/2020/11/13/redis/redis%E6%88%91%E4%B8%8ESDS%E7%9A%84%E5%88%9D%E8%A7%81-%E4%BA%8C/&title=《redis我与SDS的初见(二)》 — 知识追寻者个人博客&pic=https://zszxz.github.ioimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zszxz.github.io/2020/11/13/redis/redis%E6%88%91%E4%B8%8ESDS%E7%9A%84%E5%88%9D%E8%A7%81-%E4%BA%8C/&title=《redis我与SDS的初见(二)》 — 知识追寻者个人博客&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zszxz.github.io/2020/11/13/redis/redis%E6%88%91%E4%B8%8ESDS%E7%9A%84%E5%88%9D%E8%A7%81-%E4%BA%8C/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《redis我与SDS的初见(二)》 — 知识追寻者个人博客&url=https://zszxz.github.io/2020/11/13/redis/redis%E6%88%91%E4%B8%8ESDS%E7%9A%84%E5%88%9D%E8%A7%81-%E4%BA%8C/&via=https://zszxz.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zszxz.github.io/2020/11/13/redis/redis%E6%88%91%E4%B8%8ESDS%E7%9A%84%E5%88%9D%E8%A7%81-%E4%BA%8C/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://zszxz.github.io/2020/11/13/redis/redis%E6%88%91%E4%B8%8ESDS%E7%9A%84%E5%88%9D%E8%A7%81-%E4%BA%8C/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/redis/" class="color1">redis</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%B8%80-%E5%89%8D%E8%A8%80"><span class="post-toc-text">一 前言</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%BA%8C-SDS%E7%BB%93%E6%9E%84"><span class="post-toc-text">二 SDS结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-1-redis-SDS%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="post-toc-text">2.1 redis SDS数据结构</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-12-redis-%E7%BC%93%E5%86%B2%E5%8C%BA%E7%BB%93%E6%9E%84"><span class="post-toc-text">2.12 redis 缓冲区结构</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-2-redis-%E7%A9%BA%E9%97%B4%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5"><span class="post-toc-text">2.2 redis 空间分配策略</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%B8%89-%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5"><span class="post-toc-text">三 相关链接</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2020/11/13/redis/redis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E4%B8%89/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          redis实现分布式锁(三)
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2020/11/13/redis/redis%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80-%E4%B8%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">redis入门基础(一)</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2020 lsc<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://zszxz.github.io",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/redis/" style="font-size: 16.67px;">redis</a> <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 10px;">分享</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 20px;">数据库</a> <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" style="font-size: 13.33px;">高效工具</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/redis/" style="font-size: 16.67px;">redis</a> <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 10px;">分享</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 20px;">数据库</a> <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" style="font-size: 13.33px;">高效工具</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+
+<script src="/js/search.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  
+<script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  
+<script src="/js/animate.js"></script>
+
+
+
+  
+<script src="/js/pop-img.js"></script>
+
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

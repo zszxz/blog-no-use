@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>redis入门基础(一) | 知识追寻者个人博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="zszxz" />
+  
+  <meta name="description" content="一 前言知识追寻者的redis开篇第一篇，希望大家共勉；觉得文章不错，随手点赞关注谢谢； 先介绍一下redis概念： Redis是一个开源的key-value存储系统，它属于NoSQL(Not Only SQL)，不仅仅是关系型数据库； 再看看redis的优势：  丰富的数据类型 支持键过期特性 每条指令都是原子性操作 读写性能极高  初步了解一下redis的附加特性  可以主存与二级存储，主从复">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis入门基础(一)">
+<meta property="og:url" content="https://zszxz.github.io/2020/11/13/redis/redis%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80-%E4%B8%80/index.html">
+<meta property="og:site_name" content="知识追寻者个人博客">
+<meta property="og:description" content="一 前言知识追寻者的redis开篇第一篇，希望大家共勉；觉得文章不错，随手点赞关注谢谢； 先介绍一下redis概念： Redis是一个开源的key-value存储系统，它属于NoSQL(Not Only SQL)，不仅仅是关系型数据库； 再看看redis的优势：  丰富的数据类型 支持键过期特性 每条指令都是原子性操作 读写性能极高  初步了解一下redis的附加特性  可以主存与二级存储，主从复">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ww1.yunjiexi.club/2020/03/12/G0erC.png">
+<meta property="og:image" content="https://ww1.yunjiexi.club/2020/03/12/G0fE4.png">
+<meta property="og:image" content="https://ww1.yunjiexi.club/2020/03/12/G0CfD.png">
+<meta property="og:image" content="https://ww1.yunjiexi.club/2020/03/12/G0S69.png">
+<meta property="og:image" content="https://ww1.yunjiexi.club/2020/03/12/G0sbb.png">
+<meta property="og:image" content="https://gitee.com/lsc180/images/raw/master/img/20200911183431.png">
+<meta property="article:published_time" content="2020-11-13T09:24:56.000Z">
+<meta property="article:modified_time" content="2020-11-13T09:25:23.046Z">
+<meta property="article:author" content="lsc">
+<meta property="article:tag" content="redis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ww1.yunjiexi.club/2020/03/12/G0erC.png">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+  
+
+  
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">知识追寻者个人博客</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        知识追寻者个人博客
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        每天学一点点
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="主页" target="_blank" href="//zszxz.github.io">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/zszxz">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-redis/redis入门基础-一" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      redis入门基础(一)
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2020-11-13
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h1 id="一-前言"><a href="#一-前言" class="headerlink" title="一 前言"></a>一 前言</h1><p>知识追寻者的redis开篇第一篇，希望大家共勉；觉得文章不错，随手点赞关注谢谢；</p>
+<p>先介绍一下redis概念：</p>
+<p>Redis是一个开源的key-value存储系统，它属于NoSQL(Not Only SQL)，不仅仅是关系型数据库；</p>
+<p>再看看redis的优势：</p>
+<ul>
+<li>丰富的数据类型</li>
+<li>支持键过期特性</li>
+<li>每条指令都是原子性操作</li>
+<li>读写性能极高</li>
+</ul>
+<p>初步了解一下redis的附加特性</p>
+<ul>
+<li>可以主存与二级存储，主从复制；</li>
+<li>支持数据持久化存储</li>
+</ul>
+<p>linux 安装 redis 链接 ： <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/bc84b2b71c1c">https://www.jianshu.com/p/bc84b2b71c1c</a></p>
+<p>windows安装redis链接： <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e16d23e358c0">https://www.jianshu.com/p/e16d23e358c0</a></p>
+<p>docker 安装 redis 链接 <a target="_blank" rel="noopener" href="https://juejin.im/post/5ca59dece51d4508b32a1292">https://juejin.im/post/5ca59dece51d4508b32a1292</a></p>
+<p>最后生产环境中建议大家安装 redis 5.0.5 稳定版本</p>
+<h1 id="二-五大基础数据类型"><a href="#二-五大基础数据类型" class="headerlink" title="二  五大基础数据类型"></a>二  五大基础数据类型</h1><h2 id="2-1-字符串"><a href="#2-1-字符串" class="headerlink" title="2.1 字符串"></a>2.1 字符串</h2><p>字符串型数据存储为 key - val （键值对）形式，即每个 键都有对应唯一的值；如下图所示，age 为 key 则对应唯一的值为18；</p>
+<p><img src="https://ww1.yunjiexi.club/2020/03/12/G0erC.png"></p>
+<p>命令介绍如下</p>
+<ol>
+<li>get : 获取存储给定键的值</li>
+<li>set : 设置给定存储键的值</li>
+<li>del : 删除给定键的值</li>
+<li>incr ：计数，每次加1</li>
+<li>incrby : 计算，给定值加减</li>
+<li>mset : 设置多个键值</li>
+<li>mget : 获取多个给定键的值</li>
+<li>expire : 设置过期时间（适用所有类型）</li>
+<li>exists  ： 是否存在键</li>
+</ol>
+<p><strong>存储字符串示例</strong></p>
+<p><code>set key value</code>  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; set zszxz 666</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+
+<p><strong>获取字符串示例</strong></p>
+<p><code>get key</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; get zszxz</span><br><span class="line">&quot;666&quot;</span><br></pre></td></tr></table></figure>
+
+<p><strong>删除字符串示例</strong></p>
+<p><code>del key [key ...] </code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; del zszxz</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+
+<p><strong>计数示例：</strong></p>
+<p>incr key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; set age 100</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; incr age</span><br><span class="line">(integer) 101</span><br><span class="line">127.0.0.1:6379&gt; incr age</span><br><span class="line">(integer) 102</span><br><span class="line">127.0.0.1:6379&gt; get age</span><br><span class="line">&quot;102&quot;</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
+
+<p>incrby key increment </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; set age 100</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; incrby age 5</span><br><span class="line">(integer) 105</span><br><span class="line">127.0.0.1:6379&gt; incrby age -2</span><br><span class="line">(integer) 103</span><br><span class="line">127.0.0.1:6379&gt; get age</span><br><span class="line">&quot;103&quot;</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>多键值对示例</strong></p>
+<p>mset key value [key value …]</p>
+<p> mget key [key …] </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; mset u1 you1 u2 you2</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; mget u1 u2</span><br><span class="line">1) &quot;you1&quot;</span><br><span class="line">2) &quot;you2&quot;</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>设置过期时间</strong></p>
+<p>expire key seconds </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; expire u1 1</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; get u1</span><br><span class="line">(nil)</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>存在示例</strong></p>
+<p>exists key [key …]</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; set age 100</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; exists age</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-2-列表"><a href="#2-2-列表" class="headerlink" title="2.2 列表"></a>2.2 列表</h2><p>列表其实就是链表，一个列表有一个键，一个键对应多个值，值可以重复，取值时根据索引取值即可；</p>
+<p><img src="https://ww1.yunjiexi.club/2020/03/12/G0fE4.png"></p>
+<ol>
+<li>rpush : 将值推入列表右端</li>
+<li>lrange : 获取列表给定范围内所有的值</li>
+<li>lindex : 获取列表上给定位置的单个元素</li>
+<li>lpop : 从列表的左端弹出一个值</li>
+</ol>
+<p>值入列表示例</p>
+<p><code>rpush key value [value ...]</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; rpush list-zszxz a</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; rpush list-zszxz b</span><br><span class="line">(integer) 2</span><br><span class="line">127.0.0.1:6379&gt; rpush list-zszxz c</span><br><span class="line">(integer) 3</span><br></pre></td></tr></table></figure>
+
+<p>范围取值示例</p>
+<p><code>lrange key start stop </code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; lrange list-zszxz 0 -1</span><br><span class="line">1) &quot;a&quot;</span><br><span class="line">2) &quot;b&quot;</span><br><span class="line">3) &quot;c&quot;</span><br></pre></td></tr></table></figure>
+
+<p>给定索引取值示例</p>
+<p><code>lindex key index  </code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; lindex list-zszxz 1</span><br><span class="line">&quot;b&quot;</span><br></pre></td></tr></table></figure>
+
+<p>左弹出示例</p>
+<p><code>lpop key </code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; lpop list-zszxz</span><br><span class="line">&quot;a&quot;</span><br><span class="line">127.0.0.1:6379&gt;  lrange list-zszxz 0 -1</span><br><span class="line">1) &quot;b&quot;</span><br><span class="line">2) &quot;c&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-3-集合"><a href="#2-3-集合" class="headerlink" title="2.3 集合"></a>2.3 集合</h2><p>集合与列表类似，不过特殊指出是集合无序，并且每个值都是唯一，不可重复；</p>
+<p><img src="https://ww1.yunjiexi.club/2020/03/12/G0CfD.png"></p>
+<ol>
+<li>sadd : 将给定的值加入集合</li>
+<li>smembers : 返回集合所有的元素</li>
+<li>sismember : 检查给定的元素是否存在集合中</li>
+<li>srem : 若集合中存在该元素，则移除该元素</li>
+</ol>
+<p>添加示例</p>
+<p><code>sadd key member [member ...]</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; sadd set-zszxz a</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; sadd set-zszxz b</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; sadd set-zszxz c</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+
+<p>返回所有元素示例</p>
+<p><code>smembers key</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; smembers set-zszxz</span><br><span class="line">1) &quot;c&quot;</span><br><span class="line">2) &quot;b&quot;</span><br><span class="line">3) &quot;a&quot;</span><br></pre></td></tr></table></figure>
+
+<p>存在示例</p>
+<p><code>sismember key member </code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; sismember set-zszxz c</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+
+<p>删除示例</p>
+<p><code>srem key member [member ...] </code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; srem set-zszxz a</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; smembers set-zszxz</span><br><span class="line">1) &quot;c&quot;</span><br><span class="line">2) &quot;b&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-4-散列"><a href="#2-4-散列" class="headerlink" title="2.4 散列"></a>2.4 散列</h2><p>散列点像java中的map，python中的字典；一个散列里面存储多个键值对；</p>
+<p><img src="https://ww1.yunjiexi.club/2020/03/12/G0S69.png"></p>
+<ol>
+<li>hset : 给定散列的键值对</li>
+<li>hget : 获取指定散列键的值</li>
+<li>hetall : 获取所有散列的键值对</li>
+<li>hdel : 若散列中存在该键，则移除键</li>
+</ol>
+<p>设置散列键值对示例</p>
+<p><code>hset key field value </code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hset hash-key key1 a</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; hset hash-key key2 b</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; hset hash-key key3 c</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
+
+<p>获取散列给定键示例</p>
+<p><code>hget key field </code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hget hash-key key1</span><br><span class="line">&quot;c&quot;</span><br></pre></td></tr></table></figure>
+
+<p>获取散列所有键值对示例</p>
+<p><code>hgetall key </code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hgetall hash-key</span><br><span class="line">1) &quot;key1&quot;</span><br><span class="line">2) &quot;c&quot;</span><br><span class="line">3) &quot;key2&quot;</span><br><span class="line">4) &quot;b&quot;</span><br><span class="line">5) &quot;key3&quot;</span><br><span class="line">6) &quot;c&quot;</span><br></pre></td></tr></table></figure>
+
+<p>删除散列键示例</p>
+<p><code>hdel key field [field ...] </code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hdel hash-key key1</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; hgetall hash-key</span><br><span class="line">1) &quot;key2&quot;</span><br><span class="line">2) &quot;b&quot;</span><br><span class="line">3) &quot;key3&quot;</span><br><span class="line">4) &quot;c&quot;</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-5-有序集合"><a href="#2-5-有序集合" class="headerlink" title="2.5 有序集合"></a>2.5 有序集合</h2><p>redis 有序集合与散列类似，不同之处键称为member, value称为 score ; 根据分值不同进行有序排序；</p>
+<p><img src="https://ww1.yunjiexi.club/2020/03/12/G0sbb.png"></p>
+<ol>
+<li>zadd ： 将带有给定分值的成员添加入有序集合</li>
+<li>zrange : 根据有序集合的索引获取元素</li>
+<li>zrangebyscore : 获取有序集合内给定分值范围内的所有元素</li>
+<li>zrem : 如果成员存在有序集合中，则移除</li>
+</ol>
+<p>添加成员示例</p>
+<p><code>zadd key  score member [score member ...] </code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; zadd zset-key 600 member1</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; zadd zset-key 650 member2</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; zadd zset-key 680 member3</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
+
+<p>获取指定索引范围内的成员示例</p>
+<p><code>zrange key start stop [WITHSCORES] </code></p>
+<p>不带score</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; zrange zset-key 0 -1</span><br><span class="line">1) &quot;member1&quot;</span><br><span class="line">2) &quot;member2&quot;</span><br><span class="line">3) &quot;member3&quot;</span><br></pre></td></tr></table></figure>
+
+<p>带上score</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt;  zrange zset-key 0 -1 withscores</span><br><span class="line">1) &quot;member1&quot;</span><br><span class="line">2) &quot;600&quot;</span><br><span class="line">3) &quot;member2&quot;</span><br><span class="line">4) &quot;650&quot;</span><br><span class="line">5) &quot;member3&quot;</span><br><span class="line">6) &quot;680&quot;</span><br></pre></td></tr></table></figure>
+
+<p>获取指定分值范围内的成员示例</p>
+<p><code>zrangebyscore key min max [WITHSCORES] [LIMIT offset count]</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; zrangebyscore zset-key 600 650 withscores</span><br><span class="line">1) &quot;member1&quot;</span><br><span class="line">2) &quot;600&quot;</span><br><span class="line">3) &quot;member2&quot;</span><br><span class="line">4) &quot;650&quot;</span><br></pre></td></tr></table></figure>
+
+<p>移除成员示例</p>
+<p><code>zrem key member [member ...] </code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; zrem zset-key member1</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; zrange zset-key 0 -1 withscores</span><br><span class="line">1) &quot;member2&quot;</span><br><span class="line">2) &quot;650&quot;</span><br><span class="line">3) &quot;member3&quot;</span><br><span class="line">4) &quot;680&quot;</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>简记方式：</p>
+<p>字符串， key - value</p>
+<p>列表与集合 ，类似链表，一个有序，一个无序，一个键存储多个值；</p>
+<p>散列与有序集合，类似字典，map；储存多个 key-value; 有序集合的key 为member, value 为 score ,按照分值排序；</p>
+<p><img src="https://gitee.com/lsc180/images/raw/master/img/20200911183431.png"></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2020年11月13日 17:25</p>
+        <p>原始链接： <a class="post-url" href="/2020/11/13/redis/redis%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80-%E4%B8%80/" title="redis入门基础(一)">https://zszxz.github.io/2020/11/13/redis/redis%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80-%E4%B8%80/</a></p>
+        <footer>
+            <a href="https://zszxz.github.io">
+                <img src="/images/logo.png" alt="lsc">
+                lsc
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我喝杯咖啡~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
+                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zszxz.github.io/2020/11/13/redis/redis%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80-%E4%B8%80/&title=《redis入门基础(一)》 — 知识追寻者个人博客&pic=https://zszxz.github.ioimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zszxz.github.io/2020/11/13/redis/redis%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80-%E4%B8%80/&title=《redis入门基础(一)》 — 知识追寻者个人博客&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zszxz.github.io/2020/11/13/redis/redis%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80-%E4%B8%80/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《redis入门基础(一)》 — 知识追寻者个人博客&url=https://zszxz.github.io/2020/11/13/redis/redis%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80-%E4%B8%80/&via=https://zszxz.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zszxz.github.io/2020/11/13/redis/redis%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80-%E4%B8%80/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://zszxz.github.io/2020/11/13/redis/redis%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80-%E4%B8%80/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/redis/" class="color1">redis</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%B8%80-%E5%89%8D%E8%A8%80"><span class="post-toc-text">一 前言</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%BA%8C-%E4%BA%94%E5%A4%A7%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="post-toc-text">二  五大基础数据类型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-1-%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="post-toc-text">2.1 字符串</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-2-%E5%88%97%E8%A1%A8"><span class="post-toc-text">2.2 列表</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-3-%E9%9B%86%E5%90%88"><span class="post-toc-text">2.3 集合</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-4-%E6%95%A3%E5%88%97"><span class="post-toc-text">2.4 散列</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-5-%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88"><span class="post-toc-text">2.5 有序集合</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2020/11/13/redis/redis%E6%88%91%E4%B8%8ESDS%E7%9A%84%E5%88%9D%E8%A7%81-%E4%BA%8C/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          redis我与SDS的初见(二)
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2020/11/13/%E5%88%86%E4%BA%AB/%E5%9F%BA%E4%BA%8EHexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">基于Hexo搭建个人博客</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2020 lsc<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://zszxz.github.io",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/redis/" style="font-size: 16.67px;">redis</a> <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 10px;">分享</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 20px;">数据库</a> <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" style="font-size: 13.33px;">高效工具</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/redis/" style="font-size: 16.67px;">redis</a> <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 10px;">分享</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 20px;">数据库</a> <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" style="font-size: 13.33px;">高效工具</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+
+<script src="/js/search.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  
+<script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  
+<script src="/js/animate.js"></script>
+
+
+
+  
+<script src="/js/pop-img.js"></script>
+
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

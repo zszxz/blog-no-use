@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>redis持久化（九） | 知识追寻者个人博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="zszxz" />
+  
+  <meta name="description" content="持久化介绍redis 提供了两种方式方式进行数据的持久化（将数据存储到硬盘中）；第一种称为快照（snapshotting）RDB，它将某一时刻的所有数据都写入硬盘，所以快照是一次全量备份，并且存储的数据形式是二进制序列化形式；另一种方式是只追加文件（append-only file）AOF,  它会在执行命令时将命令复制一份到硬盘中，AOF在长期运行中会变的非常庞大，数据库重启加载AOF日志将会很">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis持久化（九）">
+<meta property="og:url" content="https://zszxz.github.io/2020/11/13/redis/redis%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%B9%9D%EF%BC%89/index.html">
+<meta property="og:site_name" content="知识追寻者个人博客">
+<meta property="og:description" content="持久化介绍redis 提供了两种方式方式进行数据的持久化（将数据存储到硬盘中）；第一种称为快照（snapshotting）RDB，它将某一时刻的所有数据都写入硬盘，所以快照是一次全量备份，并且存储的数据形式是二进制序列化形式；另一种方式是只追加文件（append-only file）AOF,  它会在执行命令时将命令复制一份到硬盘中，AOF在长期运行中会变的非常庞大，数据库重启加载AOF日志将会很">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/lsc180/images/raw/master/img/zszxz.jpg">
+<meta property="article:published_time" content="2020-11-13T09:34:08.000Z">
+<meta property="article:modified_time" content="2020-11-13T09:34:55.290Z">
+<meta property="article:author" content="lsc">
+<meta property="article:tag" content="redis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/lsc180/images/raw/master/img/zszxz.jpg">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+  
+
+  
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">知识追寻者个人博客</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        知识追寻者个人博客
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        每天学一点点
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="主页" target="_blank" href="//zszxz.github.io">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/zszxz">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-redis/redis持久化（九）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      redis持久化（九）
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2020-11-13
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h1 id="持久化介绍"><a href="#持久化介绍" class="headerlink" title="持久化介绍"></a>持久化介绍</h1><p>redis 提供了两种方式方式进行数据的持久化（将数据存储到硬盘中）；第一种称为快照（snapshotting）RDB，它将某一时刻的所有数据都写入硬盘，所以快照是一次全量备份，并且存储的数据形式是二进制序列化形式；另一种方式是只追加文件（append-only file）AOF,  它会在执行命令时将命令复制一份到硬盘中，AOF在长期运行中会变的非常庞大，数据库重启加载AOF日志将会很慢；</p>
+<blockquote>
+<p>redis 将数据持久化的主要原因就是重用数据，或者防止系统故障，备份数据；</p>
+<p>两种方式的持久化是可以同时存在的，但是当Redis重启时，AOF文件会被优先用于重建数据</p>
+</blockquote>
+<h1 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h1><h2 id="快照工作原理"><a href="#快照工作原理" class="headerlink" title="快照工作原理"></a>快照工作原理</h2><p>redis的快照必须要求文件IO操作，单线程的redis进行多余的IO操作会影响服务器的性能，所以redis采用COW（copy on write）机制实现快照的持久化；</p>
+<ul>
+<li>首先redis进行会fork一个子进程，此时就存在父子进程；</li>
+<li>父进程负责进行修改操作，内存持续增加；而子进程数据不做任何变化；</li>
+<li>子进程将瞬间数据写入磁盘的rdb文件</li>
+</ul>
+<h2 id="AOF工作原理"><a href="#AOF工作原理" class="headerlink" title="AOF工作原理"></a>AOF工作原理</h2><p>AOF日志存放了redis指令顺序序列；所以只要重新执行AOF文件包含所有的命令就可以实现AOF文件记录的所有数据；</p>
+<h1 id="常用配置"><a href="#常用配置" class="headerlink" title="常用配置"></a>常用配置</h1><h2 id="RDB配置"><a href="#RDB配置" class="headerlink" title="RDB配置"></a>RDB配置</h2><p>默认文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dbfilename dump.rdb</span><br><span class="line">dir ./</span><br></pre></td></tr></table></figure>
+
+<p>redis会将数据默认dump至dump.rdb文件中；我们可以通过配置修改dump的频率；</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">在900秒(15分钟)之后，如果至少有1个key发生变化，则dump内存快照。</span></span><br><span class="line">save 900 1 </span><br><span class="line"><span class="meta">#</span><span class="bash">在300秒(5分钟)之后，如果至少有10个key发生变化，则dump内存快照。</span></span><br><span class="line">save 300 10 </span><br><span class="line"><span class="meta">#</span><span class="bash">在60秒(1分钟)之后，如果至少有10000个key发生变化，则dump内存快照</span></span><br><span class="line">save 60 10000 </span><br></pre></td></tr></table></figure>
+
+<p>如果想要禁用快照功能，注释掉如上配置，开启<code>save &quot;&quot; </code>配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">save &quot;&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash">save 900 1</span></span><br><span class="line"><span class="meta">#</span><span class="bash">save 300 10</span></span><br><span class="line"><span class="meta">#</span><span class="bash">save 60 10000</span></span><br></pre></td></tr></table></figure>
+
+<p>手动备份</p>
+<blockquote>
+<p>save命令是阻塞命令 ,当服务器接收到save命令之后就会开始拍摄快照，在此期间不会处理其他请求;</p>
+<p>bgsave命令也是立即拍摄快照,非阻塞命令，而是fork一个子线程进行备份快照;</p>
+</blockquote>
+<p><strong>缺点</strong></p>
+<ul>
+<li>每隔一段时间进行一次持久化，如果redis崩溃，可能会导致部分数据丢失问题；</li>
+<li>RDB使用<code>fork()</code>子进程进行数据的持久化，如果数据量大，可能花费的时间较长，redis会造成明显的卡顿几秒现象；</li>
+<li>很好的备份效果，容易进行数据恢复；</li>
+</ul>
+<p><strong>优点</strong></p>
+<ul>
+<li>相比AOF，在数据量比较大的情况下，RDB的启动速度更快；</li>
+<li>RDB使用<code>fork()</code>子进程进行数据的持久化，本身不会有多余的IO操作；</li>
+</ul>
+<h2 id="AOF配置"><a href="#AOF配置" class="headerlink" title="AOF配置"></a>AOF配置</h2><p>启用AOF</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">appendonly yes</span><br></pre></td></tr></table></figure>
+
+<p>默认文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">appendfilename &quot;appendonly.aof&quot;</span><br><span class="line">dir ./</span><br></pre></td></tr></table></figure>
+
+<p>fsync</p>
+<p>如果redis发生宕机事件，有可能没来的及数据写入磁盘；此时redis AOF 的 fsync 策略能够保证redis保持高性能，和尽可能的减少数据丢失；默认就是使用 1s执行一次同步；</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">每次有数据修改发生时都会写入AOF文件。</span></span><br><span class="line"><span class="meta">#</span><span class="bash">appendfsync always </span></span><br><span class="line"><span class="meta">#</span><span class="bash">每秒钟同步一次，该策略为AOF的缺省策略。</span></span><br><span class="line">appendfsync everysec </span><br><span class="line"><span class="meta">#</span><span class="bash">从不同步。高效但是数据不会被持久化。</span></span><br><span class="line"><span class="meta">#</span><span class="bash">appendfsync no </span></span><br></pre></td></tr></table></figure>
+
+<p>AOF重写</p>
+<p>AOF日志文件会随着redis运行越来越庞大，Redis 提供了 bgrewriteaof 指令用于对 AOF 日志进行瘦身；也可以使用配置文件进行自动瘦身；</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 当前AOF文件大小是上次日志重写得到AOF文件大小的二倍时，自动启动新的日志重写过程。</span></span><br><span class="line">auto-aof-rewrite-percentage 100  </span><br><span class="line"><span class="meta">#</span><span class="bash"> 当前AOF文件启动新的日志重写过程的最小值，避免刚刚启动Reids时由于文件尺寸较小导致频繁的重写。</span></span><br><span class="line">auto-aof-rewrite-min-size 64mb</span><br></pre></td></tr></table></figure>
+
+<p>要禁用自动的日志重写功能，我们可以把百分比设置为0</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auto-aof-rewrite-percentage 0</span><br></pre></td></tr></table></figure>
+
+<p>优点</p>
+<ul>
+<li>使用fsync每秒一次同步，数据完整性较高；</li>
+<li>redis如果发生宕机，支持使用redis-check-aof 工具修复损坏的AOF文件</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>AOF文件的大小一般会比RDB文件大</li>
+<li>AOF在运行效率上往往会慢于RDB</li>
+</ul>
+<p><strong>关注公众号：知识追寻者，获取一线大厂面经</strong></p>
+<p><img src="https://gitee.com/lsc180/images/raw/master/img/zszxz.jpg"></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2020年11月13日 17:34</p>
+        <p>原始链接： <a class="post-url" href="/2020/11/13/redis/redis%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%B9%9D%EF%BC%89/" title="redis持久化（九）">https://zszxz.github.io/2020/11/13/redis/redis%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%B9%9D%EF%BC%89/</a></p>
+        <footer>
+            <a href="https://zszxz.github.io">
+                <img src="/images/logo.png" alt="lsc">
+                lsc
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我喝杯咖啡~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
+                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zszxz.github.io/2020/11/13/redis/redis%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%B9%9D%EF%BC%89/&title=《redis持久化（九）》 — 知识追寻者个人博客&pic=https://zszxz.github.ioimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zszxz.github.io/2020/11/13/redis/redis%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%B9%9D%EF%BC%89/&title=《redis持久化（九）》 — 知识追寻者个人博客&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zszxz.github.io/2020/11/13/redis/redis%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%B9%9D%EF%BC%89/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《redis持久化（九）》 — 知识追寻者个人博客&url=https://zszxz.github.io/2020/11/13/redis/redis%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%B9%9D%EF%BC%89/&via=https://zszxz.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zszxz.github.io/2020/11/13/redis/redis%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%B9%9D%EF%BC%89/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://zszxz.github.io/2020/11/13/redis/redis%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%B9%9D%EF%BC%89/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/redis/" class="color1">redis</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">持久化介绍</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="post-toc-text">工作原理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%BF%AB%E7%85%A7%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="post-toc-text">快照工作原理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#AOF%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="post-toc-text">AOF工作原理</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE"><span class="post-toc-text">常用配置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#RDB%E9%85%8D%E7%BD%AE"><span class="post-toc-text">RDB配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#AOF%E9%85%8D%E7%BD%AE"><span class="post-toc-text">AOF配置</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2020/11/13/redis/redis%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%EF%BC%88%E5%85%AB%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">redis布隆过滤器（八）</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2020 lsc<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://zszxz.github.io",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/redis/" style="font-size: 16.67px;">redis</a> <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 10px;">分享</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 20px;">数据库</a> <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" style="font-size: 13.33px;">高效工具</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/redis/" style="font-size: 16.67px;">redis</a> <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 10px;">分享</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 20px;">数据库</a> <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" style="font-size: 13.33px;">高效工具</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+
+<script src="/js/search.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  
+<script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  
+<script src="/js/animate.js"></script>
+
+
+
+  
+<script src="/js/pop-img.js"></script>
+
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

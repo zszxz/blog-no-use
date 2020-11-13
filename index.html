@@ -105,14 +105,14 @@
       <div class="outer">
         <section id="main" class="body-wrap">
   
-    <article id="post-数据库/MYSQL索引-第十六讲" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-redis/redis持久化（九）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%B4%A2%E5%BC%95-%E7%AC%AC%E5%8D%81%E5%85%AD%E8%AE%B2/"  >MYSQL索引(第十六讲)</a>
+      <a class="article-title" href="/2020/11/13/redis/redis%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%B9%9D%EF%BC%89/"  >redis持久化（九）</a>
     </h1>
   
 
@@ -122,16 +122,15 @@
     <div class="article-entry " itemprop="articleBody">
       
         <div class="article-img">
-            <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%B4%A2%E5%BC%95-%E7%AC%AC%E5%8D%81%E5%85%AD%E8%AE%B2/" >
+            <a href="/2020/11/13/redis/redis%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%B9%9D%EF%BC%89/" >
                 
-                <img src="https://gitee.com/lsc180/images/raw/master/img/main.png" alt="MYSQL索引(第十六讲)" title="MYSQL索引(第十六讲)">
+                <img src="https://gitee.com/lsc180/images/raw/master/img/main.png" alt="redis持久化（九）" title="redis持久化（九）">
                 
             </a>
         </div>
         <div class="article-feed">
             <p>
-                一什么是索引索引在MYSQL中也可以称为键，其是存储引擎用于快速查找记录的一种数据结构；这样听起来有点生涩，你可能难以理解；如果给你一本书，你如何能够精确的查找到书中某个章节的具体位置呢？我们肯定是先看目录，再找内容。你可以理解索引就像书的目录一样；当数据库的数据量大的时候，索引的性能对数据库非常重要，索引分为很多种，所以要学习好索引的相关知识，甚至比查询优化更重要。
-二...
+                持久化介绍redis 提供了两种方式方式进行数据的持久化（将数据存储到硬盘中）；第一种称为快照（snapshotting）RDB，它将某一时刻的所有数据都写入硬盘，所以快照是一次全量备份，并且存储的数据形式是二进制序列化形式；另一种方式是只追加文件（append-only file）AOF,  它会在执行命令时将命令复制一份到硬盘中，AOF在长期运行中会变的非常庞大，数据...
             </p>
         </div>
       
@@ -141,19 +140,19 @@
         
         <ul class="article-footer-menu">
             
-                <li><i class="fa fa-calendar"></i>2020-11-11</li>
+                <li><i class="fa fa-calendar"></i>2020-11-13</li>
             
             
   <li class="article-footer-tags">
     <i class="fa fa-tags"></i>
       
-    <a href="/tags/数据库/" class="color4">数据库</a>
+    <a href="/tags/redis/" class="color1">redis</a>
       
   </li>
 
         </ul>
         
-            <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%B4%A2%E5%BC%95-%E7%AC%AC%E5%8D%81%E5%85%AD%E8%AE%B2/#more" class="article-more-link" >more&gt;&gt;</a>
+            <a href="/2020/11/13/redis/redis%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%B9%9D%EF%BC%89/#more" class="article-more-link" >more&gt;&gt;</a>
         
     </footer>
   </div>
@@ -161,14 +160,14 @@
 
 
   
-    <article id="post-数据库/MYSQLl执行计划-第十五讲" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-redis/redis布隆过滤器（八）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92-%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/"  >MYSQLl执行计划(第十五讲)</a>
+      <a class="article-title" href="/2020/11/13/redis/redis%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%EF%BC%88%E5%85%AB%EF%BC%89/"  >redis布隆过滤器（八）</a>
     </h1>
   
 
@@ -178,22 +177,15 @@
     <div class="article-entry " itemprop="articleBody">
       
         <div class="article-img">
-            <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92-%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/" >
+            <a href="/2020/11/13/redis/redis%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%EF%BC%88%E5%85%AB%EF%BC%89/" >
                 
-                <img src="https://gitee.com/lsc180/images/raw/master/img/main.png" alt="MYSQLl执行计划(第十五讲)" title="MYSQLl执行计划(第十五讲)">
+                <img src="https://gitee.com/lsc180/images/raw/master/img/main.png" alt="redis布隆过滤器（八）" title="redis布隆过滤器（八）">
                 
             </a>
         </div>
         <div class="article-feed">
             <p>
-                一 前言本篇是MYSQL进阶第三篇，SQL调优的前置知识之一；学习本篇的基础是知识追寻者发布的MYSQL系列文章；
-《SQL-你真的了解什么SQL么？》
-《SQL-小白最佳入门sql查询一》
-《SQL-小白最佳入门sql查询二》
-《SQL- 多年开发人员都不懂的插入与更新删除操作注意点》
-《SQL-SQL事物操作》
-《SQL-Mysql数据类型》
-《SQL-mysql视图...
+                一布隆过滤器简介布隆过滤器（Bloom Filter）是 1970 年由布隆提出的类似于Set的数据结构。它实际上是一个很长的二进制向量和一系列随机映射函数。布隆过滤器可以用于检索一个元素是否在一个集合中，但检索的结果并不是很精确，数据量变大的就会产生误判情形，但布隆过滤器的都是能过滤掉已经存在的内容，所以误判的情况就是不在布隆过滤器中的数据有可能误判为已经存在，这个功能...
             </p>
         </div>
       
@@ -203,19 +195,19 @@
         
         <ul class="article-footer-menu">
             
-                <li><i class="fa fa-calendar"></i>2020-11-11</li>
+                <li><i class="fa fa-calendar"></i>2020-11-13</li>
             
             
   <li class="article-footer-tags">
     <i class="fa fa-tags"></i>
       
-    <a href="/tags/数据库/" class="color4">数据库</a>
+    <a href="/tags/redis/" class="color1">redis</a>
       
   </li>
 
         </ul>
         
-            <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92-%E7%AC%AC%E5%8D%81%E4%BA%94%E8%AE%B2/#more" class="article-more-link" >more&gt;&gt;</a>
+            <a href="/2020/11/13/redis/redis%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%EF%BC%88%E5%85%AB%EF%BC%89/#more" class="article-more-link" >more&gt;&gt;</a>
         
     </footer>
   </div>
@@ -223,14 +215,14 @@
 
 
   
-    <article id="post-数据库/MYSQLl操作json-第十四讲" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-redis/redis应用HyperLogLog（七）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%93%8D%E4%BD%9Cjson-%E7%AC%AC%E5%8D%81%E5%9B%9B%E8%AE%B2/"  >MYSQLl操作json(第十四讲)</a>
+      <a class="article-title" href="/2020/11/13/redis/redis%E5%BA%94%E7%94%A8HyperLogLog%EF%BC%88%E4%B8%83%EF%BC%89/"  >redis应用HyperLogLog（七）</a>
     </h1>
   
 
@@ -240,17 +232,379 @@
     <div class="article-entry " itemprop="articleBody">
       
         <div class="article-img">
-            <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%93%8D%E4%BD%9Cjson-%E7%AC%AC%E5%8D%81%E5%9B%9B%E8%AE%B2/" >
+            <a href="/2020/11/13/redis/redis%E5%BA%94%E7%94%A8HyperLogLog%EF%BC%88%E4%B8%83%EF%BC%89/" >
                 
-                <img src="https://gitee.com/lsc180/images/raw/master/img/main.png" alt="MYSQLl操作json(第十四讲)" title="MYSQLl操作json(第十四讲)">
+                <img src="https://gitee.com/lsc180/images/raw/master/img/main.png" alt="redis应用HyperLogLog（七）" title="redis应用HyperLogLog（七）">
                 
             </a>
         </div>
         <div class="article-feed">
             <p>
-                一 前言MySQL 5.7.8 之后 支持 JSON （由rfc7159规定）数据类型，其能在字段中使用json 类型，做到了自动校验是否为json类型数据，否则插入数据会报异常；其次，储存json数据内部做到了优化储存，能够快速读取json类型数据，比如无需将二进制json转为文本形式后读取；
-《SQL-你真的了解什么SQL么？》
-《SQL-小白最佳入门sql查询一》
+                一 HyperLogLog 介绍
+Redis 在 2.8.9 版本添加了 HyperLogLog 结构。
+在 Redis 中，HyperLogLog 是它的一种高级数据结构， 其功能结构类似于Set；
+HyperLogLog  经常使用于系统数据的不精确去重，标准误差为0.81%；
+每个 HyperLogLog 键只需要12 KB 内存，就可以统计 2^64 个不同的元素...
+            </p>
+        </div>
+      
+        
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2020-11-13</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/redis/" class="color1">redis</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2020/11/13/redis/redis%E5%BA%94%E7%94%A8HyperLogLog%EF%BC%88%E4%B8%83%EF%BC%89/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-redis/redis跳跃表与二分查找（六）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/11/13/redis/redis%E8%B7%B3%E8%B7%83%E8%A1%A8%E4%B8%8E%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%EF%BC%88%E5%85%AD%EF%BC%89/"  >redis跳跃表与二分查找（六）</a>
+    </h1>
+  
+
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2020/11/13/redis/redis%E8%B7%B3%E8%B7%83%E8%A1%A8%E4%B8%8E%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%EF%BC%88%E5%85%AD%EF%BC%89/" >
+                
+                <img src="https://gitee.com/lsc180/images/raw/master/img/main.png" alt="redis跳跃表与二分查找（六）" title="redis跳跃表与二分查找（六）">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                一 前言本篇内容主要是讲解redis跳跃表的基础概念，科普一下读者知道有这种随机数据结构的概念,。
+
+公众号：知识追寻者
+
+知识追寻者(Inheriting the spirit of open source, Spreading technology knowledge;)                                 
+
+
+二 跳跃表2.1 分查找的...
+            </p>
+        </div>
+      
+        
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2020-11-13</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/redis/" class="color1">redis</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2020/11/13/redis/redis%E8%B7%B3%E8%B7%83%E8%A1%A8%E4%B8%8E%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%EF%BC%88%E5%85%AD%EF%BC%89/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-redis/redis发布订阅模式-五" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/11/13/redis/redis%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F-%E4%BA%94/"  >redis发布订阅模式(五)</a>
+    </h1>
+  
+
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2020/11/13/redis/redis%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F-%E4%BA%94/" >
+                
+                <img src="https://gitee.com/lsc180/images/raw/master/img/main.png" alt="redis发布订阅模式(五)" title="redis发布订阅模式(五)">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                一 前言虽然有消息队列，我们还是要了解一下redis发布订阅模式哟！！！！！
+二发布订阅模式
+
+PUBLISH 命令向通道发送信息，此客户端称为publisher 发布者；
+SUBSCRIBE  向命令通道订阅信息，此客户端称为subscriber 订阅者；
+redis 中 发布订阅模块的名字叫着 PubSub，也就是 PublisherSubscriber；
+一个发布者...
+            </p>
+        </div>
+      
+        
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2020-11-13</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/redis/" class="color1">redis</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2020/11/13/redis/redis%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F-%E4%BA%94/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-redis/redis事物（四）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/11/13/redis/redis%E4%BA%8B%E7%89%A9%EF%BC%88%E5%9B%9B%EF%BC%89/"  >redis事物（四）</a>
+    </h1>
+  
+
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2020/11/13/redis/redis%E4%BA%8B%E7%89%A9%EF%BC%88%E5%9B%9B%EF%BC%89/" >
+                
+                <img src="https://gitee.com/lsc180/images/raw/master/img/main.png" alt="redis事物（四）" title="redis事物（四）">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                事物介绍有时候我们需要redis连续发送多个命令不能被中断，此时就需要使用到redis特殊的命令功能；redis有 5个命令可以实现多个命令执行操作，他们分别是WATCH, MULTI（开启事物）, EXEC（执行命令）, UNWATCH 和 DISCARD（丢弃事物）;
+Redis事物需要使用到MULTI和 EXEC命令，其和关系型数据库的回滚事物不同；redis会一个...
+            </p>
+        </div>
+      
+        
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2020-11-13</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/redis/" class="color1">redis</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2020/11/13/redis/redis%E4%BA%8B%E7%89%A9%EF%BC%88%E5%9B%9B%EF%BC%89/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-redis/redis实现分布式锁三" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/11/13/redis/redis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E4%B8%89/"  >redis实现分布式锁(三)</a>
+    </h1>
+  
+
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2020/11/13/redis/redis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E4%B8%89/" >
+                
+                <img src="https://gitee.com/lsc180/images/raw/master/img/main.png" alt="redis实现分布式锁(三)" title="redis实现分布式锁(三)">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                一 前言redis在分布式应用十分广泛，本篇文章也是互联网面试的重点内容，读者至少需要知道为什么需要分布式锁，分布式锁的实现原理，分布式锁的应用场景，在使用分布式锁时遇到哪些问题?你是如何解决的，如果读者能掌握以上问题，那么关于这道面试题，你也就基本过关了；
+二 分布式锁的产生背景分布式锁对应的是多个应用，每个应用中都可能会处理相同的数据，如果多个应用对用一个操作进行了重...
+            </p>
+        </div>
+      
+        
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2020-11-13</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/redis/" class="color1">redis</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2020/11/13/redis/redis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E4%B8%89/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-redis/redis我与SDS的初见-二" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/11/13/redis/redis%E6%88%91%E4%B8%8ESDS%E7%9A%84%E5%88%9D%E8%A7%81-%E4%BA%8C/"  >redis我与SDS的初见(二)</a>
+    </h1>
+  
+
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2020/11/13/redis/redis%E6%88%91%E4%B8%8ESDS%E7%9A%84%E5%88%9D%E8%A7%81-%E4%BA%8C/" >
+                
+                <img src="https://gitee.com/lsc180/images/raw/master/img/main.png" alt="redis我与SDS的初见(二)" title="redis我与SDS的初见(二)">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                一 前言本篇文章是初步认识redis的字符串数据结构SDS（Simple Dynamic String）， 其意指简单的动态字符串，字面上的含义就是smiple 代指简单，操作简单，使用者能够快点理解上手，无需关心redis内部实现；Dynamic 指动态扩展，表是能够自动的对内存空间进行动态分配；String 表示字符串，不难理解；
+
+公众号：知识追寻者
+
+知识追寻者(...
+            </p>
+        </div>
+      
+        
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2020-11-13</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/redis/" class="color1">redis</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2020/11/13/redis/redis%E6%88%91%E4%B8%8ESDS%E7%9A%84%E5%88%9D%E8%A7%81-%E4%BA%8C/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-redis/redis入门基础-一" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/11/13/redis/redis%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80-%E4%B8%80/"  >redis入门基础(一)</a>
+    </h1>
+  
+
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2020/11/13/redis/redis%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80-%E4%B8%80/" >
+                
+                <img src="https://gitee.com/lsc180/images/raw/master/img/main.png" alt="redis入门基础(一)" title="redis入门基础(一)">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                一 前言知识追寻者的redis开篇第一篇，希望大家共勉；觉得文章不错，随手点赞关注谢谢；
+先介绍一下redis概念：
+Redis是一个开源的key-value存储系统，它属于NoSQL(Not Only SQL)，不仅仅是关系型数据库；
+再看看redis的优势：
+
+丰富的数据类型
+支持键过期特性
+每条指令都是原子性操作
+读写性能极高
+
+初步了解一下redis的附加特性
+
 ...
             </p>
         </div>
@@ -261,19 +615,19 @@
         
         <ul class="article-footer-menu">
             
-                <li><i class="fa fa-calendar"></i>2020-11-11</li>
+                <li><i class="fa fa-calendar"></i>2020-11-13</li>
             
             
   <li class="article-footer-tags">
     <i class="fa fa-tags"></i>
       
-    <a href="/tags/数据库/" class="color4">数据库</a>
+    <a href="/tags/redis/" class="color1">redis</a>
       
   </li>
 
         </ul>
         
-            <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%93%8D%E4%BD%9Cjson-%E7%AC%AC%E5%8D%81%E5%9B%9B%E8%AE%B2/#more" class="article-more-link" >more&gt;&gt;</a>
+            <a href="/2020/11/13/redis/redis%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80-%E4%B8%80/#more" class="article-more-link" >more&gt;&gt;</a>
         
     </footer>
   </div>
@@ -281,14 +635,14 @@
 
 
   
-    <article id="post-数据库/MYSQL锁等待与死锁-第十三讲" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-分享/基于Hexo搭建个人博客" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E9%94%81%E7%AD%89%E5%BE%85%E4%B8%8E%E6%AD%BB%E9%94%81-%E7%AC%AC%E5%8D%81%E4%B8%89%E8%AE%B2/"  >MYSQL锁等待与死锁(第十三讲)</a>
+      <a class="article-title" href="/2020/11/13/%E5%88%86%E4%BA%AB/%E5%9F%BA%E4%BA%8EHexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"  >基于Hexo搭建个人博客</a>
     </h1>
   
 
@@ -298,22 +652,17 @@
     <div class="article-entry " itemprop="articleBody">
       
         <div class="article-img">
-            <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E9%94%81%E7%AD%89%E5%BE%85%E4%B8%8E%E6%AD%BB%E9%94%81-%E7%AC%AC%E5%8D%81%E4%B8%89%E8%AE%B2/" >
+            <a href="/2020/11/13/%E5%88%86%E4%BA%AB/%E5%9F%BA%E4%BA%8EHexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" >
                 
-                <img src="https://gitee.com/lsc180/images/raw/master/img/main.png" alt="MYSQL锁等待与死锁(第十三讲)" title="MYSQL锁等待与死锁(第十三讲)">
+                <img src="https://gitee.com/lsc180/images/raw/master/img/main.png" alt="基于Hexo搭建个人博客" title="基于Hexo搭建个人博客">
                 
             </a>
         </div>
         <div class="article-feed">
             <p>
-                一 前言本篇是MYSQL高级进阶篇内容第二篇，学习本篇的基础是知识追寻者之前发布过的文章，尤其是《MYSQL架构入门篇》重中之重；
-《SQL-你真的了解什么SQL么？》
-《SQL-小白最佳入门sql查询一》
-《SQL-小白最佳入门sql查询二》
-《SQL- 多年开发人员都不懂的插入与更新删除操作注意点》
-《SQL-SQL事物操作》
-《SQL-Mysql数据类型》
-《SQL...
+                一 前言不知道你们有没有这种感觉，使用一些网上博客写文章会嫌弃广告太多，很影响阅读体验，于是有了个人博客的诞生；知识追寻者抽空 写了篇使用GitHub Pages 服务搭建个人博客，当然个人博客也有许多缺点，毕竟不是自己的开发，只能套用别人主题模板，难免功能上有些缺陷，人生不如意之事，十有八九，搭建个人博客也是如此；
+知识追寻者搭建的个人博客如下，体验地址如下:
+http...
             </p>
         </div>
       
@@ -323,386 +672,19 @@
         
         <ul class="article-footer-menu">
             
-                <li><i class="fa fa-calendar"></i>2020-11-11</li>
+                <li><i class="fa fa-calendar"></i>2020-11-13</li>
             
             
   <li class="article-footer-tags">
     <i class="fa fa-tags"></i>
       
-    <a href="/tags/数据库/" class="color4">数据库</a>
+    <a href="/tags/分享/" class="color3">分享</a>
       
   </li>
 
         </ul>
         
-            <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E9%94%81%E7%AD%89%E5%BE%85%E4%B8%8E%E6%AD%BB%E9%94%81-%E7%AC%AC%E5%8D%81%E4%B8%89%E8%AE%B2/#more" class="article-more-link" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-数据库/MYSQLl架构入门-第十二讲" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%9E%B6%E6%9E%84%E5%85%A5%E9%97%A8-%E7%AC%AC%E5%8D%81%E4%BA%8C%E8%AE%B2/"  >MYSQLl架构入门(第十二讲)</a>
-    </h1>
-  
-
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%9E%B6%E6%9E%84%E5%85%A5%E9%97%A8-%E7%AC%AC%E5%8D%81%E4%BA%8C%E8%AE%B2/" >
-                
-                <img src="https://gitee.com/lsc180/images/raw/master/img/main.png" alt="MYSQLl架构入门(第十二讲)" title="MYSQLl架构入门(第十二讲)">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                一 前言本篇是关于mysql架构层面的内容，之前的知识追寻者发布的文章都是基础系列文章，如果读者们学习到这边就算是步入MYSQL的高阶内容了，你将理解什么MYSQL的架构与引擎，读写锁，等进阶知识，为以后的MYSQL参数配置，引擎选择，语句优化打下坚实的基础；学习本篇的内容是知识追寻者发布过的基础系列文章
-《SQL-你真的了解什么SQL么？》
-《SQL-小白最佳入门sql...
-            </p>
-        </div>
-      
-        
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2020-11-11</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/数据库/" class="color4">数据库</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E6%9E%B6%E6%9E%84%E5%85%A5%E9%97%A8-%E7%AC%AC%E5%8D%81%E4%BA%8C%E8%AE%B2/#more" class="article-more-link" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-数据库/MYSQL用户权限管理-第十一讲" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86-%E7%AC%AC%E5%8D%81%E4%B8%80%E8%AE%B2/"  >MYSQL用户权限管理(第十一讲)</a>
-    </h1>
-  
-
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86-%E7%AC%AC%E5%8D%81%E4%B8%80%E8%AE%B2/" >
-                
-                <img src="https://gitee.com/lsc180/images/raw/master/img/main.png" alt="MYSQL用户权限管理(第十一讲)" title="MYSQL用户权限管理(第十一讲)">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                一 前言本篇内容是关于MYSQL 数据库管理系统对数据库用户的权限相关的操作；学习本篇的基础是知识追寻者之前发布的MYSQL系列文章（公众号读者看专辑）
-《SQL-你真的了解什么SQL么？》
-《SQL-小白最佳入门sql查询一》
-《SQL-小白最佳入门sql查询二》
-《SQL- 多年开发人员都不懂的插入与更新删除操作注意点》
-《SQL-SQL事物操作》
-《SQL-Mysq...
-            </p>
-        </div>
-      
-        
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2020-11-11</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/数据库/" class="color4">数据库</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86-%E7%AC%AC%E5%8D%81%E4%B8%80%E8%AE%B2/#more" class="article-more-link" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-数据库/MYSQL游标与触发器-第十讲" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%B8%B8%E6%A0%87%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8-%E7%AC%AC%E5%8D%81%E8%AE%B2/"  >MYSQL游标与触发器(第十讲)</a>
-    </h1>
-  
-
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%B8%B8%E6%A0%87%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8-%E7%AC%AC%E5%8D%81%E8%AE%B2/" >
-                
-                <img src="https://gitee.com/lsc180/images/raw/master/img/main.png" alt="MYSQL游标与触发器(第十讲)" title="MYSQL游标与触发器(第十讲)">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                一 前言本篇内容是关于mysql游标和触发器的知识，学习本篇的基础是知识追寻者之前发过的文章（公众号读者看专辑）
-《SQL-你真的了解什么SQL么？》
-《SQL-小白最佳入门sql查询一》
-《SQL-小白最佳入门sql查询二》
-《SQL- 多年开发人员都不懂的插入与更新删除操作注意点》
-《SQL-SQL事物操作》
-《SQL-Mysql数据类型》
-《SQL-mysql视图的...
-            </p>
-        </div>
-      
-        
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2020-11-11</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/数据库/" class="color4">数据库</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E6%B8%B8%E6%A0%87%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8-%E7%AC%AC%E5%8D%81%E8%AE%B2/#more" class="article-more-link" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-数据库/MYSQLl储存过程-第九讲" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E5%82%A8%E5%AD%98%E8%BF%87%E7%A8%8B-%E7%AC%AC%E4%B9%9D%E8%AE%B2/"  >MYSQLl储存过程(第九讲)</a>
-    </h1>
-  
-
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E5%82%A8%E5%AD%98%E8%BF%87%E7%A8%8B-%E7%AC%AC%E4%B9%9D%E8%AE%B2/" >
-                
-                <img src="https://gitee.com/lsc180/images/raw/master/img/main.png" alt="MYSQLl储存过程(第九讲)" title="MYSQLl储存过程(第九讲)">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                一 前言本篇内容是关于mysql储存过程的知识，学习本篇的基础是知识追寻者之前发过的文章（公众号读者看专辑）
-《SQL-你真的了解什么SQL么？》
-《SQL-小白最佳入门sql查询一》
-《SQL-小白最佳入门sql查询二》
-《SQL- 多年开发人员都不懂的插入与更新删除操作注意点》
-《SQL-SQL事物操作》
-《SQL-Mysql数据类型》
-《SQL-mysql视图的前世...
-            </p>
-        </div>
-      
-        
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2020-11-11</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/数据库/" class="color4">数据库</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQLl%E5%82%A8%E5%AD%98%E8%BF%87%E7%A8%8B-%E7%AC%AC%E4%B9%9D%E8%AE%B2/#more" class="article-more-link" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-数据库/MYSQL视图-第八讲" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E8%A7%86%E5%9B%BE-%E7%AC%AC%E5%85%AB%E8%AE%B2/"  >MYSQL视图(第八讲)</a>
-    </h1>
-  
-
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E8%A7%86%E5%9B%BE-%E7%AC%AC%E5%85%AB%E8%AE%B2/" >
-                
-                <img src="https://gitee.com/lsc180/images/raw/master/img/main.png" alt="MYSQL视图(第八讲)" title="MYSQL视图(第八讲)">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                一 前言本篇内容是关于视图的一些概念，和使用，主要目的带小伙伴们全面的了解视图，而不是仅仅停留在简单的使用上
-学习本篇的基础是知识追寻者发过SQL的系列文章，知识追寻者的目标是MYSQL系列知识直接安排，不管是学习和工作，学了直接能用；（公众号读者看专辑）
-《SQL-你真的了解什么SQL么？》
-《SQL-小白最佳入门sql查询一》
-《SQL-小白最佳入门sql查询二》
-《...
-            </p>
-        </div>
-      
-        
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2020-11-11</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/数据库/" class="color4">数据库</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E8%A7%86%E5%9B%BE-%E7%AC%AC%E5%85%AB%E8%AE%B2/#more" class="article-more-link" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-数据库/MYSQL表结构操作-第七讲" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E8%A1%A8%E7%BB%93%E6%9E%84%E6%93%8D%E4%BD%9C-%E7%AC%AC%E4%B8%83%E8%AE%B2/"  >MYSQL表结构操作(第七讲)</a>
-    </h1>
-  
-
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E8%A1%A8%E7%BB%93%E6%9E%84%E6%93%8D%E4%BD%9C-%E7%AC%AC%E4%B8%83%E8%AE%B2/" >
-                
-                <img src="https://gitee.com/lsc180/images/raw/master/img/main.png" alt="MYSQL表结构操作(第七讲)" title="MYSQL表结构操作(第七讲)">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                一  前言本篇内容是关于 基本的数据库操作，建表，表结构修改等内容；
-学习本篇的基础是知识追寻者以前发布的文章：
-《SQL-你真的了解什么SQL么？》
-《SQL-小白最佳入门sql查询一》
-《SQL-小白最佳入门sql查询二》
-《SQL- 多年开发人员都不懂的插入与更新删除操作注意点》
-《SQL-SQL事物操作》
-《SQL-Mysql数据类型》
-公众号：知识追寻者
-
-知识...
-            </p>
-        </div>
-      
-        
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2020-11-11</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/数据库/" class="color4">数据库</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2020/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MYSQL%E8%A1%A8%E7%BB%93%E6%9E%84%E6%93%8D%E4%BD%9C-%E7%AC%AC%E4%B8%83%E8%AE%B2/#more" class="article-more-link" >more&gt;&gt;</a>
+            <a href="/2020/11/13/%E5%88%86%E4%BA%AB/%E5%9F%BA%E4%BA%8EHexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/#more" class="article-more-link" >more&gt;&gt;</a>
         
     </footer>
   </div>
@@ -713,7 +695,7 @@
 
 
   <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &gt;&gt;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &gt;&gt;</a>
   </nav>
 </section>
         
@@ -771,7 +753,7 @@
             
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 10px;">分享</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 20px;">数据库</a> <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" style="font-size: 15px;">高效工具</a>
+            <a href="/tags/redis/" style="font-size: 16.67px;">redis</a> <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 10px;">分享</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 20px;">数据库</a> <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" style="font-size: 13.33px;">高效工具</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -804,7 +786,7 @@
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 10px;">分享</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 20px;">数据库</a> <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" style="font-size: 15px;">高效工具</a>
+            <a href="/tags/redis/" style="font-size: 16.67px;">redis</a> <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 10px;">分享</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 20px;">数据库</a> <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" style="font-size: 13.33px;">高效工具</a>
         </div>
     </div>
 </div>

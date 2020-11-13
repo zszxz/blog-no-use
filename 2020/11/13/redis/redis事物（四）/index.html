@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>redis事物（四） | 知识追寻者个人博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="zszxz" />
+  
+  <meta name="description" content="事物介绍有时候我们需要redis连续发送多个命令不能被中断，此时就需要使用到redis特殊的命令功能；redis有 5个命令可以实现多个命令执行操作，他们分别是WATCH, MULTI（开启事物）, EXEC（执行命令）, UNWATCH 和 DISCARD（丢弃事物）; Redis事物需要使用到MULTI和 EXEC命令，其和关系型数据库的回滚事物不同；redis会一个接着一个执行保含在MULT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis事物（四）">
+<meta property="og:url" content="https://zszxz.github.io/2020/11/13/redis/redis%E4%BA%8B%E7%89%A9%EF%BC%88%E5%9B%9B%EF%BC%89/index.html">
+<meta property="og:site_name" content="知识追寻者个人博客">
+<meta property="og:description" content="事物介绍有时候我们需要redis连续发送多个命令不能被中断，此时就需要使用到redis特殊的命令功能；redis有 5个命令可以实现多个命令执行操作，他们分别是WATCH, MULTI（开启事物）, EXEC（执行命令）, UNWATCH 和 DISCARD（丢弃事物）; Redis事物需要使用到MULTI和 EXEC命令，其和关系型数据库的回滚事物不同；redis会一个接着一个执行保含在MULT">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-13T09:28:40.000Z">
+<meta property="article:modified_time" content="2020-11-13T09:28:56.054Z">
+<meta property="article:author" content="lsc">
+<meta property="article:tag" content="redis">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+  
+
+  
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">知识追寻者个人博客</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        知识追寻者个人博客
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        每天学一点点
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="主页" target="_blank" href="//zszxz.github.io">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/zszxz">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-redis/redis事物（四）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      redis事物（四）
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2020-11-13
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h1 id="事物介绍"><a href="#事物介绍" class="headerlink" title="事物介绍"></a>事物介绍</h1><p>有时候我们需要redis连续发送多个命令不能被中断，此时就需要使用到redis特殊的命令功能；redis有 5个命令可以实现多个命令执行操作，他们分别是WATCH, MULTI（开启事物）, EXEC（执行命令）, UNWATCH 和 DISCARD（丢弃事物）;</p>
+<p>Redis事物需要使用到MULTI和 EXEC命令，其和关系型数据库的回滚事物不同；redis会一个接着一个执行保含在MULTI和 EXEC 命令范围内的命令；只有执行完redis事物的命令才会执行其它客户端命令；<strong>我们已经可以理解首先执行的是MULTI命令，其次是我们想要在事物里面执行的命令，最后是EXEC命令执行完队列中的命令代表结束</strong>。Redis在执行事物的时候，其实会开启队列，将我们<strong>要执行的事物命令放入队列中</strong>，所以命令必须一个执行完毕才能执行下一个命令；</p>
+<h1 id="事物示例"><a href="#事物示例" class="headerlink" title="事物示例"></a>事物示例</h1><p>首先执行multi 命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; multi # 开启事物</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
+
+<p>其次输入我们的命令，放入队列中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; set z1 666</span><br><span class="line">QUEUED</span><br><span class="line">127.0.0.1:6379&gt; set z2 555</span><br><span class="line">QUEUED</span><br><span class="line">127.0.0.1:6379&gt; set z3 222</span><br><span class="line">QUEUED</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
+
+<p>最后EXEC命令执行队列中的命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; exec # 执行命令</span><br><span class="line">1) OK</span><br><span class="line">2) OK</span><br><span class="line">3) OK</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="事物原子性"><a href="#事物原子性" class="headerlink" title="事物原子性"></a>事物原子性</h1><p>事物的原子性是指事物要么全部成功，要么全部失败；即出现异常的时候会事物会回滚；但<strong>redis的事物并不是原子性</strong>，如下示例中可以看出出现异常后，事物照样运行命令；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; multi</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; set k1 000</span><br><span class="line">QUEUED</span><br><span class="line">127.0.0.1:6379&gt; set k2 66 66 66</span><br><span class="line">QUEUED</span><br><span class="line">127.0.0.1:6379&gt; set k3 000</span><br><span class="line">QUEUED</span><br><span class="line">127.0.0.1:6379&gt; exec</span><br><span class="line">1) OK</span><br><span class="line">2) (error) ERR syntax error</span><br><span class="line">3) OK</span><br><span class="line">127.0.0.1:6379&gt; keys k*</span><br><span class="line">1) &quot;k3&quot;</span><br><span class="line">2) &quot;k1&quot;</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="discard丢弃"><a href="#discard丢弃" class="headerlink" title="discard丢弃"></a>discard丢弃</h1><p>丢弃是指丢弃队列中所有的命令，这样multi命令就相当于未发生过；discard 命令 需在exec命令之前执行；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; multi</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; set s1 111</span><br><span class="line">QUEUED</span><br><span class="line">127.0.0.1:6379&gt; set s2 222</span><br><span class="line">QUEUED</span><br><span class="line">127.0.0.1:6379&gt; discard # 丢弃</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; exec</span><br><span class="line">(error) ERR EXEC without MULTI</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="watch监控"><a href="#watch监控" class="headerlink" title="watch监控"></a>watch监控</h1><p>我们都知道 redis 的 分布式锁是一个悲观锁，提供了很好的并发解决方案；但更好的方式是使用watch命令来监控一个值是否变化，如果值发生改变，exec执行的命令将会返回null，故watch 命令是一个乐观锁的解决方案；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; set s3 ooo</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; watch s3</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; set s3 555 # 修改了变量</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; multi</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; set s3 222</span><br><span class="line">QUEUED</span><br><span class="line">127.0.0.1:6379&gt; exec</span><br><span class="line">(nil)</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>Redis 不可以在 multi 和 exec 之间执行 watch 指令，必须在 multi 之前执行，否则报错；</p>
+<p>unwacth 命令是撤销对一个变量的监控；</p>
+</blockquote>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2020年11月13日 17:28</p>
+        <p>原始链接： <a class="post-url" href="/2020/11/13/redis/redis%E4%BA%8B%E7%89%A9%EF%BC%88%E5%9B%9B%EF%BC%89/" title="redis事物（四）">https://zszxz.github.io/2020/11/13/redis/redis%E4%BA%8B%E7%89%A9%EF%BC%88%E5%9B%9B%EF%BC%89/</a></p>
+        <footer>
+            <a href="https://zszxz.github.io">
+                <img src="/images/logo.png" alt="lsc">
+                lsc
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我喝杯咖啡~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
+                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zszxz.github.io/2020/11/13/redis/redis%E4%BA%8B%E7%89%A9%EF%BC%88%E5%9B%9B%EF%BC%89/&title=《redis事物（四）》 — 知识追寻者个人博客&pic=https://zszxz.github.ioimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zszxz.github.io/2020/11/13/redis/redis%E4%BA%8B%E7%89%A9%EF%BC%88%E5%9B%9B%EF%BC%89/&title=《redis事物（四）》 — 知识追寻者个人博客&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zszxz.github.io/2020/11/13/redis/redis%E4%BA%8B%E7%89%A9%EF%BC%88%E5%9B%9B%EF%BC%89/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《redis事物（四）》 — 知识追寻者个人博客&url=https://zszxz.github.io/2020/11/13/redis/redis%E4%BA%8B%E7%89%A9%EF%BC%88%E5%9B%9B%EF%BC%89/&via=https://zszxz.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zszxz.github.io/2020/11/13/redis/redis%E4%BA%8B%E7%89%A9%EF%BC%88%E5%9B%9B%EF%BC%89/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://zszxz.github.io/2020/11/13/redis/redis%E4%BA%8B%E7%89%A9%EF%BC%88%E5%9B%9B%EF%BC%89/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/redis/" class="color1">redis</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%BA%8B%E7%89%A9%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">事物介绍</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%BA%8B%E7%89%A9%E7%A4%BA%E4%BE%8B"><span class="post-toc-text">事物示例</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%BA%8B%E7%89%A9%E5%8E%9F%E5%AD%90%E6%80%A7"><span class="post-toc-text">事物原子性</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#discard%E4%B8%A2%E5%BC%83"><span class="post-toc-text">discard丢弃</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#watch%E7%9B%91%E6%8E%A7"><span class="post-toc-text">watch监控</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2020/11/13/redis/redis%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F-%E4%BA%94/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          redis发布订阅模式(五)
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2020/11/13/redis/redis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E4%B8%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">redis实现分布式锁(三)</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2020 lsc<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://zszxz.github.io",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/redis/" style="font-size: 16.67px;">redis</a> <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 10px;">分享</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 20px;">数据库</a> <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" style="font-size: 13.33px;">高效工具</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/redis/" style="font-size: 16.67px;">redis</a> <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 10px;">分享</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 20px;">数据库</a> <a href="/tags/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" style="font-size: 13.33px;">高效工具</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+
+<script src="/js/search.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  
+<script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  
+<script src="/js/animate.js"></script>
+
+
+
+  
+<script src="/js/pop-img.js"></script>
+
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>
